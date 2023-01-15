@@ -11,7 +11,6 @@
     width: var(--default-layout-width);
     display: flex;
     align-items: center;
-
     justify-content: space-between;
 }
 
@@ -58,7 +57,12 @@
         border: 1.5px solid rgba(22, 24, 35, 0.12);
     }
 }
-
+.search-title {
+    padding: 5px 12px;
+    color: rgba(22, 24, 35, 0.5);
+    font-size: 14px;
+    font-weight: 600;
+}
 .logo {
     display: flex;
     cursor: pointer;
