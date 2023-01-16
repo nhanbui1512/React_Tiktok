@@ -1,3 +1,19 @@
-.content {
+.menu-list {
     width: 224px;
+    .menu-item {
+        margin-left: 0px !important;
+        justify-content: flex-start;
+        padding: 14px 16px;
+    }
+}
+.menu-popper {
+    padding-bottom: 8px;
+}
+.menu-item {
+    width: 100%;
+    border-radius: 0;
+    &:hover {
+        cursor: pointer;
+        background-color: rgba(22, 24, 35, 0.03);
+    }
 }

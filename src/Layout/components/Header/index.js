@@ -6,6 +6,7 @@ import {
     faCircleXmark,
     faEarthAsia,
     faEllipsisVertical,
+    faKeyboard,
     faMagnifyingGlass,
 } from '@fortawesome/free-solid-svg-icons';
 import Tippy from '@tippyjs/react/headless';
@@ -29,7 +30,7 @@ const MENU_ITEMS = [
         to: '/feedback',
     },
     {
-        icon: <FontAwesomeIcon icon={faEarthAsia}></FontAwesomeIcon>,
+        icon: <FontAwesomeIcon icon={faKeyboard}></FontAwesomeIcon>,
         title: 'Keyboard shorcuts',
     },
 ];
