@@ -1,6 +1,4 @@
 @import 'normalize.css';
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Open+Sans&family=Roboto:wght@100;300;400;500&family=Source+Sans+Pro:wght@200;300;400&display=swap');
-
 :root {
     --primary: #fe2c55;
     --black: #000;
@@ -17,10 +15,7 @@
 }
 
 body {
-    font-family: 'Montserrat', sans-serif;
-    font-family: 'Open Sans', sans-serif;
-    font-family: 'Roboto', sans-serif;
-    font-family: 'Source Sans Pro', sans-serif;
+    font-family: 'ProximaNova', sans-serif;
     font-size: 1.6rem;
     line-height: 1.5;
     text-rendering: optimizeLegibility;
@@ -34,6 +29,18 @@ input,
 }
 a[href] {
     color: var(--text-color);
+}
+
+@font-face {
+    font-family: ProximaNova;
+    src: url('/assests/fonts/Proxima-Nova-Regular.woff2');
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: ProximaNova;
+    src: url('/assests/fonts/Proxima-Nova-Semibold.woff2');
+    font-weight: 600;
 }
 
 //custom tippy tooltip

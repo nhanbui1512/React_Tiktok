@@ -108,9 +108,12 @@
     align-items: center;
 }
 .action-btn {
-    background-color: transparent;
+    position: relative;
+    display: flex;
     font-size: 22px;
     color: #161823;
+    background-color: transparent;
+    padding: 4px 10px;
     cursor: pointer;
 }
 
@@ -119,6 +122,21 @@
     height: 32px;
     object-fit: cover;
     border-radius: 50%;
-    margin-left: 12px;
+    margin-left: 14px;
     cursor: pointer;
+}
+
+.badge {
+    position: absolute;
+    top: -3px;
+    right: 0px;
+    padding: 0px 6px;
+    height: 20px;
+    line-height: 20px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--white);
+    font-family: 'ProximaNova', sans-serif;
+    background-color: var(--primary);
 }
