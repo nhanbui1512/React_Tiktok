@@ -19,6 +19,8 @@
 .info {
     flex: 1;
     margin-left: 12px;
+    display: flex;
+    flex-direction: column;
 }
 
 .name {

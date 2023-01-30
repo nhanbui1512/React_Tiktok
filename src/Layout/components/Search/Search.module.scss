@@ -67,7 +67,16 @@
     transform: translateY(-50%);
     color: rgba(22, 24, 35, 0.34);
     font-size: 14px;
-    // display: none;
+    animation: loading 1s linear infinite;
+}
+
+@keyframes loading {
+    from {
+        transform: translateY(-50%) rotate(0);
+    }
+    to {
+        transform: translateY(-50%) rotate(360deg);
+    }
 }
 
 .search-btn {
