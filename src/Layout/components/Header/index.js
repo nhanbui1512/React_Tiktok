@@ -1,4 +1,5 @@
 import classNames from 'classnames/bind';
+import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
     faCircleQuestion,
@@ -15,12 +16,12 @@ import 'tippy.js/dist/tippy.css';
 
 import styles from './Header.module.scss';
 import images from '../../../assests/images';
-
 import Menu from '../Popper/Menu';
 import Button from '../Button';
 import { MessageIcon, UploadIcon, InboxIcon } from '../Icons';
 import Image from '../Image';
 import Search from '../Search';
+
 const cx = classNames.bind(styles);
 
 const MENU_ITEMS = [
@@ -94,9 +95,9 @@ function Header() {
     return (
         <header className={cx('wraper')}>
             <div className={cx('inner')}>
-                <div className={cx('logo')}>
+                <Link to="/" className={cx('logo')}>
                     <img src={images.logo} alt="tiktok"></img>
-                </div>
+                </Link>
 
                 {/* search  */}
 
