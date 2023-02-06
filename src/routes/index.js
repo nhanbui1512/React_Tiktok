@@ -1,5 +1,4 @@
-import routesConfig from '../config/routes';
-
+import config from '../config';
 // Layout
 import { HeaderOnly } from '../Layout';
 
@@ -12,11 +11,11 @@ import Search from '../pages/Search';
 
 // Khong can dang nhap
 const publicRoutes = [
-    { path: routesConfig.root, component: Home },
-    { path: routesConfig.following, component: Following },
-    { path: routesConfig.profile, component: Profile },
-    { path: routesConfig.upload, component: Upload, layout: HeaderOnly },
-    { path: routesConfig.search, component: Search, layout: null },
+    { path: config.routes.root, component: Home },
+    { path: config.routes.following, component: Following },
+    { path: config.routes.profile, component: Profile },
+    { path: config.routes.upload, component: Upload, layout: HeaderOnly },
+    { path: config.routes.search, component: Search, layout: null },
 ];
 
 // Can dang nhap

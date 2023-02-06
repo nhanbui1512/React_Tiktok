@@ -1,5 +1,5 @@
 import { useState, forwardRef } from 'react';
-import images from '../../../assests/images';
+import images from '../../assests/images';
 const Image = forwardRef(({ src, alt, ...props }, ref) => {
     const [fallBack, setFallBack] = useState('');
     const handleErr = () => {
