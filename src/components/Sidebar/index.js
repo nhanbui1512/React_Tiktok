@@ -3,7 +3,10 @@ import classNames from 'classnames/bind';
 import styles from './Sidebar.module.scss';
 import config from '../../config/index';
 import Menu, { MenuItem } from './Menu';
-import { HomeIcon, UserGroupIcon, LiveIcon } from '../Icons';
+import SuggestedAccounts from '../SuggestedAccounts';
+
+import { HomeIcon, HomeActiveIcon, UserGroupActiveIcon, LiveActiveIcon, UserGroupIcon, LiveIcon } from '../Icons';
+
 const cx = classNames.bind(styles);
 
 function Sidebar() {
