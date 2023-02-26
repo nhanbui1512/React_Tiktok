@@ -8,26 +8,24 @@ import styles from './SuggestedAccounts.module.scss';
 
 const cx = classNames.bind(styles);
 
-function AccountItem() {
+function AccountItem({ data }) {
     return (
         <div className={cx('account-item')}>
-            <img
-                className={cx('avatar')}
-                alt=""
-                src="https://p16-sign-va.tiktokcdn.com/tos-useast2a-avt-0068-aiso/65d3c6b1d1e205c75536ccf1f26d552d~c5_100x100.jpeg?x-expires=1677560400&x-signature=QCzaC%2FGhfMyz1lZKqyIhQ1WU5Ec%3D"
-            />
+            <img className={cx('avatar')} alt={data.nickname} src={data.src} />
 
             <div className={cx('item-info')}>
                 <p className={cx('nickname')}>
-                    <strong>quocnguyenphu </strong>
+                    <strong>{data.nickname} </strong>
                     <FontAwesomeIcon className={cx('check')} icon={faCheckCircle} />
                 </p>
-                <p className={cx('name')}>Quốc Nguyễn Phú</p>
+                <p className={cx('name')}>{data.name}</p>
             </div>
         </div>
     );
 }
 
-AccountItem.propTypes = {};
+AccountItem.propTypes = {
+    data: PropTypes.node.isRequired,
+};
 
 export default AccountItem;
