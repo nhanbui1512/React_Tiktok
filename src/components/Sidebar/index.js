@@ -32,7 +32,7 @@ function Sidebar() {
                     activeIcon={<LiveActiveIcon />}
                 ></MenuItem>
             </Menu>
-            <SuggestedAccounts label="suggested accounts" />
+            <SuggestedAccounts label="Suggested accounts" />
         </aside>
     );
 }
