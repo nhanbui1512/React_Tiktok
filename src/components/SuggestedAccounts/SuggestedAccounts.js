@@ -34,10 +34,6 @@ function SuggestedAccounts({ label }) {
         <div className={cx('wrapper')}>
             <p className={cx('label')}>{label}</p>
 
-            {/* <AccountItem />
-            <AccountItem />
-            <AccountItem /> */}
-
             {accountSuggested.map((item) => {
                 return <AccountItem data={item}></AccountItem>;
             })}
