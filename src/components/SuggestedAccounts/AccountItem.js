@@ -24,7 +24,7 @@ function AccountItem({ data }) {
         );
     };
     return (
-        <Tippy interactive render={renderPreview} delay={[800, 0]} placement="bottom">
+        <Tippy interactive offset={[-20, 0]} render={renderPreview} delay={[800, 0]} placement="bottom">
             <div className={cx('account-item')}>
                 <img className={cx('avatar')} alt={data.nickname} src={data.src} />
 
