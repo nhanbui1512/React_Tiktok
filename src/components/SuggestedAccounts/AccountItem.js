@@ -17,7 +17,7 @@ function AccountItem({ data }) {
             <div tabIndex="-1" {...props}>
                 <PopperWrapper>
                     <div className={cx('preview')}>
-                        <AccountPreview />
+                        <AccountPreview data={data} />
                     </div>
                 </PopperWrapper>
             </div>
