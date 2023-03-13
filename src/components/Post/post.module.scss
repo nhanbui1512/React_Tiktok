@@ -1,0 +1,39 @@
+.wrapper {
+    padding: 20px 0;
+    position: relative;
+    display: flex;
+}
+
+.avatar {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+.video_content {
+    margin-left: 12px;
+}
+.video_heaer {
+    display: flex;
+    // flex-direction: column;
+}
+.user_profile {
+    a {
+        display: flex !important;
+        font-weight: 700;
+        font-size: 18px;
+        line-height: 25px;
+        display: inline-block;
+        text-decoration: none;
+    }
+    h3 {
+        margin-right: 4px;
+    }
+    h4 {
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 20px;
+        display: inline-block;
+        line-height: 28px;
+    }
+}
