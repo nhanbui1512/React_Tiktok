@@ -1,4 +1,8 @@
+import { useState, useEffect } from 'react';
+
 import classNames from 'classnames/bind';
+
+import * as userServices from '../../service/userServices';
 
 import styles from './Sidebar.module.scss';
 import config from '../../config/index';
@@ -10,6 +14,19 @@ import { HomeIcon, HomeActiveIcon, UserGroupActiveIcon, LiveActiveIcon, UserGrou
 const cx = classNames.bind(styles);
 
 function Sidebar() {
+    const [suggestedUsers, setsuggestedUsers] = useState([]);
+
+    useEffect(() => {
+        userServices
+            .getSugggested({ page: 1, perPage: 5 })
+            .then((data) => {
+                setsuggestedUsers(data);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    }, []);
+
     return (
         <aside className={cx('wrapper')}>
             <Menu>
@@ -32,8 +49,9 @@ function Sidebar() {
                     activeIcon={<LiveActiveIcon />}
                 ></MenuItem>
             </Menu>
-            <SuggestedAccounts label="Suggested accounts" />
-            <SuggestedAccounts label="Following accounts" />
+            <SuggestedAccounts label="Suggested accounts" data={suggestedUsers} />
+            <SuggestedAccounts label="Following accounts" data={suggestedUsers} />
+            {/* <SuggestedAccounts label="Following accounts" /> */}
         </aside>
     );
 }

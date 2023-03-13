@@ -5,6 +5,7 @@ import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import Button from '../../Button';
+import Image from '../../Image';
 import { useState } from 'react';
 
 const cx = classNames.bind(styles);
@@ -19,7 +20,7 @@ function AccountPreview({ data }) {
     return (
         <div className={cx('wrapper')}>
             <div className={cx('header')}>
-                <img className={cx('avatar')} src={data.src} alt={data.name} />
+                <Image className={cx('avatar')} src={data.avatar} alt={data.first_name} />
                 <div>
                     <Button className={cx('follow-btn')} primary onClick={handleFollow}>
                         {!followStatus ? 'Follow' : 'Unfollow'}
@@ -30,9 +31,9 @@ function AccountPreview({ data }) {
             <div className={cx('body')}>
                 <p className={cx('nickname')}>
                     <strong>{data.nickname}</strong>
-                    <FontAwesomeIcon className={cx('check')} icon={faCheckCircle} />
+                    {data.tick && <FontAwesomeIcon className={cx('check')} icon={faCheckCircle} />}
                 </p>
-                <p className={cx('name')}>{data.name} </p>
+                <p className={cx('name')}>{`${data.first_name} ${data.last_name}`}</p>
                 <p className={cx('analytics')}>
                     <strong className={cx('value')}>8.2M </strong>
                     <span className={cx('label')}>Followers</span>
