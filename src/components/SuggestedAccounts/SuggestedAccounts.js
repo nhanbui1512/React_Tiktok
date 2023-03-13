@@ -3,10 +3,20 @@ import PropTypes from 'prop-types';
 
 import styles from './SuggestedAccounts.module.scss';
 import AccountItem from './AccountItem';
+import { useState } from 'react';
 
 const cx = classNames.bind(styles);
 
-function SuggestedAccounts({ label, data = [] }) {
+function SuggestedAccounts({ view = false, label, data = [] }) {
+    const [isSeeAll, setIsSeeAll] = useState(view);
+
+    const handleViewChange = () => {
+        setIsSeeAll(!isSeeAll);
+    };
+
+    if (!isSeeAll) {
+        data = data.slice(0, 5);
+    }
     return (
         <div className={cx('wrapper')}>
             <p className={cx('label')}>{label}</p>
@@ -15,7 +25,9 @@ function SuggestedAccounts({ label, data = [] }) {
                 return <AccountItem key={item.id} data={item}></AccountItem>;
             })}
 
-            <p className={cx('more-btn')}>See all</p>
+            <p onClick={handleViewChange} className={cx('more-btn')}>
+                {isSeeAll ? 'See less' : 'See all'}
+            </p>
         </div>
     );
 }

@@ -2,6 +2,7 @@
     padding: 20px 0;
     position: relative;
     display: flex;
+    width: 624px;
 }
 
 .avatar {
@@ -16,24 +17,114 @@
 .video_heaer {
     display: flex;
     // flex-direction: column;
+    margin-right: 114px;
 }
-.user_profile {
-    a {
-        display: flex !important;
+.profile {
+    .user_profile {
+        display: flex;
+        text-decoration: none;
+    }
+    .nickname {
         font-weight: 700;
         font-size: 18px;
         line-height: 25px;
         display: inline-block;
         text-decoration: none;
-    }
-    h3 {
         margin-right: 4px;
     }
-    h4 {
+    .name {
         font-weight: 400;
         font-size: 14px;
         line-height: 20px;
         display: inline-block;
         line-height: 28px;
     }
+}
+.video_desc {
+    line-height: 22px;
+    font-size: 16px;
+    word-break: break-word;
+    .title {
+        font-size: 16px;
+        font-weight: 400;
+        color: rgba(22, 24, 35, 1);
+    }
+    a {
+        font-weight: 600;
+        font-size: 16px;
+        text-decoration: none;
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+}
+
+.music_info {
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 22px;
+    margin-top: 4px;
+    margin-bottom: 12px;
+}
+.music_icon {
+    margin-right: 5px;
+}
+// .music_name {
+// }
+
+.follow-btn {
+    padding: 0 10px;
+    height: 28px;
+    width: 88px;
+    position: absolute;
+    right: 0;
+    top: 28px;
+}
+.video_main {
+    display: flex;
+    align-items: flex-end;
+    video {
+        height: 510px;
+        border-radius: 8px;
+        background-size: cover;
+        cursor: pointer;
+        overflow: hidden;
+        margin-right: 20px;
+        max-width: 100%;
+    }
+}
+.action_group {
+    display: flex;
+    flex-direction: column;
+}
+.action_btn {
+    display: flex;
+    flex-direction: column;
+}
+
+.action_btn_bg {
+    display: flex;
+    -webkit-justify-content: center;
+    justify-content: center;
+    align-items: center;
+    width: 48px;
+    height: 48px;
+    font-size: 0px;
+    border-radius: 50%;
+    -webkit-transition: all ease-in-out 200ms;
+    transition: all ease-in-out 200ms;
+    background-color: rgba(22, 24, 35, 0.06);
+    margin-top: 8px;
+    margin-bottom: 6px;
+    cursor: pointer;
+}
+.icon {
+    color: #000;
+    font-size: 24px;
+}
+.count {
+    color: rgba(22, 24, 35, 0.75);
+    font-size: 12px;
+    line-height: 17px;
+    text-align: center;
 }

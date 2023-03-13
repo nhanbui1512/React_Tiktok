@@ -18,7 +18,7 @@ function Sidebar() {
 
     useEffect(() => {
         userServices
-            .getSugggested({ page: 1, perPage: 5 })
+            .getSugggested({ page: 1, perPage: 15 })
             .then((data) => {
                 setsuggestedUsers(data);
             })

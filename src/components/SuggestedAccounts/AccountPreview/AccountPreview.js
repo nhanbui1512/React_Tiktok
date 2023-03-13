@@ -1,5 +1,6 @@
 import classNames from 'classnames/bind';
 import styles from './AccountPreview.module.scss';
+import PropTypes from 'prop-types';
 
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -35,13 +36,17 @@ function AccountPreview({ data }) {
                 </p>
                 <p className={cx('name')}>{`${data.first_name} ${data.last_name}`}</p>
                 <p className={cx('analytics')}>
-                    <strong className={cx('value')}>8.2M </strong>
+                    <strong className={cx('value')}>{data.followers_count}</strong>
                     <span className={cx('label')}>Followers</span>
-                    <strong className={cx('value')}>8.2M </strong>
+                    <strong className={cx('value')}>{data.likes_count} </strong>
                     <span className={cx('label')}>Likes</span>
                 </p>
             </div>
         </div>
     );
 }
+
+AccountPreview.propTypes = {
+    data: PropTypes.object.isRequired,
+};
 export default AccountPreview;
