@@ -7,14 +7,16 @@ import { faCommentDots, faHeart, faMusic, faShare } from '@fortawesome/free-soli
 
 import Image from '../Image';
 import Button from '../Button';
-import { useState, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 const cx = classNames.bind(styles);
 
 function Post({ data }) {
     const videoRef = useRef(null);
+    const postRef = useRef(null);
 
     const [isFollow, setIsFollow] = useState(false);
+
     const HandleFollow = () => {
         setIsFollow(!isFollow);
     };
@@ -23,8 +25,36 @@ function Post({ data }) {
         videoRef.current.pause();
     };
 
+    useEffect(() => {
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                if (entry.isIntersecting) {
+                    const video = videoRef.current;
+                    video.play();
+                } else {
+                    const video = videoRef.current;
+                    video.pause();
+                }
+            },
+            {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.8,
+            },
+        );
+
+        const element = postRef.current;
+        if (element) {
+            observer.observe(element);
+        }
+
+        return () => {
+            observer.unobserve(element);
+        };
+    }, []);
+
     return (
-        <div className={cx('wrapper')}>
+        <div className={cx('wrapper')} ref={postRef}>
             <Link to="/profile">
                 <Image className={cx('avatar')} src={data.user.avatar} alt=""></Image>
             </Link>
@@ -53,7 +83,7 @@ function Post({ data }) {
                 </div>
 
                 <div className={cx('video_main')}>
-                    <video onBlur={HandleBlur} ref={videoRef} controls src={data.file_url}></video>
+                    <video muted={true} onBlur={HandleBlur} ref={videoRef} controls src={data.file_url}></video>
                     <div className={cx('action_group')}>
                         <div className={cx('action_btn')}>
                             <span className={cx('action_btn_bg')}>

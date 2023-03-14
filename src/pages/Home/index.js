@@ -8,13 +8,14 @@ import Post from '../../components/Post';
 
 const cx = classNames.bind(styles);
 
+let randomNumber = Math.floor(Math.random() * 5) + 1;
+
 function Home() {
     const [videos, setVideos] = useState([]);
 
     useEffect(() => {
-        VideoServices.getVideos({ type: 'for-you', page: 1 })
+        VideoServices.getVideos({ type: 'for-you', page: randomNumber })
             .then((data) => {
-                console.log(data);
                 setVideos(data);
             })
             .catch((err) => {
