@@ -11,7 +11,7 @@ import { useState, useEffect, useRef } from 'react';
 
 const cx = classNames.bind(styles);
 
-function Post({ data }) {
+function Post({ data, isMuted = true }) {
     const videoRef = useRef(null);
     const postRef = useRef(null);
 
@@ -42,12 +42,10 @@ function Post({ data }) {
                 threshold: 0.8,
             },
         );
-
         const element = postRef.current;
         if (element) {
             observer.observe(element);
         }
-
         return () => {
             observer.unobserve(element);
         };
@@ -63,11 +61,11 @@ function Post({ data }) {
                     <div className={cx('profile')}>
                         <Link to="/profile" className={cx('user_profile')}>
                             <h3 className={cx('nickname')}>{data.user.nickname}</h3>
-                            <h4 className={cx('name')}> {`${data.user.fist_name} ${data.user.last_name}`} </h4>
+                            <h4 className={cx('name')}> {`${data.user.first_name} ${data.user.last_name}`} </h4>
                         </Link>
 
                         <div className={cx('video_desc')}>
-                            <span className={cx('title')}>What a cute litte lizard </span>
+                            <span className={cx('title')}>{data.description} </span>
                             <Link>
                                 <strong>#Frozen </strong>
                             </Link>
@@ -83,7 +81,16 @@ function Post({ data }) {
                 </div>
 
                 <div className={cx('video_main')}>
-                    <video muted={true} onBlur={HandleBlur} ref={videoRef} controls src={data.file_url}></video>
+                    {/* video tag  */}
+                    <video
+                        loop={true}
+                        autoPlay={false}
+                        muted={isMuted}
+                        onBlur={HandleBlur}
+                        ref={videoRef}
+                        controls
+                        src={data.file_url}
+                    ></video>
                     <div className={cx('action_group')}>
                         <div className={cx('action_btn')}>
                             <span className={cx('action_btn_bg')}>

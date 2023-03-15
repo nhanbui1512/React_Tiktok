@@ -1,0 +1,61 @@
+.wrapper {
+    box-shadow: rgba(0, 0, 0, 0.06) 0px 2px 8px;
+    border-radius: 8px;
+    background-color: rgb(255, 255, 255);
+    padding: 64px 50px;
+}
+.upload-card {
+    border-radius: 8px;
+    display: flex;
+    -webkit-box-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    align-items: center;
+    flex-direction: column;
+    cursor: pointer;
+    padding-left: 35px;
+    padding-right: 35px;
+    height: 458px;
+    border: 2px dashed rgba(22, 24, 35, 0.2);
+    box-sizing: border-box;
+}
+.upload-card:hover {
+    background-color: rgba(22, 24, 35, 0.03);
+}
+.icon {
+    width: 40px;
+    height: 29px;
+    color: #afb0b4;
+}
+
+.text {
+    text-align: center;
+    box-sizing: border-box;
+    font-size: 14px;
+    line-height: 1.5;
+    font-weight: 400;
+    color: #16182380;
+}
+.text-main {
+    text-align: center;
+    margin-top: 24px;
+    color: #161823;
+    font-size: 18px;
+    span {
+        line-height: 1.5;
+        font-weight: 600;
+    }
+}
+.mg-4-0-24 {
+    margin: 4px 0px 24px 0px;
+}
+.mb-6 {
+    margin-bottom: 6px;
+}
+
+.choose-container {
+    margin-top: 32px;
+}
+.choose-btn {
+    width: 400px;
+}

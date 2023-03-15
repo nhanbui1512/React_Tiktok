@@ -22,14 +22,14 @@ function Home() {
                 console.log(err);
             });
     }, []);
+
+    window.scrollTo(0, 0);
     return (
         <div className={cx('container')}>
             <div className={cx('content')}>
                 {videos.map((item) => {
-                    return <Post key={item.id} data={item}></Post>;
+                    return <Post isMuted={true} key={item.id} data={item}></Post>;
                 })}
-                {/*                 
-                <Post linkFile="https://files.fullstack.edu.vn/f8-tiktok/videos/1902-640ea5bb48aa1.mp4"></Post> */}
             </div>
         </div>
     );

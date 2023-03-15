@@ -167,7 +167,7 @@ const MENU_ITEMS = [
     },
 ];
 function Header() {
-    const currentUser = true;
+    const currentUser = false;
 
     const handleMenuChange = (menuItem) => {
         switch (menuItem.type) {
@@ -220,7 +220,9 @@ function Header() {
                         <>
                             <Tippy delay={[0, 200]} content="Upload video" placement="bottom">
                                 <button className={cx('action-btn')}>
-                                    <UploadIcon />
+                                    <Link to="/upload">
+                                        <UploadIcon />
+                                    </Link>
                                 </button>
                             </Tippy>
 
@@ -238,7 +240,9 @@ function Header() {
                         </>
                     ) : (
                         <>
-                            <Button text>Upload</Button>
+                            <Button to="/upload" text>
+                                Upload
+                            </Button>
                             <Button primary>Log in</Button>
                         </>
                     )}
