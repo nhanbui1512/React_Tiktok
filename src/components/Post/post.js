@@ -1,13 +1,15 @@
-import classNames from 'classnames/bind';
-import styles from './post.module.scss';
+import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 
+import classNames from 'classnames/bind';
+import styles from './post.module.scss';
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCommentDots, faHeart, faMusic, faShare } from '@fortawesome/free-solid-svg-icons';
+import { faCommentDots, faMusic, faShare } from '@fortawesome/free-solid-svg-icons';
+import { HeartRedIcon, HeartBlackIcon } from '../Icons';
 
 import Image from '../Image';
 import Button from '../Button';
-import { useState, useEffect, useRef } from 'react';
 
 const cx = classNames.bind(styles);
 
@@ -17,8 +19,15 @@ function Post({ data, isMuted = true }) {
 
     const [isFollow, setIsFollow] = useState(false);
 
+    // tách compoent
+    const [isLikes, setIsLikes] = useState(false);
+
     const HandleFollow = () => {
         setIsFollow(!isFollow);
+    };
+
+    const HandleLike = () => {
+        setIsLikes(!isLikes);
     };
 
     const HandleBlur = () => {
@@ -93,8 +102,8 @@ function Post({ data, isMuted = true }) {
                     ></video>
                     <div className={cx('action_group')}>
                         <div className={cx('action_btn')}>
-                            <span className={cx('action_btn_bg')}>
-                                <FontAwesomeIcon className={cx('icon')} icon={faHeart}></FontAwesomeIcon>
+                            <span onClick={HandleLike} className={cx('action_btn_bg')}>
+                                {!isLikes ? <HeartBlackIcon /> : <HeartRedIcon className={cx('liked-icon')} />}
                             </span>
                             <strong className={cx('count')}>385.9K</strong>
                         </div>
