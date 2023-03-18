@@ -30,9 +30,9 @@ function Post({ data, isMuted = true }) {
         setIsLikes(!isLikes);
     };
 
-    const HandleBlur = () => {
-        videoRef.current.pause();
-    };
+    // const HandleBlur = () => {
+    //     videoRef.current.pause();
+    // };
 
     useEffect(() => {
         const observer = new IntersectionObserver(
@@ -95,7 +95,7 @@ function Post({ data, isMuted = true }) {
                         loop={true}
                         autoPlay={false}
                         muted={isMuted}
-                        onBlur={HandleBlur}
+                        // onBlur={HandleBlur}
                         ref={videoRef}
                         controls
                         src={data.file_url}
