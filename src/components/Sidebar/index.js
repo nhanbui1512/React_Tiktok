@@ -11,10 +11,11 @@ import SuggestedAccounts from '../SuggestedAccounts';
 
 import { HomeIcon, HomeActiveIcon, UserGroupActiveIcon, LiveActiveIcon, UserGroupIcon, LiveIcon } from '../Icons';
 import Discovery from '../Discovery/Discovery';
+import Footer from './Footer';
 
 const cx = classNames.bind(styles);
 
-function Sidebar() {
+function Sidebar({ currentUser = false }) {
     const [suggestedUsers, setsuggestedUsers] = useState([]);
 
     useEffect(() => {
@@ -51,8 +52,9 @@ function Sidebar() {
                 ></MenuItem>
             </Menu>
             <SuggestedAccounts label="Suggested accounts" data={suggestedUsers} />
-            <SuggestedAccounts label="Following accounts" data={suggestedUsers} />
+            {currentUser && <SuggestedAccounts label="Following accounts" data={suggestedUsers} />}
             <Discovery></Discovery>
+            <Footer></Footer>
         </aside>
     );
 }
