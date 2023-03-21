@@ -1,5 +1,8 @@
 import classNames from 'classnames/bind';
 import styles from './DiscoveryItem.module.scss';
+
+import PropType from 'prop-types';
+
 import { Link } from 'react-router-dom';
 const cx = classNames.bind(styles);
 
@@ -13,4 +16,10 @@ function DiscoveryItem({ icon, children }) {
         </Link>
     );
 }
+
+DiscoveryItem.propTypes = {
+    icon: PropType.node,
+    children: PropType.string.isRequired,
+};
+
 export default DiscoveryItem;

@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 
+import PropTypes from 'prop-types';
 import classNames from 'classnames/bind';
 import styles from './post.module.scss';
 
@@ -129,5 +130,10 @@ function Post({ data, isMuted = true }) {
         </div>
     );
 }
+
+Post.propTypes = {
+    data: PropTypes.object.isRequired,
+    isMuted: PropTypes.bool.isRequired,
+};
 
 export default Post;
