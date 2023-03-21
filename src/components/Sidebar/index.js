@@ -10,6 +10,7 @@ import Menu, { MenuItem } from './Menu';
 import SuggestedAccounts from '../SuggestedAccounts';
 
 import { HomeIcon, HomeActiveIcon, UserGroupActiveIcon, LiveActiveIcon, UserGroupIcon, LiveIcon } from '../Icons';
+import Discovery from '../Discovery/Discovery';
 
 const cx = classNames.bind(styles);
 
@@ -51,6 +52,7 @@ function Sidebar() {
             </Menu>
             <SuggestedAccounts label="Suggested accounts" data={suggestedUsers} />
             <SuggestedAccounts label="Following accounts" data={suggestedUsers} />
+            <Discovery></Discovery>
         </aside>
     );
 }

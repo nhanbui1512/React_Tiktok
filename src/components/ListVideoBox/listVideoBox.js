@@ -6,8 +6,6 @@ import Post from '../Post';
 import { useState, useEffect } from 'react';
 
 const cx = classNames.bind(styles);
-// let randomNumber = Math.floor(Math.random() * 5) + 1;
-
 function ListVideoBox() {
     const [videos, setVideos] = useState([]);
     const [isFetching, setIsFetching] = useState(false);
@@ -17,11 +15,10 @@ function ListVideoBox() {
         if (window.innerHeight + document.documentElement.scrollTop !== document.documentElement.offsetHeight) return;
         setIsFetching(true);
     };
-
     const fetchMoreListItems = () => {
         console.log('fetching');
         // setTimeout(() => {
-        VideoServices.getVideos({ type: 'for-you', page: page })
+        VideoServices.getVideos({ type: 'for-you', page: page + 1 })
             .then((data) => {
                 setVideos((prevState) => [...prevState, ...data]);
             })
@@ -37,19 +34,18 @@ function ListVideoBox() {
     };
 
     useEffect(() => {
-        // VideoServices.getVideos({ type: 'for-you', page: page })
-        //     .then((data) => {
-        //         setVideos(data);
-        //     })
-        //     .catch((err) => {
-        //         console.log(err);
-        //     });
+        window.scrollTo(0, 0);
+        VideoServices.getVideos({ type: 'for-you', page: page })
+            .then((data) => {
+                setVideos(data);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
 
         window.addEventListener('scroll', handleScroll);
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
-
-    // useEffect(() => {}, []);
 
     useEffect(() => {
         if (!isFetching) return;
