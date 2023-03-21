@@ -1,5 +1,5 @@
 import classNames from 'classnames/bind';
-import styles from './discovery.module.scss';
+import styles from './Discovery.module.scss';
 import { HashTagIcon, MusicNoteIcon } from '../Icons';
 
 import DiscoveryItem from './DiscoveryItem/DiscoveryItem';
