@@ -1,0 +1,42 @@
+.wrapper {
+    display: flex;
+    flex-direction: column;
+}
+.body {
+    margin-top: 60px;
+    padding-bottom: 60px;
+    padding-right: 8px;
+    width: 100%;
+    // overflow-y: auto;
+}
+.body_wrapper {
+    width: 375px;
+    margin: auto;
+    padding: unset;
+}
+
+.login_title {
+    color: rgba(22, 24, 35, 1);
+    font-family: 'IBM Plex Sans', SofiaPro, Arial, Tahoma, PingFangSC, sans-serif;
+    font-size: 32px;
+    margin: 16px auto;
+    font-weight: bold;
+    text-align: center;
+}
+.login_description {
+    color: rgba(22, 24, 35, 0.34);
+    font-size: 15px;
+    line-height: 18px;
+    margin: 12px 0 32px;
+    letter-spacing: 0.2px;
+    box-sizing: border-box;
+    text-align: center;
+}
+.chanel_item {
+    text-decoration: none;
+}
+.footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}

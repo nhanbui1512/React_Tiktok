@@ -243,7 +243,9 @@ function Header() {
                             <Button to="/upload" text>
                                 Upload
                             </Button>
-                            <Button primary>Log in</Button>
+                            <Button to={'/login'} primary>
+                                Log in
+                            </Button>
                         </>
                     )}
 

@@ -61,6 +61,15 @@ a {
     font-weight: 600;
 }
 
+/* vietnamese */
+@font-face {
+    font-family: 'IBM Plex Sans';
+    font-style: normal;
+    font-weight: 600;
+    font-display: swap;
+    src: url('/assests/fonts/zYX9KVElMYYaJe8bpLHnCwDKjWr7AIFsdA.woff2');
+}
+
 //custom tippy tooltip
 
 body {
