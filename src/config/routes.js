@@ -6,5 +6,6 @@ const routes = {
     search: '/search',
     live: '/live',
     login: '/login',
+    signup: '/signup',
 };
 export default routes;

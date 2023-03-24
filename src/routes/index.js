@@ -10,6 +10,7 @@ import Upload from '../pages/Upload';
 import Search from '../pages/Search';
 import Live from '../pages/Live';
 import Login from '../pages/Login';
+import Signup from '../pages/Signup';
 
 // Khong can dang nhap
 const publicRoutes = [
@@ -20,6 +21,7 @@ const publicRoutes = [
     { path: config.routes.upload, component: Upload, layout: HeaderOnly },
     { path: config.routes.search, component: Search, layout: null },
     { path: config.routes.login, component: Login, layout: null },
+    { path: config.routes.signup, component: Signup, layout: null },
 ];
 
 // Can dang nhap
