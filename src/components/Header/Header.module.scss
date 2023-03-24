@@ -1,4 +1,4 @@
-.wraper {
+.wrapper {
     --search-border-radius: 92px;
     --search-height: 46px;
     background-color: var(--white);
@@ -20,7 +20,9 @@
     justify-content: space-between;
     padding: 0px var(--default-layout-horizontal-spacer);
 }
-
+.isFullWidth {
+    width: 100% !important;
+}
 .search,
 .search-result {
     width: 361px;

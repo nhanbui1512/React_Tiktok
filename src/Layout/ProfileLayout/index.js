@@ -9,9 +9,11 @@ const cx = classNames.bind(styles);
 function ProfileLayout({ children }) {
     return (
         <div className={cx('wrapper')}>
-            <Header className={cx('header')} />
+            <Header isFullWidth={true} className={cx('header_profile')} />
             <div className={cx('container')}>
-                <Sidebar />
+                <div className={cx('sidebar_container')}>
+                    <Sidebar />
+                </div>
                 <div className={cx('content')}>{children}</div>
             </div>
         </div>

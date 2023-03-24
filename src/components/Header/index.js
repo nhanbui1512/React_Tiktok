@@ -166,8 +166,13 @@ const MENU_ITEMS = [
         title: 'Keyboard shorcuts',
     },
 ];
-function Header() {
+function Header({ className, isFullWidth = false }) {
     const currentUser = false;
+
+    const classesInner = cx('inner', {
+        [className]: className,
+        isFullWidth,
+    });
 
     const handleMenuChange = (menuItem) => {
         switch (menuItem.type) {
@@ -205,8 +210,8 @@ function Header() {
     ];
 
     return (
-        <header className={cx('wraper')}>
-            <div className={cx('inner')}>
+        <header className={cx('wrapper')}>
+            <div className={classesInner}>
                 <Link to={config.routes.root} className={cx('logo')}>
                     <img src={images.logo} alt="tiktok"></img>
                 </Link>
