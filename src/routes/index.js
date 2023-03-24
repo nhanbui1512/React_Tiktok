@@ -1,6 +1,6 @@
 import config from '../config';
 // Layout
-import { HeaderOnly } from '../Layout';
+import { HeaderOnly, ProfileLayout } from '../Layout';
 
 // Page
 import Home from '../pages/Home';
@@ -17,7 +17,7 @@ const publicRoutes = [
     { path: config.routes.root, component: Home },
     { path: config.routes.following, component: Following },
     { path: config.routes.live, component: Live },
-    { path: config.routes.profile, component: Profile },
+    { path: config.routes.profile, component: Profile, layout: ProfileLayout },
     { path: config.routes.upload, component: Upload, layout: HeaderOnly },
     { path: config.routes.search, component: Search, layout: null },
     { path: config.routes.login, component: Login, layout: null },
