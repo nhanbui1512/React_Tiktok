@@ -1,0 +1,121 @@
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    max-width: 624px;
+    padding-right: 92px;
+    margin-bottom: 20px;
+}
+.header-info {
+    display: flex;
+    max-width: 624px;
+}
+.avatar {
+    border-radius: 50%;
+    width: 116px;
+    height: 116px;
+}
+.info-container {
+    width: 100%;
+    margin-left: 20px;
+}
+.nick-name {
+    margin-bottom: 4px;
+    font-family: 'IBM Plex Sans', SofiaPro, Arial, Tahoma, PingFangSC, sans-serif;
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 38px;
+    margin-bottom: 4px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: left;
+    word-break: break-word;
+}
+.icon-check {
+    color: #20d5ec;
+    font-size: 20px;
+    margin-bottom: 2px;
+}
+.name {
+    font-family: 'IBM Plex Sans', ProximaNova, Arial, Tahoma, PingFangSC, sans-serif;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 25px;
+    text-overflow: ellipsis;
+    height: 25px;
+    overflow: hidden;
+    max-width: 450px;
+    white-space: nowrap;
+    display: flex;
+    align-items: flex-end;
+}
+.follow-btn {
+    font-family: SofiaPro, PingFangSC, sans-serif;
+    margin: 16px 0px 0px;
+    line-height: 22px;
+    font-weight: 600;
+    width: 208px;
+    height: 36px;
+}
+.count-info {
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    margin-top: 22px;
+    color: rgba(18, 18, 18, 0.75);
+}
+
+.div-number {
+    color: rgb(22, 24, 35);
+    font-family: 'IBM Plex Sans', SofiaPro, Arial, Tahoma, PingFangSC, sans-serif;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 25px;
+    display: flex;
+    direction: ltr;
+    -webkit-box-align: baseline;
+    align-items: baseline;
+
+    &:not(:last-child) {
+        margin-right: 20px;
+    }
+}
+.count-title {
+    color: rgba(22, 24, 35, 0.75);
+    font-family: 'IBM Plex Sans', ProximaNova, Arial, Tahoma, PingFangSC, sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 22px;
+    display: inline-block;
+    margin-left: 6px;
+}
+.share-desc {
+    text-align: left;
+    color: rgb(22, 24, 35);
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 22px;
+    white-space: pre-line;
+    margin-top: 10px;
+}
+.link {
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 22px;
+    display: flex;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    margin-top: 5px;
+    a {
+        text-decoration: none;
+    }
+    a:hover {
+        text-decoration: underline;
+    }
+    span {
+        padding-left: 2px;
+    }
+}
+.link-icon {
+    width: 18px;
+    height: 18px;
+}
