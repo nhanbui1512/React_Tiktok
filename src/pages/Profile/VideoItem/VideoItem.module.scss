@@ -1,0 +1,86 @@
+.wrapper {
+    border-radius: 4px;
+}
+.video-container {
+    position: relative;
+    width: 100%;
+    border-radius: 4px;
+    overflow: hidden;
+}
+.image-thumb {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.div-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+.canvas-placeholder {
+    display: block;
+    visibility: hidden;
+    height: 100%;
+}
+.player-container {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+}
+.div-container {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+    background-color: rgba(22, 24, 35, 0.06);
+    -webkit-background-size: cover;
+    background-size: cover;
+    background-repeat: no-repeat;
+    -webkit-background-position: center;
+    background-position: center;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-align-items: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+}
+.thumb-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.card-footer {
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    height: 100px;
+    background: linear-gradient(180deg, rgba(22, 24, 35, 0.0001) 2.92%, rgba(22, 24, 35, 0.5) 98.99%);
+    padding: 67px 13px 17px;
+    padding-top: 67px;
+    display: flex;
+}
+.views-count {
+    color: rgba(255, 255, 255, 1);
+    font-family: 'IBM Plex Sans', ProximaNova, Arial, Tahoma, PingFangSC, sans-serif;
+    font-weight: 600;
+    vertical-align: middle;
+    font-size: 16px;
+}
+.play-icon {
+    margin-right: 4px;
+    vertical-align: middle;
+    color: #fff;
+    width: 18px;
+    height: 18px;
+}

@@ -2,5 +2,6 @@ const images = {
     logo: require('./logo.svg').default,
     noImage: require('./no-image.png'),
     backGround: require('./background_button_add_effect.png'),
+    thumbVideo: require('./0e65b05cf85b46ddbc0d2d64aeabe477_1679753242_tplv-efzqqlc8t1-1_480_480.jpeg'),
 };
 export default images;
