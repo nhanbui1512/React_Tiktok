@@ -36,11 +36,6 @@ function OwnVideos() {
             <div>
                 <div className={cx('body-container')}>
                     <VideoItem />
-                    <VideoItem />
-                    <VideoItem />
-                    <VideoItem />
-                    <VideoItem />
-                    <VideoItem />
                 </div>
             </div>
         </div>
