@@ -3,7 +3,7 @@ import styles from './VideoItem.module.scss';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useState } from 'react';
 
 import Image from '../../../components/Image';
 import images from '../../../assests/images';
@@ -14,14 +14,29 @@ import { faPlay } from '@fortawesome/free-solid-svg-icons';
 const cx = classNames.bind(styles);
 
 function VideoItem() {
+    const [isHover, setIsHover] = useState(false);
+
     const preLoadVideoRef = useRef();
+    const containerRef = useRef();
+
+    const handlePreload = () => {
+        setIsHover(true);
+    };
+    const handleMouseLeave = () => {
+        setIsHover(false);
+    };
 
     useEffect(() => {
-        preLoadVideoRef.current.play();
+        containerRef.current.addEventListener('mouseover', handlePreload);
+        containerRef.current.addEventListener('mouseleave', handleMouseLeave);
+        return () => {
+            containerRef.current.removeEventListener('mouseover', handlePreload);
+            containerRef.current.removeEventListener('mouseleave', handleMouseLeave);
+        };
     }, []);
 
     return (
-        <div className={cx('wrapper')}>
+        <div ref={containerRef} className={cx('wrapper')}>
             <div className={cx('video-container')}>
                 <div style={{ paddingTop: '132.653%' }}>
                     <div className={cx('div-wrapper')}>
@@ -30,17 +45,20 @@ function VideoItem() {
                             <div className={cx('player-container')}>
                                 <div className={cx('div-container')}>
                                     <Image className={cx('thumb-image')} src={images.thumbVideo}></Image>
-                                    <div className={cx('preload-container')}>
-                                        <div style={{ width: '100%', height: '100%' }} className={cx('preload')}>
-                                            <video
-                                                muted={true}
-                                                ref={preLoadVideoRef}
-                                                loop
-                                                className={cx('preload-video')}
-                                                src={videos.default}
-                                            ></video>
+                                    {isHover && (
+                                        <div className={cx('preload-container')}>
+                                            <div style={{ width: '100%', height: '100%' }} className={cx('preload')}>
+                                                <video
+                                                    loop
+                                                    autoPlay
+                                                    muted={true}
+                                                    ref={preLoadVideoRef}
+                                                    className={cx('preload-video')}
+                                                    src={videos.default}
+                                                ></video>
+                                            </div>
                                         </div>
-                                    </div>
+                                    )}
                                 </div>
                                 <div className={cx('card-footer')}>
                                     <FontAwesomeIcon className={cx('play-icon')} icon={faPlay} />
