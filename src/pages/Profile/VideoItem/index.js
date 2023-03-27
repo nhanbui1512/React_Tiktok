@@ -6,8 +6,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useRef, useEffect, useState } from 'react';
 
 import Image from '../../../components/Image';
-import images from '../../../assests/images';
-import videos from '../../../assests/videos';
 import { Link } from 'react-router-dom';
 import { faPlay } from '@fortawesome/free-solid-svg-icons';
 

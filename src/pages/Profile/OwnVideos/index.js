@@ -13,7 +13,7 @@ const cx = classNames.bind(styles);
 function OwnVideos({ videos }) {
     const [ownVideos, setOwnVideos] = useState([]);
 
-    const bottomLineRef = useRef();
+    const bottomLineRef = useRef(null);
 
     const handleHover = () => {
         bottomLineRef.current.style = 'transform: translateX(230px);';
@@ -25,7 +25,7 @@ function OwnVideos({ videos }) {
 
     useEffect(() => {
         setOwnVideos(videos);
-    }, []);
+    }, [videos]);
 
     return (
         <div className={cx('wrapper')}>
