@@ -13,7 +13,7 @@ import { faPlay } from '@fortawesome/free-solid-svg-icons';
 
 const cx = classNames.bind(styles);
 
-function VideoItem() {
+function VideoItem({ data }) {
     const [isHover, setIsHover] = useState(false);
 
     const preLoadVideoRef = useRef();
@@ -29,10 +29,7 @@ function VideoItem() {
     useEffect(() => {
         containerRef.current.addEventListener('mouseover', handlePreload);
         containerRef.current.addEventListener('mouseleave', handleMouseLeave);
-        return () => {
-            containerRef.current.removeEventListener('mouseover', handlePreload);
-            containerRef.current.removeEventListener('mouseleave', handleMouseLeave);
-        };
+        return () => {};
     }, []);
 
     return (
@@ -44,7 +41,7 @@ function VideoItem() {
                         <Link>
                             <div className={cx('player-container')}>
                                 <div className={cx('div-container')}>
-                                    <Image className={cx('thumb-image')} src={images.thumbVideo}></Image>
+                                    <Image className={cx('thumb-image')} src={data.thumb_url}></Image>
                                     {isHover && (
                                         <div className={cx('preload-container')}>
                                             <div style={{ width: '100%', height: '100%' }} className={cx('preload')}>
@@ -54,7 +51,7 @@ function VideoItem() {
                                                     muted={true}
                                                     ref={preLoadVideoRef}
                                                     className={cx('preload-video')}
-                                                    src={videos.default}
+                                                    src={data.file_url}
                                                 ></video>
                                             </div>
                                         </div>
@@ -62,7 +59,7 @@ function VideoItem() {
                                 </div>
                                 <div className={cx('card-footer')}>
                                     <FontAwesomeIcon className={cx('play-icon')} icon={faPlay} />
-                                    <strong className={cx('views-count')}>650.2K</strong>
+                                    <strong className={cx('views-count')}>{data.views_count}</strong>
                                 </div>
                             </div>
                         </Link>

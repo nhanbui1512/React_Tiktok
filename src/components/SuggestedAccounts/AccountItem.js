@@ -9,6 +9,7 @@ import { Wrapper as PopperWrapper } from '../Popper';
 import AccountPreview from './AccountPreview';
 
 import styles from './SuggestedAccounts.module.scss';
+import { Link } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
 
@@ -26,7 +27,7 @@ function AccountItem({ data }) {
     };
     return (
         <Tippy interactive offset={[-20, 0]} render={renderPreview} delay={[800, 0]} placement="bottom">
-            <div className={cx('account-item')}>
+            <Link to={`/@${data.nickname}`} className={cx('account-item')}>
                 <Image className={cx('avatar')} alt={data.nickname} src={data.avatar} />
 
                 <div className={cx('item-info')}>
@@ -36,7 +37,7 @@ function AccountItem({ data }) {
                     </p>
                     <p className={cx('name')}>{`${data.first_name} ${data.last_name}`}</p>
                 </div>
-            </div>
+            </Link>
         </Tippy>
     );
 }

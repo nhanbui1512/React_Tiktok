@@ -12,3 +12,12 @@ export const getSugggested = async ({ page, perPage }) => {
         console.log(error);
     }
 };
+
+export const getUser = async ({ nickname }) => {
+    try {
+        const res = await request.get(`users/${nickname}`);
+        return res;
+    } catch (error) {
+        console.log(error);
+    }
+};

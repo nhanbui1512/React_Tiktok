@@ -63,13 +63,13 @@ function Post({ data, isMuted = true }) {
 
     return (
         <div className={cx('wrapper')} ref={postRef}>
-            <Link to="/profile">
+            <Link to={`@${data.user.nickname}`}>
                 <Image className={cx('avatar')} src={data.user.avatar} alt=""></Image>
             </Link>
             <div className={cx('video_content')}>
                 <div className={cx('video_heaer')}>
                     <div className={cx('profile')}>
-                        <Link to="/profile" className={cx('user_profile')}>
+                        <Link to={`@${data.user.nickname}`} className={cx('user_profile')}>
                             <h3 className={cx('nickname')}>{data.user.nickname}</h3>
                             <h4 className={cx('name')}> {`${data.user.first_name} ${data.user.last_name}`} </h4>
                         </Link>

@@ -1,7 +1,7 @@
 import classNames from 'classnames/bind';
 import styles from './OwnVideos.module.scss';
 
-import { useRef } from 'react';
+import { useRef, useState, useEffect } from 'react';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLock } from '@fortawesome/free-solid-svg-icons';
@@ -10,7 +10,9 @@ import VideoItem from '../VideoItem';
 
 const cx = classNames.bind(styles);
 
-function OwnVideos() {
+function OwnVideos({ videos }) {
+    const [ownVideos, setOwnVideos] = useState([]);
+
     const bottomLineRef = useRef();
 
     const handleHover = () => {
@@ -20,6 +22,10 @@ function OwnVideos() {
     const handleMouseLeave = () => {
         bottomLineRef.current.style = 'transform: translateX(0);';
     };
+
+    useEffect(() => {
+        setOwnVideos(videos);
+    }, []);
 
     return (
         <div className={cx('wrapper')}>
@@ -35,8 +41,9 @@ function OwnVideos() {
             </div>
             <div>
                 <div className={cx('body-container')}>
-                    <VideoItem />
-                    <VideoItem />
+                    {ownVideos.map((video) => {
+                        return <VideoItem data={video} key={video.id}></VideoItem>;
+                    })}
                 </div>
             </div>
         </div>
