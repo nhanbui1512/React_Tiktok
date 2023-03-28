@@ -49,3 +49,13 @@
     left: 50%;
     transform: translate(-50%, -50%);
 }
+/* PC */
+@media (min-width: 1024px) {
+}
+
+/* Tablet */
+@media (min-width: 740px) and (max-width: 1023px) {
+}
+//  mobile
+@media (max-width: 740px) {
+}

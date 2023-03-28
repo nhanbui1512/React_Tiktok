@@ -51,3 +51,22 @@
     font-weight: 700;
     cursor: pointer;
 }
+/* PC */
+@media (min-width: 1024px) {
+}
+
+/* Tablet */
+@media (min-width: 740px) and (max-width: 1023px) {
+}
+//  mobile
+@media (max-width: 740px) {
+    .item-info {
+        display: none;
+    }
+    .label {
+        display: none;
+    }
+    .more-btn {
+        display: none;
+    }
+}

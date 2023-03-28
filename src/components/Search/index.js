@@ -61,7 +61,7 @@ function Search() {
 
     return (
         // them the div ngoai de fix warning tippy
-        <div>
+        <div className={cx('search-container')}>
             <HeadlessTippy
                 interactive={true}
                 visible={showResult && searchResult.length > 0}

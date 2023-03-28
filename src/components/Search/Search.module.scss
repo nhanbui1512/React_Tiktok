@@ -96,3 +96,17 @@
         background-color: rgba(22, 24, 35, 0.062);
     }
 }
+
+/* PC */
+@media (min-width: 1024px) {
+}
+
+/* Tablet */
+@media (min-width: 740px) and (max-width: 1023px) {
+}
+//  mobile
+@media (max-width: 740px) {
+    .search-container {
+        display: none;
+    }
+}

@@ -145,3 +145,17 @@
 .liked-icon {
     animation: scale 0.7s ease;
 }
+/* PC */
+@media (min-width: 1024px) {
+}
+
+/* Tablet */
+@media (min-width: 740px) and (max-width: 1023px) {
+}
+//  mobile
+@media (max-width: 740px) {
+    .wrapper {
+        width: calc(100vw - 32px - 68px);
+        max-width: 592px;
+    }
+}

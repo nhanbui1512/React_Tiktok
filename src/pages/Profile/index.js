@@ -11,6 +11,7 @@ import { useEffect, useState } from 'react';
 const cx = classNames.bind(styles);
 
 function Profile() {
+    window.scroll(0, 0);
     let { nickname } = useParams();
     const [userData, setUserData] = useState({});
 

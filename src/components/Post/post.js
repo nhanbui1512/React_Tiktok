@@ -31,10 +31,6 @@ function Post({ data, isMuted = true }) {
         setIsLikes(!isLikes);
     };
 
-    // const HandleBlur = () => {
-    //     videoRef.current.pause();
-    // };
-
     useEffect(() => {
         const observer = new IntersectionObserver(
             ([entry]) => {
