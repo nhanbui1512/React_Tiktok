@@ -69,8 +69,6 @@
 .music_icon {
     margin-right: 5px;
 }
-// .music_name {
-// }
 
 .follow-btn {
     padding: 0 10px;
@@ -89,8 +87,46 @@
         background-size: cover;
         cursor: pointer;
         overflow: hidden;
-        margin-right: 20px;
         max-width: 100%;
+    }
+}
+.player-container {
+    position: relative;
+    height: 510px;
+    margin-right: 20px;
+}
+.play-icon-wrapper {
+    color: #fff;
+    display: flex;
+    left: 12px;
+    position: absolute;
+    bottom: 12px;
+    padding: 10px;
+    width: 40px;
+    height: 40px;
+    bottom: 26px;
+    cursor: pointer;
+
+    .play-icon {
+        width: 20px;
+        height: 20px;
+    }
+}
+.volume-icon-wrapper {
+    position: absolute;
+    bottom: 26px;
+    right: 12px;
+    left: unset;
+
+    color: #fff;
+    display: flex;
+    padding: 10px;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    .volume-icon {
+        width: 20px;
+        height: 20px;
     }
 }
 .action_group {

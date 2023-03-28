@@ -11,6 +11,8 @@ function ListVideoBox() {
     const [isFetching, setIsFetching] = useState(false);
     const [page, setPage] = useState(1);
 
+    const [isMuted, setIsMuted] = useState(false);
+
     const handleScroll = () => {
         if (window.innerHeight + document.documentElement.scrollTop !== document.documentElement.offsetHeight) return;
         setIsFetching(true);
@@ -55,7 +57,7 @@ function ListVideoBox() {
     return (
         <div className={cx('content')}>
             {videos.map((item, index) => {
-                return <Post isMuted={true} key={index} data={item}></Post>;
+                return <Post isMuted={isMuted} key={index} data={item}></Post>;
             })}
         </div>
     );

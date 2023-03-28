@@ -6,7 +6,7 @@ import classNames from 'classnames/bind';
 import styles from './post.module.scss';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCommentDots, faMusic, faShare } from '@fortawesome/free-solid-svg-icons';
+import { faCommentDots, faMusic, faPause, faPlay, faShare, faVolumeXmark } from '@fortawesome/free-solid-svg-icons';
 import { HeartRedIcon, HeartBlackIcon } from '../Icons';
 
 import Image from '../Image';
@@ -23,6 +23,8 @@ function Post({ data, isMuted = true }) {
     // tách compoent
     const [isLikes, setIsLikes] = useState(false);
 
+    const [isPlay, setIsPlay] = useState(true);
+
     const HandleFollow = () => {
         setIsFollow(!isFollow);
     };
@@ -31,14 +33,25 @@ function Post({ data, isMuted = true }) {
         setIsLikes(!isLikes);
     };
 
+    const HandleIsPlay = () => {
+        if (isPlay) {
+            videoRef.current.pause();
+        } else {
+            videoRef.current.play();
+        }
+        setIsPlay(!isPlay);
+    };
+
     useEffect(() => {
         const observer = new IntersectionObserver(
             ([entry]) => {
                 if (entry.isIntersecting) {
                     const video = videoRef.current;
+                    setIsPlay(true);
                     video.play();
                 } else {
                     const video = videoRef.current;
+                    setIsPlay(false);
                     video.pause();
                 }
             },
@@ -88,33 +101,38 @@ function Post({ data, isMuted = true }) {
 
                 <div className={cx('video_main')}>
                     {/* video tag  */}
-                    <video
-                        loop={true}
-                        autoPlay={false}
-                        muted={isMuted}
-                        // onBlur={HandleBlur}
-                        ref={videoRef}
-                        controls
-                        src={data.file_url}
-                    ></video>
+                    <div className={cx('player-container')}>
+                        <video loop={true} autoPlay={false} muted={isMuted} ref={videoRef} src={data.file_url}></video>
+                        <div className={cx('play-icon-wrapper')} onClick={HandleIsPlay}>
+                            {isPlay ? (
+                                <FontAwesomeIcon className={cx('play-icon')} icon={faPause}></FontAwesomeIcon>
+                            ) : (
+                                <FontAwesomeIcon className={cx('play-icon')} icon={faPlay}></FontAwesomeIcon>
+                            )}
+                        </div>
+                        <div className={cx('volume-icon-wrapper')}>
+                            <FontAwesomeIcon className={cx('volume-icon')} icon={faVolumeXmark}></FontAwesomeIcon>
+                        </div>
+                    </div>
+
                     <div className={cx('action_group')}>
                         <div className={cx('action_btn')}>
                             <span onClick={HandleLike} className={cx('action_btn_bg')}>
                                 {!isLikes ? <HeartBlackIcon /> : <HeartRedIcon className={cx('liked-icon')} />}
                             </span>
-                            <strong className={cx('count')}>385.9K</strong>
+                            <strong className={cx('count')}>{data.likes_count}</strong>
                         </div>
                         <div className={cx('action_btn')}>
                             <span className={cx('action_btn_bg')}>
                                 <FontAwesomeIcon className={cx('icon')} icon={faCommentDots}></FontAwesomeIcon>
                             </span>
-                            <strong className={cx('count')}>385.9K</strong>
+                            <strong className={cx('count')}>{data.comments_count}</strong>
                         </div>
                         <div className={cx('action_btn')}>
                             <span className={cx('action_btn_bg')}>
                                 <FontAwesomeIcon className={cx('icon')} icon={faShare}></FontAwesomeIcon>
                             </span>
-                            <strong className={cx('count')}>385.9K</strong>
+                            <strong className={cx('count')}>{data.shares_count}</strong>
                         </div>
                     </div>
                 </div>
