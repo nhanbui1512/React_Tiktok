@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
+import HeadlessTippy from '@tippyjs/react/headless';
 
 import PropTypes from 'prop-types';
 import classNames from 'classnames/bind';
@@ -11,6 +12,7 @@ import { HeartRedIcon, HeartBlackIcon } from '../Icons';
 
 import Image from '../Image';
 import Button from '../Button';
+import Volume from './volume';
 
 const cx = classNames.bind(styles);
 
@@ -24,6 +26,8 @@ function Post({ data, isMuted = true }) {
     const [isLikes, setIsLikes] = useState(false);
 
     const [isPlay, setIsPlay] = useState(true);
+
+    const [volume, setVolume] = useState(40);
 
     const HandleFollow = () => {
         setIsFollow(!isFollow);
@@ -102,7 +106,14 @@ function Post({ data, isMuted = true }) {
                 <div className={cx('video_main')}>
                     {/* video tag  */}
                     <div className={cx('player-container')}>
-                        <video loop={true} autoPlay={false} muted={isMuted} ref={videoRef} src={data.file_url}></video>
+                        <video
+                            volume={volume / 100}
+                            loop={true}
+                            autoPlay={false}
+                            muted={isMuted}
+                            ref={videoRef}
+                            src={data.file_url}
+                        ></video>
                         <div className={cx('play-icon-wrapper')} onClick={HandleIsPlay}>
                             {isPlay ? (
                                 <FontAwesomeIcon className={cx('play-icon')} icon={faPause}></FontAwesomeIcon>
@@ -110,9 +121,18 @@ function Post({ data, isMuted = true }) {
                                 <FontAwesomeIcon className={cx('play-icon')} icon={faPlay}></FontAwesomeIcon>
                             )}
                         </div>
-                        <div className={cx('volume-icon-wrapper')}>
-                            <FontAwesomeIcon className={cx('volume-icon')} icon={faVolumeXmark}></FontAwesomeIcon>
-                        </div>
+                        <HeadlessTippy
+                            // visible
+                            offset={[0, -2]}
+                            interactive
+                            delay={[0, 700]}
+                            placement="top"
+                            render={(attrs) => <Volume videoRef={videoRef} />}
+                        >
+                            <div className={cx('volume-icon-wrapper')}>
+                                <FontAwesomeIcon className={cx('volume-icon')} icon={faVolumeXmark}></FontAwesomeIcon>
+                            </div>
+                        </HeadlessTippy>
                     </div>
 
                     <div className={cx('action_group')}>

@@ -11,7 +11,7 @@ function ListVideoBox() {
     const [isFetching, setIsFetching] = useState(false);
     const [page, setPage] = useState(1);
 
-    const [isMuted, setIsMuted] = useState(false);
+    const [isMuted, setIsMuted] = useState(true);
 
     const handleScroll = () => {
         if (window.innerHeight + document.documentElement.scrollTop !== document.documentElement.offsetHeight) return;
