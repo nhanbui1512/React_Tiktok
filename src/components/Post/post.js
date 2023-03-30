@@ -7,7 +7,15 @@ import classNames from 'classnames/bind';
 import styles from './post.module.scss';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCommentDots, faMusic, faPause, faPlay, faShare, faVolumeXmark } from '@fortawesome/free-solid-svg-icons';
+import {
+    faCommentDots,
+    faMusic,
+    faPause,
+    faPlay,
+    faShare,
+    faVolumeHigh,
+    faVolumeXmark,
+} from '@fortawesome/free-solid-svg-icons';
 import { HeartRedIcon, HeartBlackIcon } from '../Icons';
 
 import Image from '../Image';
@@ -16,7 +24,7 @@ import Volume from './volume';
 
 const cx = classNames.bind(styles);
 
-function Post({ data, isMuted = true, ChangeVolumeGlobal, volumeValue }) {
+function Post({ data, isMuted = true, ChangeVolumeGlobal, volumeValue, SetMuteGlobal }) {
     const videoRef = useRef(null);
     const postRef = useRef(null);
 
@@ -46,6 +54,10 @@ function Post({ data, isMuted = true, ChangeVolumeGlobal, volumeValue }) {
             videoRef.current.play();
         }
         setIsPlay(!isPlay);
+    };
+
+    const HandleMute = () => {
+        SetMuteGlobal();
     };
 
     useEffect(() => {
@@ -118,9 +130,9 @@ function Post({ data, isMuted = true, ChangeVolumeGlobal, volumeValue }) {
                         ></video>
                         <div className={cx('play-icon-wrapper')} onClick={HandleIsPlay}>
                             {isPlay ? (
-                                <FontAwesomeIcon className={cx('play-icon')} icon={faPause}></FontAwesomeIcon>
+                                <FontAwesomeIcon className={cx('play-icon')} icon={faPause} />
                             ) : (
-                                <FontAwesomeIcon className={cx('play-icon')} icon={faPlay}></FontAwesomeIcon>
+                                <FontAwesomeIcon className={cx('play-icon')} icon={faPlay} />
                             )}
                         </div>
                         <HeadlessTippy
@@ -137,8 +149,12 @@ function Post({ data, isMuted = true, ChangeVolumeGlobal, volumeValue }) {
                                 />
                             )}
                         >
-                            <div className={cx('volume-icon-wrapper')}>
-                                <FontAwesomeIcon className={cx('volume-icon')} icon={faVolumeXmark}></FontAwesomeIcon>
+                            <div onClick={HandleMute} className={cx('volume-icon-wrapper')}>
+                                {isMuted ? (
+                                    <FontAwesomeIcon className={cx('volume-icon')} icon={faVolumeXmark} />
+                                ) : (
+                                    <FontAwesomeIcon className={cx('volume-icon')} icon={faVolumeHigh} />
+                                )}
                             </div>
                         </HeadlessTippy>
                     </div>

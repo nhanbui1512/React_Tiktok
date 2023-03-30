@@ -24,6 +24,10 @@ function ListVideoBox() {
         SetVolume(volumeValue);
     };
 
+    const SetMuteGlobal = () => {
+        setIsMuted(!isMuted);
+    };
+
     const fetchMoreListItems = () => {
         console.log('fetching');
         VideoServices.getVideos({ type: 'for-you', page: page + 1 })
@@ -69,6 +73,7 @@ function ListVideoBox() {
                         data={item}
                         volumeValue={volume}
                         ChangeVolumeGlobal={ChangeVolumeGlobal}
+                        SetMuteGlobal={SetMuteGlobal}
                     ></Post>
                 );
             })}
