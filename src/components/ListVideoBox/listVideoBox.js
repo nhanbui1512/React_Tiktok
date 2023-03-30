@@ -10,6 +10,7 @@ function ListVideoBox() {
     const [videos, setVideos] = useState([]);
     const [isFetching, setIsFetching] = useState(false);
     const [page, setPage] = useState(1);
+    const [volume, SetVolume] = useState(40);
 
     const [isMuted, setIsMuted] = useState(true);
 
@@ -17,9 +18,14 @@ function ListVideoBox() {
         if (window.innerHeight + document.documentElement.scrollTop !== document.documentElement.offsetHeight) return;
         setIsFetching(true);
     };
+
+    const ChangeVolumeGlobal = ({ volumeValue }) => {
+        console.log('change global');
+        SetVolume(volumeValue);
+    };
+
     const fetchMoreListItems = () => {
         console.log('fetching');
-        // setTimeout(() => {
         VideoServices.getVideos({ type: 'for-you', page: page + 1 })
             .then((data) => {
                 setVideos((prevState) => [...prevState, ...data]);
@@ -32,7 +38,6 @@ function ListVideoBox() {
             });
 
         setIsFetching(false);
-        // }, 2000);
     };
 
     useEffect(() => {
@@ -57,7 +62,15 @@ function ListVideoBox() {
     return (
         <div className={cx('content')}>
             {videos.map((item, index) => {
-                return <Post isMuted={isMuted} key={index} data={item}></Post>;
+                return (
+                    <Post
+                        isMuted={isMuted}
+                        key={index}
+                        data={item}
+                        volumeValue={volume}
+                        ChangeVolumeGlobal={ChangeVolumeGlobal}
+                    ></Post>
+                );
             })}
         </div>
     );

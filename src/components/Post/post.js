@@ -16,7 +16,7 @@ import Volume from './volume';
 
 const cx = classNames.bind(styles);
 
-function Post({ data, isMuted = true }) {
+function Post({ data, isMuted = true, ChangeVolumeGlobal, volumeValue }) {
     const videoRef = useRef(null);
     const postRef = useRef(null);
 
@@ -27,8 +27,6 @@ function Post({ data, isMuted = true }) {
 
     const [isPlay, setIsPlay] = useState(true);
 
-    const [volume, setVolume] = useState(40);
-
     const HandleFollow = () => {
         setIsFollow(!isFollow);
     };
@@ -36,6 +34,10 @@ function Post({ data, isMuted = true }) {
     const HandleLike = () => {
         setIsLikes(!isLikes);
     };
+
+    useEffect(() => {
+        videoRef.current.volume = volumeValue / 100;
+    }, [volumeValue]);
 
     const HandleIsPlay = () => {
         if (isPlay) {
@@ -107,7 +109,7 @@ function Post({ data, isMuted = true }) {
                     {/* video tag  */}
                     <div className={cx('player-container')}>
                         <video
-                            volume={volume / 100}
+                            volume={volumeValue / 100}
                             loop={true}
                             autoPlay={false}
                             muted={isMuted}
@@ -127,7 +129,13 @@ function Post({ data, isMuted = true }) {
                             interactive
                             delay={[0, 700]}
                             placement="top"
-                            render={(attrs) => <Volume videoRef={videoRef} />}
+                            render={(attrs) => (
+                                <Volume
+                                    volumeValue={volumeValue}
+                                    ChangeVolumeGlobal={ChangeVolumeGlobal}
+                                    videoRef={videoRef}
+                                />
+                            )}
                         >
                             <div className={cx('volume-icon-wrapper')}>
                                 <FontAwesomeIcon className={cx('volume-icon')} icon={faVolumeXmark}></FontAwesomeIcon>

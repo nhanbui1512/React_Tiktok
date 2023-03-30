@@ -1,20 +1,29 @@
 import classNames from 'classnames/bind';
 import styles from './post.module.scss';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const cx = classNames.bind(styles);
 
-function Volume({ videoRef }) {
-    const [volume, setVolume] = useState(40);
+function Volume({ volumeValue, ChangeVolumeGlobal, videoRef }) {
+    const [volume, setVolume] = useState(volumeValue);
 
     const HandleChangeVolume = (event) => {
         setVolume(event.target.value);
         videoRef.current.volume = event.target.value / 100;
     };
 
+    const FinishChangeVolume = () => {
+        ChangeVolumeGlobal({ volumeValue: volume });
+    };
+
+    useEffect(() => {
+        setVolume(volumeValue);
+    }, [volumeValue]);
+
     return (
         <div className={cx('volume-container')}>
             <input
+                onMouseUp={FinishChangeVolume}
                 onChange={HandleChangeVolume}
                 className={cx('volume-control')}
                 value={volume}
