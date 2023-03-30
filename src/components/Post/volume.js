@@ -1,14 +1,17 @@
 import classNames from 'classnames/bind';
 import styles from './post.module.scss';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 const cx = classNames.bind(styles);
 
 function Volume({ volumeValue, ChangeVolumeGlobal, videoRef }) {
     const [volume, setVolume] = useState(volumeValue);
+    const inputRef = useRef(null);
 
     const HandleChangeVolume = (event) => {
-        setVolume(event.target.value);
+        var valueChange = event.target.value;
+        setVolume(valueChange);
+        inputRef.current.style.background = `linear-gradient(90deg,#fff ${valueChange}%,rgb(255 255 255 / 34%)${valueChange}%`;
         videoRef.current.volume = event.target.value / 100;
     };
 
@@ -18,11 +21,13 @@ function Volume({ volumeValue, ChangeVolumeGlobal, videoRef }) {
 
     useEffect(() => {
         setVolume(volumeValue);
+        inputRef.current.style.background = `linear-gradient(90deg,#fff ${volumeValue}%,rgb(255 255 255 / 34%)${volumeValue}%`;
     }, [volumeValue]);
 
     return (
         <div className={cx('volume-container')}>
             <input
+                ref={inputRef}
                 onMouseUp={FinishChangeVolume}
                 onChange={HandleChangeVolume}
                 className={cx('volume-control')}

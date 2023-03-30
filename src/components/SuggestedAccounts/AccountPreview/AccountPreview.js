@@ -36,7 +36,7 @@ function AccountPreview({ data }) {
                 </p>
                 <p className={cx('name')}>{`${data.first_name} ${data.last_name}`}</p>
                 <p className={cx('analytics')}>
-                    <strong className={cx('value')}>{data.followers_count}</strong>
+                    <strong className={cx('value')}>{data.followers_count} </strong>
                     <span className={cx('label')}>Followers</span>
                     <strong className={cx('value')}>{data.likes_count} </strong>
                     <span className={cx('label')}>Likes</span>

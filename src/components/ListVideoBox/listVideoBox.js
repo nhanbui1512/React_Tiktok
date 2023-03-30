@@ -20,7 +20,6 @@ function ListVideoBox() {
     };
 
     const ChangeVolumeGlobal = ({ volumeValue }) => {
-        console.log('change global');
         SetVolume(volumeValue);
     };
 
