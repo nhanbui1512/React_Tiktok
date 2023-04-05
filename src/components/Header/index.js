@@ -167,7 +167,7 @@ const MENU_ITEMS = [
     },
 ];
 function Header({ className, isFullWidth = false }) {
-    const currentUser = false;
+    const currentUser = true;
 
     const classesInner = cx('inner', {
         [className]: className,

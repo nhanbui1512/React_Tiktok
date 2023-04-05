@@ -7,10 +7,16 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Image from '../../../components/Image';
 import Button from '../../../components/Button';
 import { faCheckCircle, faLink } from '@fortawesome/free-solid-svg-icons';
+import { useState } from 'react';
 
 const cx = classNames.bind(styles);
 
 function ProfileInfo({ data }) {
+    const [isFollow, setIsFollow] = useState(false);
+
+    const handleFollow = () => {
+        setIsFollow(!isFollow);
+    };
     return (
         <div className={cx('wrapper')}>
             <div className={cx('header-info')}>
@@ -23,8 +29,8 @@ function ProfileInfo({ data }) {
                         {data.tick && <FontAwesomeIcon className={cx('icon-check')} icon={faCheckCircle} />}
                     </h2>
                     <h2 className={cx('name')}>{`${data.first_name} ${data.last_name}`}</h2>
-                    <Button className={cx('follow-btn')} primary>
-                        Follow
+                    <Button onClick={handleFollow} className={cx('follow-btn')} primary>
+                        {!isFollow ? 'Follow' : 'UnFollow'}
                     </Button>
                 </div>
             </div>
