@@ -10,5 +10,6 @@ export const getVideos = async ({ type, page }) => {
         return res.data;
     } catch (error) {
         console.log(error);
+        return [];
     }
 };

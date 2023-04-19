@@ -1,15 +1,14 @@
 import * as request from '../utils/request';
-export const search = async (q, type = 'less') => {
+export const login = async ({ page, perPage }) => {
     try {
-        const res = await request.get('users/search', {
+        const res = await request.get('auth/login', {
             params: {
-                q,
-                type,
+                page,
+                per_page: perPage,
             },
         });
         return res.data;
     } catch (error) {
         console.log(error);
-        return [];
     }
 };
