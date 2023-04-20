@@ -22,9 +22,11 @@ import Image from '../Image';
 import Button from '../Button';
 import Volume from './volume';
 
+import LoadingSpinner from '../LoadingSpinner';
+
 const cx = classNames.bind(styles);
 
-function Post({ data, isMuted = true, ChangeVolumeGlobal, volumeValue, SetMuteGlobal }) {
+function Post({ data, isMuted = true, ChangeVolumeGlobal, volumeValue, SetMuteGlobal, isLoading = false }) {
     const videoRef = useRef(null);
     const postRef = useRef(null);
 
@@ -44,16 +46,20 @@ function Post({ data, isMuted = true, ChangeVolumeGlobal, volumeValue, SetMuteGl
     };
 
     useEffect(() => {
-        videoRef.current.volume = volumeValue / 100;
-    }, [volumeValue]);
+        if (!isLoading) {
+            videoRef.current.volume = volumeValue / 100;
+        }
+    }, [volumeValue, isLoading]);
 
     const HandleIsPlay = () => {
-        if (isPlay) {
-            videoRef.current.pause();
-        } else {
-            videoRef.current.play();
+        if (!isLoading) {
+            if (isPlay) {
+                videoRef.current.pause();
+            } else {
+                videoRef.current.play();
+            }
+            setIsPlay(!isPlay);
         }
-        setIsPlay(!isPlay);
     };
 
     const HandleMute = () => {
@@ -61,37 +67,43 @@ function Post({ data, isMuted = true, ChangeVolumeGlobal, volumeValue, SetMuteGl
     };
 
     useEffect(() => {
-        const observer = new IntersectionObserver(
-            ([entry]) => {
-                if (entry.isIntersecting) {
-                    const video = videoRef.current;
-                    setIsPlay(true);
-                    video.play();
-                } else {
-                    const video = videoRef.current;
-                    setIsPlay(false);
-                    video.pause();
-                }
-            },
-            {
-                root: null,
-                rootMargin: '0px',
-                threshold: 0.8,
-            },
-        );
-        const element = postRef.current;
-        if (element) {
-            observer.observe(element);
+        if (!isLoading) {
+            const observer = new IntersectionObserver(
+                ([entry]) => {
+                    if (entry.isIntersecting) {
+                        const video = videoRef.current;
+                        setIsPlay(true);
+                        video.play();
+                    } else {
+                        const video = videoRef.current;
+                        setIsPlay(false);
+                        video.pause();
+                    }
+                },
+                {
+                    root: null,
+                    rootMargin: '0px',
+                    threshold: 0.8,
+                },
+            );
+            const element = postRef.current;
+            if (element) {
+                observer.observe(element);
+            }
+            return () => {
+                observer.unobserve(element);
+            };
         }
-        return () => {
-            observer.unobserve(element);
-        };
-    }, []);
+    }, [isLoading]);
 
     return (
         <div className={cx('wrapper')} ref={postRef}>
-            <Link to={`@${data.user.nickname}`}>
-                <Image className={cx('avatar')} src={data.user.avatar} alt=""></Image>
+            <Link className={cx('avatar-container')} to={`@${data.user.nickname}`}>
+                {isLoading ? (
+                    <LoadingSpinner></LoadingSpinner>
+                ) : (
+                    <Image className={cx('avatar')} src={data.user.avatar} alt=""></Image>
+                )}
             </Link>
             <div className={cx('video_content')}>
                 <div className={cx('video_heaer')}>
@@ -119,45 +131,53 @@ function Post({ data, isMuted = true, ChangeVolumeGlobal, volumeValue, SetMuteGl
 
                 <div className={cx('video_main')}>
                     {/* video tag  */}
-                    <div className={cx('player-container')}>
-                        <video
-                            volume={volumeValue / 100}
-                            loop={true}
-                            autoPlay={false}
-                            muted={isMuted}
-                            ref={videoRef}
-                            src={data.file_url}
-                        ></video>
-                        <div className={cx('play-icon-wrapper')} onClick={HandleIsPlay}>
-                            {isPlay ? (
-                                <FontAwesomeIcon className={cx('play-icon')} icon={faPause} />
-                            ) : (
-                                <FontAwesomeIcon className={cx('play-icon')} icon={faPlay} />
-                            )}
+
+                    {isLoading ? (
+                        <div className={cx('loading-container')}>
+                            <LoadingSpinner />
                         </div>
-                        <HeadlessTippy
-                            // visible
-                            offset={[0, -2]}
-                            interactive
-                            delay={[0, 700]}
-                            placement="top"
-                            render={(attrs) => (
-                                <Volume
-                                    volumeValue={volumeValue}
-                                    ChangeVolumeGlobal={ChangeVolumeGlobal}
-                                    videoRef={videoRef}
-                                />
-                            )}
-                        >
-                            <div onClick={HandleMute} className={cx('volume-icon-wrapper')}>
-                                {isMuted ? (
-                                    <FontAwesomeIcon className={cx('volume-icon')} icon={faVolumeXmark} />
+                    ) : (
+                        <div className={cx('player-container')}>
+                            <video
+                                volume={volumeValue / 100}
+                                loop={true}
+                                autoPlay={false}
+                                muted={isMuted}
+                                ref={videoRef}
+                                src={data.file_url}
+                            ></video>
+
+                            <div className={cx('play-icon-wrapper')} onClick={HandleIsPlay}>
+                                {isPlay ? (
+                                    <FontAwesomeIcon className={cx('play-icon')} icon={faPause} />
                                 ) : (
-                                    <FontAwesomeIcon className={cx('volume-icon')} icon={faVolumeHigh} />
+                                    <FontAwesomeIcon className={cx('play-icon')} icon={faPlay} />
                                 )}
                             </div>
-                        </HeadlessTippy>
-                    </div>
+                            <HeadlessTippy
+                                // visible
+                                offset={[0, -2]}
+                                interactive
+                                delay={[0, 700]}
+                                placement="top"
+                                render={(attrs) => (
+                                    <Volume
+                                        volumeValue={volumeValue}
+                                        ChangeVolumeGlobal={ChangeVolumeGlobal}
+                                        videoRef={videoRef}
+                                    />
+                                )}
+                            >
+                                <div onClick={HandleMute} className={cx('volume-icon-wrapper')}>
+                                    {isMuted ? (
+                                        <FontAwesomeIcon className={cx('volume-icon')} icon={faVolumeXmark} />
+                                    ) : (
+                                        <FontAwesomeIcon className={cx('volume-icon')} icon={faVolumeHigh} />
+                                    )}
+                                </div>
+                            </HeadlessTippy>
+                        </div>
+                    )}
 
                     <div className={cx('action_group')}>
                         <div className={cx('action_btn')}>

@@ -4,6 +4,10 @@
     display: flex;
     width: 624px;
 }
+.avatar-container {
+    height: 56px;
+    width: 56px;
+}
 
 .avatar {
     width: 56px;
@@ -90,10 +94,17 @@
         max-width: 100%;
     }
 }
+.loading-container {
+    position: relative;
+    height: 510px;
+    margin-right: 20px;
+    width: 100%;
+}
 .player-container {
     position: relative;
     height: 510px;
     margin-right: 20px;
+    max-width: 100%;
 }
 .player-container:hover {
     .play-icon-wrapper {

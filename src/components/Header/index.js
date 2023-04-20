@@ -166,8 +166,10 @@ const MENU_ITEMS = [
         title: 'Keyboard shorcuts',
     },
 ];
-function Header({ className, isFullWidth = false }) {
-    const currentUser = true;
+function Header({ className, isFullWidth = false, isLogin }) {
+    // const currentUser = true;
+
+    const currentUser = isLogin;
 
     const classesInner = cx('inner', {
         [className]: className,
