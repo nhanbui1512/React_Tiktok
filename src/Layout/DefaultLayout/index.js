@@ -7,17 +7,15 @@ import LoadingSpinner from '../../components/LoadingSpinner';
 import styles from './DefaultLayot.module.scss';
 import { useEffect, useState } from 'react';
 
+import * as UserService from '../../service/userServices';
+
 const cx = classNames.bind(styles);
 
 function DefaultLayout({ children }) {
     const loading = false;
-    var viewport_width = document.documentElement.clientWidth;
 
     const [isLogin, setIsLogin] = useState(false);
-
-    // setTimeout(() => {
-    //     setLoading(false);
-    // }, 2000);
+    const [user, setUser] = useState({});
 
     useEffect(() => {
         function getCookie(name) {
@@ -30,31 +28,30 @@ function DefaultLayout({ children }) {
 
         if (!authToken) {
         } else {
+            UserService.getCurrentUser({ token: authToken }).then((res) => {
+                setUser(res.data);
+            });
             setIsLogin(true);
         }
     }, []);
 
-    if (viewport_width < 500) {
-        return <h1>Layout Mobile</h1>;
-    } else {
-        return (
-            <div className={cx('wrapper')}>
-                {loading ? (
-                    <LoadingSpinner />
-                ) : (
-                    <div>
-                        <Header isLogin={isLogin} />
-                        <div className={cx('container')}>
-                            <div className={cx('sidebar_container')}>
-                                <Sidebar />
-                            </div>
-                            <div className={cx('content')}>{children}</div>
+    return (
+        <div className={cx('wrapper')}>
+            {loading ? (
+                <LoadingSpinner />
+            ) : (
+                <div>
+                    <Header isLogin={isLogin} user={user} />
+                    <div className={cx('container')}>
+                        <div className={cx('sidebar_container')}>
+                            <Sidebar />
                         </div>
+                        <div className={cx('content')}>{children}</div>
                     </div>
-                )}
-            </div>
-        );
-    }
+                </div>
+            )}
+        </div>
+    );
 }
 DefaultLayout.propTypes = {
     children: PropTypes.node.isRequired,

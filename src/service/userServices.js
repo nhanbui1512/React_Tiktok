@@ -22,3 +22,17 @@ export const getUser = async ({ nickname }) => {
         return [];
     }
 };
+
+export const getCurrentUser = async ({ token }) => {
+    try {
+        const res = await request.get(`auth/me`, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        });
+        return res;
+    } catch (error) {
+        console.log(error);
+        return [];
+    }
+};

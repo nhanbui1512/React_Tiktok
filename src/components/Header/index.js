@@ -26,149 +26,7 @@ import Search from '../Search';
 
 const cx = classNames.bind(styles);
 
-const MENU_ITEMS = [
-    {
-        icon: <FontAwesomeIcon icon={faEarthAsia}></FontAwesomeIcon>,
-        title: 'English',
-        children: {
-            title: 'Language',
-            data: [
-                {
-                    type: 'Language',
-                    code: 'en',
-                    title: 'English',
-                },
-                {
-                    type: 'Language',
-                    code: 'vi',
-                    title: 'Tiếng Việt',
-                },
-                {
-                    type: 'Language',
-                    code: 'en',
-                    title: 'English',
-                },
-                {
-                    type: 'Language',
-                    code: 'vi',
-                    title: 'Tiếng Việt',
-                },
-                {
-                    type: 'Language',
-                    code: 'en',
-                    title: 'English',
-                },
-                {
-                    type: 'Language',
-                    code: 'vi',
-                    title: 'Tiếng Việt',
-                },
-                {
-                    type: 'Language',
-                    code: 'en',
-                    title: 'English',
-                },
-                {
-                    type: 'Language',
-                    code: 'vi',
-                    title: 'Tiếng Việt',
-                },
-                {
-                    type: 'Language',
-                    code: 'en',
-                    title: 'English',
-                },
-                {
-                    type: 'Language',
-                    code: 'vi',
-                    title: 'Tiếng Việt',
-                },
-                {
-                    type: 'Language',
-                    code: 'en',
-                    title: 'English',
-                },
-                {
-                    type: 'Language',
-                    code: 'vi',
-                    title: 'Tiếng Việt',
-                },
-                {
-                    type: 'Language',
-                    code: 'en',
-                    title: 'English',
-                },
-                {
-                    type: 'Language',
-                    code: 'vi',
-                    title: 'Tiếng Việt',
-                },
-                {
-                    type: 'Language',
-                    code: 'vi',
-                    title: 'Tiếng Việt',
-                },
-                {
-                    type: 'Language',
-                    code: 'en',
-                    title: 'English',
-                },
-                {
-                    type: 'Language',
-                    code: 'vi',
-                    title: 'Tiếng Việt',
-                },
-                {
-                    type: 'Language',
-                    code: 'en',
-                    title: 'English',
-                },
-                {
-                    type: 'Language',
-                    code: 'vi',
-                    title: 'Tiếng Việt',
-                },
-                {
-                    type: 'Language',
-                    code: 'vi',
-                    title: 'Tiếng Việt',
-                },
-                {
-                    type: 'Language',
-                    code: 'en',
-                    title: 'English',
-                },
-                {
-                    type: 'Language',
-                    code: 'vi',
-                    title: 'Tiếng Việt',
-                },
-                {
-                    type: 'Language',
-                    code: 'en',
-                    title: 'English',
-                },
-                {
-                    type: 'Language',
-                    code: 'vi',
-                    title: 'Tiếng Việt',
-                },
-            ],
-        },
-    },
-    {
-        icon: <FontAwesomeIcon icon={faCircleQuestion}></FontAwesomeIcon>,
-        title: 'Feedback and Help',
-        to: '/feedback',
-    },
-    {
-        icon: <FontAwesomeIcon icon={faKeyboard}></FontAwesomeIcon>,
-        title: 'Keyboard shorcuts',
-    },
-];
-function Header({ className, isFullWidth = false, isLogin }) {
-    // const currentUser = true;
-
+function Header({ className, isFullWidth = false, isLogin, user = {} }) {
     const currentUser = isLogin;
 
     const classesInner = cx('inner', {
@@ -186,30 +44,88 @@ function Header({ className, isFullWidth = false, isLogin }) {
         }
     };
 
-    const userMenu = [
-        {
-            icon: <FontAwesomeIcon icon={faUser}></FontAwesomeIcon>,
-            title: 'View profile',
-            to: '/@hoaa',
-        },
-        {
-            icon: <FontAwesomeIcon icon={faCoins}></FontAwesomeIcon>,
-            title: 'Get coins',
-            to: '/coin',
-        },
-        {
-            icon: <FontAwesomeIcon icon={faGear}></FontAwesomeIcon>,
-            title: 'Setting',
-            to: '/settings',
-        },
-        ...MENU_ITEMS,
-        {
-            icon: <FontAwesomeIcon icon={faSignOut}></FontAwesomeIcon>,
-            title: 'Log out',
-            to: '/logout',
-            separate: true,
-        },
-    ];
+    const menuItem = isLogin
+        ? [
+              {
+                  icon: <FontAwesomeIcon icon={faUser}></FontAwesomeIcon>,
+                  title: 'View profile',
+                  to: `/@${user.nickname}`,
+              },
+              {
+                  icon: <FontAwesomeIcon icon={faCoins}></FontAwesomeIcon>,
+                  title: 'Get coins',
+                  to: '/coin',
+              },
+              {
+                  icon: <FontAwesomeIcon icon={faGear}></FontAwesomeIcon>,
+                  title: 'Setting',
+                  to: '/settings',
+              },
+              {
+                  icon: <FontAwesomeIcon icon={faEarthAsia}></FontAwesomeIcon>,
+                  title: 'English',
+                  children: {
+                      title: 'Language',
+                      data: [
+                          {
+                              type: 'Language',
+                              code: 'en',
+                              title: 'English',
+                          },
+                          {
+                              type: 'Language',
+                              code: 'vi',
+                              title: 'Tiếng Việt',
+                          },
+                      ],
+                  },
+              },
+              {
+                  icon: <FontAwesomeIcon icon={faCircleQuestion}></FontAwesomeIcon>,
+                  title: 'Feedback and Help',
+                  to: '/feedback',
+              },
+              {
+                  icon: <FontAwesomeIcon icon={faKeyboard}></FontAwesomeIcon>,
+                  title: 'Keyboard shorcuts',
+              },
+              {
+                  icon: <FontAwesomeIcon icon={faSignOut}></FontAwesomeIcon>,
+                  title: 'Log out',
+                  to: '/logout',
+                  separate: true,
+              },
+          ]
+        : [
+              {
+                  icon: <FontAwesomeIcon icon={faEarthAsia}></FontAwesomeIcon>,
+                  title: 'English',
+                  children: {
+                      title: 'Language',
+                      data: [
+                          {
+                              type: 'Language',
+                              code: 'en',
+                              title: 'English',
+                          },
+                          {
+                              type: 'Language',
+                              code: 'vi',
+                              title: 'Tiếng Việt',
+                          },
+                      ],
+                  },
+              },
+              {
+                  icon: <FontAwesomeIcon icon={faCircleQuestion}></FontAwesomeIcon>,
+                  title: 'Feedback and Help',
+                  to: '/feedback',
+              },
+              {
+                  icon: <FontAwesomeIcon icon={faKeyboard}></FontAwesomeIcon>,
+                  title: 'Keyboard shorcuts',
+              },
+          ];
 
     return (
         <header className={cx('wrapper')}>
@@ -256,9 +172,9 @@ function Header({ className, isFullWidth = false, isLogin }) {
                         </>
                     )}
 
-                    <Menu items={currentUser ? userMenu : MENU_ITEMS} onChange={handleMenuChange}>
+                    <Menu items={menuItem} onChange={handleMenuChange}>
                         {currentUser ? (
-                            <Image src="" className={cx('user-avatar')} alt="Nguyen Van A" />
+                            <Image src={user.avatar} className={cx('user-avatar')} alt="Nguyen Van A" />
                         ) : (
                             <button className={cx('more-btn')}>
                                 <FontAwesomeIcon icon={faEllipsisVertical} />

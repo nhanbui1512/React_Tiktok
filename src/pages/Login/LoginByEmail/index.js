@@ -1,14 +1,42 @@
 import classNames from 'classnames/bind';
 import styles from './loginByEmail.module.scss';
+import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import Button from '../../../components/Button';
+
+import { useRef } from 'react';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleLeft } from '@fortawesome/free-solid-svg-icons';
 
+import * as LoginService from '../../../service/loginServices';
+import * as Cookie from '../../../service/local/cookie';
+
 const cx = classNames.bind(styles);
 
 function LoginByEmail() {
+    const navigate = useNavigate();
+
+    const emailRef = useRef(null);
+    const passwordRef = useRef(null);
+
+    const handleLogin = () => {
+        var emailValue = emailRef.current.value;
+        var passwordValue = passwordRef.current.value;
+
+        LoginService.login({ email: emailValue, password: passwordValue })
+            .then((res) => {
+                if (res.meta) {
+                    console.log(res);
+                    Cookie.setToken({ token: res.meta.token });
+                    navigate('/');
+                }
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    };
+
     return (
         <div className={cx('wrapper')}>
             <h2 className={cx('title')}>Đăng Nhập</h2>
@@ -16,18 +44,18 @@ function LoginByEmail() {
                 Email hoặc TikTok ID
                 <Link>Đăng nhập bằng số điện thoại</Link>
             </div>
-            <form className={cx('form-container')}>
+            <div className={cx('form-container')}>
                 <div className={cx('input-container')}>
-                    <input type="text" placeholder="Email hoặc Tiktok ID" />
+                    <input ref={emailRef} type="text" placeholder="Email hoặc Tiktok ID" />
                 </div>
                 <div className={cx('input-container')}>
-                    <input type="password" placeholder="Mật Khẩu" />
+                    <input ref={passwordRef} type="password" placeholder="Mật Khẩu" />
                 </div>
                 <Link className={cx('forget')}>Quên Mật Khẩu</Link>
-                <Button className={cx('login-btn')} primary>
+                <Button onClick={handleLogin} className={cx('login-btn')} primary>
                     Đăng Nhập
                 </Button>
-            </form>
+            </div>
 
             <div className={cx('back-container')}>
                 <FontAwesomeIcon icon={faAngleLeft} className={cx('left-icon')} />

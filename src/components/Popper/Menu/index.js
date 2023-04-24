@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import HeadlessTippy from '@tippyjs/react/headless';
 import classNames from 'classnames/bind';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { Wrapper as PopperWrapper } from '../../Popper';
 import Header from './Header';
@@ -15,6 +15,10 @@ const defFunc = () => {};
 function Menu({ children, items = [], onChange = defFunc }) {
     const [history, setHistory] = useState([{ data: items }]);
     const current = history[history.length - 1];
+
+    useEffect(() => {
+        setHistory([{ data: items }]);
+    }, [items]);
 
     const renderItems = () => {
         return current.data.map((item, index) => {
