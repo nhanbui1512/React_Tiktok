@@ -120,21 +120,18 @@ function ListVideoBox() {
 
     return (
         <div className={cx('content')}>
-            {/* {videos.map((item, index) => {
+            {videos.map((item, index) => {
                 return (
-                    
+                    <Post
+                        isMuted={isMuted}
+                        key={item.id}
+                        data={item}
+                        volumeValue={volume}
+                        ChangeVolumeGlobal={ChangeVolumeGlobal}
+                        SetMuteGlobal={SetMuteGlobal}
+                    ></Post>
                 );
-            })} */}
-
-            <Post
-                isMuted={isMuted}
-                key={item.id}
-                data={item}
-                volumeValue={volume}
-                ChangeVolumeGlobal={ChangeVolumeGlobal}
-                SetMuteGlobal={SetMuteGlobal}
-                isLoading={false}
-            ></Post>
+            })}
         </div>
     );
 }
