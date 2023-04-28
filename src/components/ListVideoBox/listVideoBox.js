@@ -15,8 +15,13 @@ function ListVideoBox() {
     const [isMuted, setIsMuted] = useState(true);
 
     const handleScroll = () => {
-        if (window.innerHeight + document.documentElement.scrollTop !== document.documentElement.offsetHeight) return;
-        setIsFetching(true);
+        const scrollTop = document.documentElement.scrollTop;
+        const scrollHeight = document.documentElement.scrollHeight;
+        const clientHeight = document.documentElement.clientHeight;
+
+        if (scrollTop + clientHeight >= scrollHeight) {
+            setIsFetching(true);
+        }
     };
 
     const ChangeVolumeGlobal = ({ volumeValue }) => {
