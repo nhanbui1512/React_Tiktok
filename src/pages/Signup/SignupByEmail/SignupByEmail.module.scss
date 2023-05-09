@@ -110,3 +110,25 @@
     width: 14px;
     height: 14px;
 }
+.confirm-container {
+    display: flex;
+}
+.checkbox-wrapper {
+    width: 32px;
+    position: relative;
+
+    input {
+        width: 24px;
+        height: 24px;
+        // opacity: 0;
+    }
+}
+
+.description {
+    color: rgba(22, 24, 35, 0.75);
+    font-family: 'IBM Plex Sans', ProximaNova, Arial, Tahoma, PingFangSC, sans-serif;
+    font-size: 12px;
+    line-height: 16px;
+    display: inline;
+    margin-left: 10px;
+}

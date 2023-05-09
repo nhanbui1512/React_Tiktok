@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames/bind';
 import styles from './post.module.scss';
 
+import Cookies from 'js-cookie'; 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
     faCommentDots,
@@ -38,6 +39,12 @@ function Post({ data, isMuted = true, ChangeVolumeGlobal, volumeValue, SetMuteGl
     const [isPlay, setIsPlay] = useState(true);
 
     const HandleFollow = () => {
+        const token = Cookies.get('authToken');
+        const idUser = data.user.id;
+
+        console.log(token);
+        console.log(idUser);
+
         setIsFollow(!isFollow);
     };
 

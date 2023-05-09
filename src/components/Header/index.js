@@ -92,7 +92,6 @@ function Header({ className, isFullWidth = false, isLogin, user = {} }) {
               {
                   icon: <FontAwesomeIcon icon={faSignOut}></FontAwesomeIcon>,
                   title: 'Log out',
-                  to: '/logout',
                   separate: true,
               },
           ]

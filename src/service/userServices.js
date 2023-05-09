@@ -36,3 +36,17 @@ export const getCurrentUser = async ({ token }) => {
         return [];
     }
 };
+
+export const FollowUser = async ({ token, idUser }) => {
+    try {
+        const res = await request.post(`users/${idUser}/follow`, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+                Accept: '*/*',
+                Connection: 'keep-alive',
+                AcceptEncoding: 'gzip, deflate, br',
+            },
+        });
+        return res;
+    } catch (error) {}
+};
