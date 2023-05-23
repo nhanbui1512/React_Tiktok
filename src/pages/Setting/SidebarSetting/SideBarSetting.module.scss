@@ -1,0 +1,33 @@
+.wrapper {
+    width: 356px;
+    padding: 16px 0;
+    background-color: rgba(255, 255, 255, 1);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    overflow: hidden auto;
+    bottom: 0;
+    top: 0;
+    height: 100%;
+}
+.item {
+    height: 52px;
+    padding: 14px 24px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.icon {
+    margin-right: 12px;
+}
+
+.title {
+    color: rgba(22, 24, 35, 1);
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.primary {
+    color: var(--primary);
+}

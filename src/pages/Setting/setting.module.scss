@@ -1,0 +1,15 @@
+.wrapper {
+    margin: auto;
+    height: calc(100vh - 60px);
+    max-width: 1100px;
+    min-width: 1100px;
+    display: flex;
+    -webkit-box-pack: justify;
+    -webkit-justify-content: space-between;
+    justify-content: space-between;
+    -webkit-align-items: stretch;
+    -webkit-box-align: stretch;
+    -ms-flex-align: stretch;
+    align-items: stretch;
+    padding-top: 16px;
+}
