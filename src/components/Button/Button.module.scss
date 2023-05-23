@@ -25,6 +25,7 @@
 .title + .icon {
     margin-left: 8px;
 }
+
 .icon {
     display: inline-block;
     width: 24px;
@@ -75,5 +76,19 @@
     background-color: transparent;
     &:hover {
         text-decoration: underline;
+    }
+}
+.divbox {
+    border: 1px solid rgba(22, 24, 35, 0.12);
+    border-radius: 2px;
+    &:hover {
+        background-color: rgba(22, 24, 35, 0.03);
+        text-decoration: none;
+    }
+    .icon {
+        margin: 0;
+    }
+    .title {
+        margin: 0;
     }
 }

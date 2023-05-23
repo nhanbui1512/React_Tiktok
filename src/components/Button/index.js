@@ -14,6 +14,7 @@ function Button({
     text = false,
     disabled = false,
     rounded = false,
+    divbox = false,
     leftIcon,
     rightIcon,
     children,
@@ -30,6 +31,7 @@ function Button({
         rounded,
         large,
         text,
+        divbox,
         disabled,
     });
     const Props = {
@@ -64,6 +66,7 @@ Button.propTypes = {
     to: PropTypes.string,
     href: PropTypes.string,
     primary: PropTypes.bool,
+    divbox: PropTypes.bool,
     outline: PropTypes.bool,
     small: PropTypes.bool,
     large: PropTypes.bool,

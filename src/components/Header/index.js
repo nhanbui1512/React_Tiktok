@@ -8,6 +8,7 @@ import {
     faEllipsisVertical,
     faGear,
     faKeyboard,
+    faPlus,
     faSignOut,
     faUser,
 } from '@fortawesome/free-solid-svg-icons';
@@ -20,7 +21,7 @@ import styles from './Header.module.scss';
 import images from '../../assests/images';
 import Menu from '../Popper/Menu';
 import Button from '../Button';
-import { MessageIcon, UploadIcon, InboxIcon } from '../Icons';
+import { MessageIcon, InboxIcon } from '../Icons';
 import Image from '../Image';
 import Search from '../Search';
 
@@ -140,13 +141,15 @@ function Header({ className, isFullWidth = false, isLogin, user = {} }) {
                 <div className={cx('actions')}>
                     {currentUser ? (
                         <>
-                            <Tippy delay={[0, 200]} content="Upload video" placement="bottom">
-                                <button className={cx('action-btn')}>
-                                    <Link to="/upload">
-                                        <UploadIcon />
-                                    </Link>
-                                </button>
-                            </Tippy>
+                            <Button
+                                leftIcon={<FontAwesomeIcon icon={faPlus}></FontAwesomeIcon>}
+                                divbox
+                                to="/upload"
+                                text
+                                className={cx('upload_btn')}
+                            >
+                                Upload
+                            </Button>
 
                             <Tippy delay={[0, 200]} content="Message" placement="bottom">
                                 <button className={cx('action-btn')}>
@@ -162,7 +165,12 @@ function Header({ className, isFullWidth = false, isLogin, user = {} }) {
                         </>
                     ) : (
                         <>
-                            <Button to="/upload" text>
+                            <Button
+                                leftIcon={<FontAwesomeIcon icon={faPlus}></FontAwesomeIcon>}
+                                divbox
+                                to="/upload"
+                                text
+                            >
                                 Upload
                             </Button>
                             <Button to={'/login'} primary>
