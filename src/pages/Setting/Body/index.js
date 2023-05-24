@@ -18,6 +18,18 @@ function Body() {
                     </div>
                 </>
             </div>
+
+            <div className={cx('row-content')}>
+                <>
+                    <div className={cx('div-manage-container')}>
+                        <div className={cx('title')}>Quyền Riêng Tư</div>
+                        <div className={cx('body')}>
+                            <div className={cx('title-mini')}>Khám Phá</div>
+                            <div className={cx('option')}>Tài khoản riêng tư</div>
+                        </div>
+                    </div>
+                </>
+            </div>
         </div>
     );
 }

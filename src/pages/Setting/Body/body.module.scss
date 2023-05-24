@@ -16,6 +16,9 @@
     position: relative;
     padding-bottom: 16px;
     word-break: break-all;
+    &:nth-child(n + 2) {
+        margin-top: 32px;
+    }
 }
 
 .row-content::after {
@@ -34,6 +37,7 @@
     position: relative;
     padding-top: 8px;
 }
+
 .body {
     position: relative;
 }

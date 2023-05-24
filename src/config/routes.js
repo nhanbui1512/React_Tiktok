@@ -7,6 +7,6 @@ const routes = {
     live: '/live',
     login: '/login/*',
     signup: '/signup/*',
-    setting: '/setting',
+    setting: '/settings',
 };
 export default routes;
