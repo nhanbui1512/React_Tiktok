@@ -1,11 +1,9 @@
 .wrapper {
-    overflow-y: auto;
+    overflow-y: overlay;
     background-color: rgba(255, 255, 255, 1);
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
-    -webkit-flex: 0 0 728px;
-    -ms-flex: 0 0 728px;
     flex: 0 0 728px;
     box-sizing: border-box;
     padding: 16px 24px 24px;
@@ -70,4 +68,37 @@
     bottom: 0;
     cursor: pointer;
     right: 0;
+}
+.description {
+    font-size: 12px;
+    line-height: 15px;
+    color: rgba(22, 24, 35, 0.6);
+    margin-right: 84px;
+    margin-left: 16px;
+}
+.switch-btn-container {
+    display: inline-flex;
+    position: absolute;
+    top: 32px;
+    margin: 0 16px;
+    right: 0;
+}
+
+.right-icon-container {
+    display: inline-flex;
+    position: absolute;
+    top: 50%;
+    margin: 0 16px;
+    transform: translateY(-50%);
+    right: 0;
+    :hover {
+        cursor: pointer;
+    }
+}
+
+.right-icon {
+    fill: rgb(22, 24, 35);
+    fill-opacity: 0.5;
+    width: 16px;
+    height: 16px;
 }
