@@ -8,6 +8,9 @@
     box-sizing: border-box;
     padding: 16px 24px 24px;
     z-index: 1;
+    &::-webkit-scrollbar {
+        display: none;
+    }
 }
 .row-content {
     display: block;
@@ -40,6 +43,8 @@
     position: relative;
 }
 .title {
+    font-family: 'IBM Plex Sans', Arial, Tahoma, proxima-semibold, PingFangSC, sans-serif, 'Segoe UI Emoji',
+        'Noto Emoji';
     font-size: 24px;
     line-height: 32px;
     margin: 0 8px 20px;
@@ -47,6 +52,8 @@
     color: rgba(22, 24, 35, 1);
 }
 .title-mini {
+    font-family: 'IBM Plex Sans', Arial, Tahoma, proxima-semibold, PingFangSC, sans-serif, 'Segoe UI Emoji',
+        'Noto Emoji';
     font-size: 18px;
     line-height: 24px;
     font-weight: 600;
@@ -75,6 +82,7 @@
     color: rgba(22, 24, 35, 0.6);
     margin-right: 84px;
     margin-left: 16px;
+    font-weight: 400;
 }
 .switch-btn-container {
     display: inline-flex;
@@ -87,7 +95,7 @@
 .right-icon-container {
     display: inline-flex;
     position: absolute;
-    top: 50%;
+    top: 90%;
     margin: 0 16px;
     transform: translateY(-50%);
     right: 0;
@@ -101,4 +109,38 @@
     fill-opacity: 0.5;
     width: 16px;
     height: 16px;
+}
+
+.push-margin {
+    height: 36px;
+    position: relative;
+    &::after {
+        content: '';
+        display: block;
+        position: absolute;
+        width: 200%;
+        height: 1px;
+        background: rgba(22, 24, 35, 0.2);
+        top: 16px;
+        left: 0px;
+        transform: scale(0.5);
+        transform-origin: left center;
+    }
+}
+.setting-option {
+    margin: 16px 16px 3px;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 22px;
+    color: rgb(22, 24, 35);
+}
+.subtitle {
+    font-family: 'IBM Plex Sans', Arial, Tahoma, proxima-semibold, PingFangSC, sans-serif, 'Segoe UI Emoji',
+        'Noto Emoji';
+    margin-bottom: 2px;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 24px;
+    color: rgb(22, 24, 35);
+    margin: 0px 16px 12px;
 }

@@ -2,7 +2,7 @@ import classNames from 'classnames/bind';
 import styles from './body.module.scss';
 import SwitchButton from '../../../components/SwitchButton';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faAngleRight, faCaretDown } from '@fortawesome/free-solid-svg-icons';
+import { faAngleRight } from '@fortawesome/free-solid-svg-icons';
 
 const cx = classNames.bind(styles);
 
@@ -12,7 +12,7 @@ function Body() {
             <div className={cx('row-content')}>
                 <>
                     <div className={cx('div-manage-container')}>
-                        <div className={cx('title')}>Quản Lý Tài Khoản</div>
+                        <div className={cx('title')}>Quản lý tài khoản</div>
                         <div className={cx('body')}>
                             <div className={cx('title-mini')}>Kiểm soát tài khoản</div>
                             <div className={cx('option')}>Xóa tài khoản</div>
@@ -25,9 +25,9 @@ function Body() {
             <div className={cx('row-content')}>
                 <>
                     <div className={cx('div-manage-container')}>
-                        <div className={cx('title')}>Quyền Riêng Tư</div>
+                        <div className={cx('title')}>Quyền riêng tư</div>
                         <div className={cx('body')}>
-                            <div className={cx('title-mini')}>Khám Phá</div>
+                            <div className={cx('title-mini')}>Khám phá</div>
                             <div className={cx('option')}>Tài khoản riêng tư</div>
                             <div className={cx('description')}>
                                 Với tài khoản riêng tư, chỉ những người dùng được bạn phê duyệt mới có thể follow bạn và
@@ -36,18 +36,11 @@ function Body() {
                             <div className={cx('switch-btn-container')}>
                                 <SwitchButton></SwitchButton>
                             </div>
-                        </div>
-                    </div>
-                </>
-            </div>
 
-            <div className={cx('row-content')}>
-                <>
-                    <div className={cx('div-manage-container')}>
-                        <div className={cx('title')}>Dữ liệu</div>
-                        <div className={cx('body')}>
-                            <div className={cx('option')}>Tải về dữ liệu của bạn</div>
-                            <div className={cx('description')}>Lấy bản sao dữ liệu Tiktok cá nhân</div>
+                            <div className={cx('push-margin')}></div>
+                            <div className={cx('subtitle')}>Dữ liệu</div>
+                            <div className={cx('setting-option')}>Tải dữ liệu của bạn về</div>
+                            <div className={cx('description')}>Lấy bản sao dữ liệu TikTok cá nhân</div>
                             <div className={cx('right-icon-container')}>
                                 <FontAwesomeIcon className={cx('right-icon')} icon={faAngleRight}></FontAwesomeIcon>
                             </div>
@@ -59,7 +52,7 @@ function Body() {
             <div className={cx('row-content')}>
                 <>
                     <div className={cx('div-manage-container')}>
-                        <div className={cx('title')}>Thông Báo Đấy</div>
+                        <div className={cx('title')}>Thông báo đẩy</div>
                         <div className={cx('body')}>
                             <div className={cx('title-mini')}>Thông báo trong máy tính để bàn</div>
                             <div className={cx('option')}>Cho phép trong trình duyệt</div>
@@ -70,6 +63,17 @@ function Body() {
                             <div className={cx('switch-btn-container')}>
                                 <SwitchButton></SwitchButton>
                             </div>
+
+                            <div className={cx('push-margin')}></div>
+                            <div className={cx('subtitle')}>Tùy chọn của bạn</div>
+                            <div className={cx('description')}>
+                                Tùy chọn của bạn sẽ được tự động đồng bộ với ứng dụng TikTok.
+                            </div>
+
+                            <div className={cx('setting-option')}>Tương tác</div>
+                            <div className={cx('description')}>
+                                Lượt thích, bình luận, follower mới, lượt nhắc đến và lượt gắn thẻ
+                            </div>
                         </div>
                     </div>
                 </>
@@ -78,16 +82,15 @@ function Body() {
             <div className={cx('row-content')}>
                 <>
                     <div className={cx('div-manage-container')}>
+                        <div className={cx('title')}>Tài khoản doanh nghiệp</div>
                         <div className={cx('body')}>
-                            <div className={cx('title-mini')}>Tùy Chọn Của Bạn</div>
-                            <div className={cx('description')}>Tùy chọn của bạn sẽ được đồng bộ với Tiktok</div>
-                            <div className={cx('option')}>Tương Tác</div>
+                            <div className={cx('title-mini')}>Tài khoản doanh nghiệp</div>
                             <div className={cx('description')}>
-                                Tùy chọn của bạn sẽ được đồng bộ với TiktokLượt thích, bình luận, follower mới, lượt
-                                nhắc đến và lượt gắn thẻ
+                                Truy cập công cụ tiếp thị & tính năng độc quyền qua tài khoản doanh nghiệp để kết nối
+                                tốt hơn với người xem.
                             </div>
-                            <div className={cx('right-icon-container')}>
-                                <FontAwesomeIcon className={cx('right-icon')} icon={faCaretDown}></FontAwesomeIcon>
+                            <div className={cx('switch-btn-container')}>
+                                <SwitchButton></SwitchButton>
                             </div>
                         </div>
                     </div>
