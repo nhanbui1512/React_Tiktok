@@ -1,3 +1,6 @@
+.container {
+    position: relative;
+}
 .menu-list {
     width: 224px;
     .menu-item {
@@ -48,6 +51,12 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+}
+
+.switch-btn {
+    position: absolute;
+    right: 8px;
+    bottom: 10%;
 }
 /* PC */
 @media (min-width: 1024px) {

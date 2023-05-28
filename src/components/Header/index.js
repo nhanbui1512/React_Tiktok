@@ -8,6 +8,7 @@ import {
     faEllipsisVertical,
     faGear,
     faKeyboard,
+    faMoon,
     faPlus,
     faSignOut,
     faUser,
@@ -27,8 +28,10 @@ import Search from '../Search';
 
 const cx = classNames.bind(styles);
 
-function Header({ className, isFullWidth = false, isLogin, user = {} }) {
+function Header({ className, isFullWidth = false, isLogin, user = {}, dark = true }) {
     const currentUser = isLogin;
+
+    const classesWrapper = cx('wrapper', { dark });
 
     const classesInner = cx('inner', {
         [className]: className,
@@ -81,6 +84,7 @@ function Header({ className, isFullWidth = false, isLogin, user = {} }) {
                       ],
                   },
               },
+
               {
                   icon: <FontAwesomeIcon icon={faCircleQuestion}></FontAwesomeIcon>,
                   title: 'Feedback and Help',
@@ -89,6 +93,11 @@ function Header({ className, isFullWidth = false, isLogin, user = {} }) {
               {
                   icon: <FontAwesomeIcon icon={faKeyboard}></FontAwesomeIcon>,
                   title: 'Keyboard shorcuts',
+              },
+              {
+                  icon: <FontAwesomeIcon icon={faMoon} />,
+                  switch: true,
+                  title: 'Dark Mode',
               },
               {
                   icon: <FontAwesomeIcon icon={faSignOut}></FontAwesomeIcon>,
@@ -125,13 +134,18 @@ function Header({ className, isFullWidth = false, isLogin, user = {} }) {
                   icon: <FontAwesomeIcon icon={faKeyboard}></FontAwesomeIcon>,
                   title: 'Keyboard shorcuts',
               },
+              {
+                  icon: <FontAwesomeIcon icon={faMoon} />,
+                  switch: true,
+                  title: 'Dark Mode',
+              },
           ];
 
     return (
-        <header className={cx('wrapper')}>
+        <header className={classesWrapper}>
             <div className={classesInner}>
                 <Link to={config.routes.root} className={cx('logo')}>
-                    <img src={images.logo} alt="tiktok"></img>
+                    <img src={images.logoDark} alt="tiktok"></img>
                 </Link>
 
                 {/* search  */}
@@ -166,6 +180,8 @@ function Header({ className, isFullWidth = false, isLogin, user = {} }) {
                     ) : (
                         <>
                             <Button
+                                dark={true}
+                                primary={false}
                                 leftIcon={<FontAwesomeIcon icon={faPlus}></FontAwesomeIcon>}
                                 divbox
                                 to="/upload"

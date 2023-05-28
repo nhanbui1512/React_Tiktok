@@ -9,6 +9,7 @@ function Button({
     href,
     primary = false,
     outline = false,
+    dark = false,
     small = false,
     large = false,
     text = false,
@@ -25,6 +26,7 @@ function Button({
     let Comp = 'button';
     const classes = cx('wrapper', {
         [className]: className,
+        dark,
         primary,
         outline,
         small,

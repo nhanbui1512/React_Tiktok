@@ -25,7 +25,7 @@ function Following() {
     });
     return (
         <div className={cx('container')}>
-            <ListVideoBox />
+            <ListVideoBox authToken={authToken} />
         </div>
     );
 }

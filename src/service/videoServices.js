@@ -15,12 +15,15 @@ export const getVideos = async ({ type, page }) => {
     }
 };
 
-export const getFollowingVideos = async ({ page }) => {
+export const getFollowingVideos = async ({ page, token }) => {
     try {
         const res = await request.get('videos', {
             params: {
                 type: 'following',
                 page: page,
+            },
+            headers: {
+                Authorization: `Bearer ${token}`,
             },
         });
         return res.data;

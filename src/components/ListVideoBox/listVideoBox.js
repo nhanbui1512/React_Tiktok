@@ -4,9 +4,10 @@ import styles from './listVideoBox.module.scss';
 import * as VideoServices from '../../service/videoServices';
 import Post from '../Post';
 import { useState, useEffect } from 'react';
+import LoadingSpinner from '../LoadingSpinner';
 
 const cx = classNames.bind(styles);
-function ListVideoBox() {
+function ListVideoBox({ authToken }) {
     const [videos, setVideos] = useState([]);
     const [isFetching, setIsFetching] = useState(false);
     const [page, setPage] = useState(1);
@@ -33,30 +34,53 @@ function ListVideoBox() {
     };
 
     const fetchMoreListItems = () => {
-        console.log('fetching');
-        VideoServices.getVideos({ type: 'for-you', page: page + 1 })
-            .then((data) => {
-                setVideos((prevState) => [...prevState, ...data]);
-            })
-            .then(() => {
-                setPage(page + 1);
-            })
-            .catch((err) => {
-                console.log(err);
-            });
-
-        setIsFetching(false);
+        if (authToken) {
+            VideoServices.getFollowingVideos({ type: 'for-you', page: page + 1, token: authToken })
+                .then((data) => {
+                    setVideos((prevState) => [...prevState, ...data]);
+                })
+                .then(() => {
+                    setPage(page + 1);
+                    setIsFetching(false);
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+        } else {
+            VideoServices.getVideos({ type: 'for-you', page: page + 1 })
+                .then((data) => {
+                    setVideos((prevState) => [...prevState, ...data]);
+                })
+                .then(() => {
+                    setPage(page + 1);
+                    setIsFetching(false);
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+        }
     };
 
     useEffect(() => {
         window.scrollTo(0, 0);
-        VideoServices.getVideos({ type: 'for-you', page: page })
-            .then((data) => {
-                setVideos(data);
-            })
-            .catch((err) => {
-                console.log(err);
-            });
+
+        if (authToken) {
+            VideoServices.getFollowingVideos({ page: page, token: authToken })
+                .then((data) => {
+                    setVideos(data);
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+        } else {
+            VideoServices.getVideos({ type: 'for-you', page: page })
+                .then((data) => {
+                    setVideos(data);
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+        }
 
         window.addEventListener('scroll', handleScroll);
         return () => window.removeEventListener('scroll', handleScroll);
@@ -64,7 +88,9 @@ function ListVideoBox() {
 
     useEffect(() => {
         if (!isFetching) return;
-        fetchMoreListItems();
+        setTimeout(() => {
+            fetchMoreListItems();
+        }, 500);
     }, [isFetching]);
 
     return (
@@ -81,6 +107,12 @@ function ListVideoBox() {
                     ></Post>
                 );
             })}
+
+            {isFetching && (
+                <div className={cx('spinner-container')}>
+                    <LoadingSpinner></LoadingSpinner>
+                </div>
+            )}
         </div>
     );
 }

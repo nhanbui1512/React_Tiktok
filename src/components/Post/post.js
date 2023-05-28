@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames/bind';
 import styles from './post.module.scss';
 
-import Cookies from 'js-cookie'; 
+import Cookies from 'js-cookie';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
     faCommentDots,
@@ -18,6 +18,8 @@ import {
     faVolumeXmark,
 } from '@fortawesome/free-solid-svg-icons';
 import { HeartRedIcon, HeartBlackIcon } from '../Icons';
+
+import axios from 'axios';
 
 import Image from '../Image';
 import Button from '../Button';
@@ -31,7 +33,7 @@ function Post({ data, isMuted = true, ChangeVolumeGlobal, volumeValue, SetMuteGl
     const videoRef = useRef(null);
     const postRef = useRef(null);
 
-    const [isFollow, setIsFollow] = useState(false);
+    const [isFollow, setIsFollow] = useState(data.user.is_followed);
 
     // tách compoent
     const [isLikes, setIsLikes] = useState(false);
@@ -42,8 +44,29 @@ function Post({ data, isMuted = true, ChangeVolumeGlobal, volumeValue, SetMuteGl
         const token = Cookies.get('authToken');
         const idUser = data.user.id;
 
-        console.log(token);
-        console.log(idUser);
+        if (!isFollow) {
+            axios
+                .request({
+                    method: 'post',
+                    url: `https://tiktok.fullstack.edu.vn/api/users/${idUser}/follow`,
+                    params: {
+                        // Các tham số yêu cầu (nếu có)
+                        param1: 'value1',
+                        param2: 'value2',
+                    },
+                    headers: {
+                        'Content-Type': 'application/json',
+                        Authorization: `Bearer ${token}`,
+                    },
+                })
+                .then((response) => {
+                    // Xử lý phản hồi thành công
+                })
+                .catch((error) => {
+                    // Xử lý lỗi
+                    console.error(error);
+                });
+        }
 
         setIsFollow(!isFollow);
     };
@@ -90,7 +113,7 @@ function Post({ data, isMuted = true, ChangeVolumeGlobal, volumeValue, SetMuteGl
                 {
                     root: null,
                     rootMargin: '0px',
-                    threshold: 0.8,
+                    threshold: 0.7,
                 },
             );
             const element = postRef.current;
@@ -115,7 +138,7 @@ function Post({ data, isMuted = true, ChangeVolumeGlobal, volumeValue, SetMuteGl
             <div className={cx('video_content')}>
                 <div className={cx('video_heaer')}>
                     <div className={cx('profile')}>
-                        <Link to={`@${data.user.nickname}`} className={cx('user_profile')}>
+                        <Link to={`/@${data.user.nickname}`} className={cx('user_profile')}>
                             <h3 className={cx('nickname')}>{data.user.nickname}</h3>
                             <h4 className={cx('name')}> {`${data.user.first_name} ${data.user.last_name}`} </h4>
                         </Link>

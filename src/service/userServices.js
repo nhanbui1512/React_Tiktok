@@ -42,9 +42,6 @@ export const FollowUser = async ({ token, idUser }) => {
         const res = await request.post(`users/${idUser}/follow`, {
             headers: {
                 Authorization: `Bearer ${token}`,
-                Accept: '*/*',
-                Connection: 'keep-alive',
-                AcceptEncoding: 'gzip, deflate, br',
             },
         });
         return res;

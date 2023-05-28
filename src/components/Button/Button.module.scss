@@ -53,6 +53,7 @@
         background: linear-gradient(0deg, rgba(0, 0, 0, 0.06), rgba(0, 0, 0, 0.06)), #fe2c55;
     }
 }
+
 .outline {
     cursor: pointer;
     background-color: var(--white);
@@ -90,5 +91,12 @@
     }
     .title {
         margin: 0;
+    }
+}
+.dark {
+    background: rgba(255, 255, 255, 0.08);
+    color: var(--text-white);
+    &:hover {
+        background-color: rgba(255, 255, 255, 0.04);
     }
 }

@@ -71,7 +71,32 @@
     font-size: 14px;
     animation: loading 1s linear infinite;
 }
+.dark {
+    background-color: rgba(255, 255, 255, 0.12);
+    input {
+        color: rgba(255, 255, 255, 0.9);
+    }
 
+    input:not(:placeholder-shown) ~ .search-btn {
+        color: rgba(255, 255, 255, 0.75);
+    }
+    .clear {
+        background-color: transparent;
+        color: rgba(255, 255, 255, 0.34);
+    }
+    .loading {
+        color: rgba(255, 255, 255, 0.34);
+    }
+    .search-btn {
+        background-color: rgba(22, 24, 35, 0.03);
+        &:hover {
+            background: rgba(255, 255, 255, 0.12);
+        }
+    }
+    &::after {
+        background: rgba(255, 255, 255, 0.12);
+    }
+}
 @keyframes loading {
     from {
         transform: translateY(-50%) rotate(0);

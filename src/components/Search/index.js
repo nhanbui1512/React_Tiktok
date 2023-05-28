@@ -12,7 +12,7 @@ import { useDebounce } from '../../hooks';
 
 const cx = classNames.bind(styles);
 
-function Search() {
+function Search({ dark = true }) {
     const [searchValue, setSearchValue] = useState('');
     const [searchResult, setSearchResult] = useState([]);
     const [showResult, setShowResult] = useState(false);
@@ -21,6 +21,8 @@ function Search() {
     const debounceValue = useDebounce(searchValue, 600);
 
     const inputRef = useRef();
+
+    const classesSearch = cx('search', { dark });
 
     useEffect(() => {
         if (!debounceValue.trim()) {
@@ -77,7 +79,7 @@ function Search() {
                 )}
                 onClickOutside={handleHideResult}
             >
-                <div className={cx('search')}>
+                <div className={classesSearch}>
                     <input
                         ref={inputRef}
                         value={searchValue}
