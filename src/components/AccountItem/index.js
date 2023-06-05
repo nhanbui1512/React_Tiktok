@@ -5,11 +5,17 @@ import classNames from 'classnames/bind';
 import { Link } from 'react-router-dom';
 import styles from './AccountItem.module.scss';
 import Image from '../Image';
+
+import { useContext } from 'react';
+import { ThemeContext } from '../../Context';
+
 const cx = classNames.bind(styles);
 
 function AccountItem({ data }) {
+    const context = useContext(ThemeContext);
+
     return (
-        <Link to={`/@${data.nickname}`} className={cx('wrapper')}>
+        <Link to={`/@${data.nickname}`} className={cx(['wrapper', context.theme])}>
             <Image src={data.avatar} alt={data.full_name} className={cx('avatar')}></Image>
             <div className={cx('info')}>
                 <h4 className={cx('name')}>

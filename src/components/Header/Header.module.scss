@@ -12,12 +12,7 @@
     height: var(--default-layout-height);
     box-shadow: 0px 1px 1px rgb(0 0 0 / 12%);
 }
-.dark {
-    background-color: var(--background-dark);
-    .more-btn {
-        color: var(--text-white);
-    }
-}
+
 .inner {
     height: 100%;
     width: var(--default-layout-width);
@@ -157,4 +152,10 @@
     width: 110px;
     height: 36px;
     padding: 0px 16px;
+}
+.dark {
+    background-color: var(--background-dark);
+    .more-btn {
+        color: var(--text-white);
+    }
 }

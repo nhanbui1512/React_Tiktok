@@ -26,12 +26,16 @@ import { MessageIcon, InboxIcon } from '../Icons';
 import Image from '../Image';
 import Search from '../Search';
 
+import { ThemeContext } from '../../Context';
+import { useContext } from 'react';
+
 const cx = classNames.bind(styles);
 
 function Header({ className, isFullWidth = false, isLogin, user = {}, dark = true }) {
+    const context = useContext(ThemeContext);
     const currentUser = isLogin;
 
-    const classesWrapper = cx('wrapper', { dark });
+    const classesWrapper = cx(['wrapper', context.theme]);
 
     const classesInner = cx('inner', {
         [className]: className,
@@ -145,7 +149,7 @@ function Header({ className, isFullWidth = false, isLogin, user = {}, dark = tru
         <header className={classesWrapper}>
             <div className={classesInner}>
                 <Link to={config.routes.root} className={cx('logo')}>
-                    <img src={images.logoDark} alt="tiktok"></img>
+                    <img src={context.theme === 'dark' ? images.logoDark : images.logo} alt="tiktok"></img>
                 </Link>
 
                 {/* search  */}
@@ -180,7 +184,7 @@ function Header({ className, isFullWidth = false, isLogin, user = {}, dark = tru
                     ) : (
                         <>
                             <Button
-                                dark={true}
+                                dark={false}
                                 primary={false}
                                 leftIcon={<FontAwesomeIcon icon={faPlus}></FontAwesomeIcon>}
                                 divbox

@@ -10,9 +10,12 @@ import AccountItem from '../AccountItem';
 import styles from './Search.module.scss';
 import { useDebounce } from '../../hooks';
 
+import { ThemeContext } from '../../Context';
+import { useContext } from 'react';
+
 const cx = classNames.bind(styles);
 
-function Search({ dark = true }) {
+function Search() {
     const [searchValue, setSearchValue] = useState('');
     const [searchResult, setSearchResult] = useState([]);
     const [showResult, setShowResult] = useState(false);
@@ -22,7 +25,9 @@ function Search({ dark = true }) {
 
     const inputRef = useRef();
 
-    const classesSearch = cx('search', { dark });
+    const context = useContext(ThemeContext);
+
+    const classesSearch = cx(['search', context.theme]);
 
     useEffect(() => {
         if (!debounceValue.trim()) {
@@ -68,8 +73,8 @@ function Search({ dark = true }) {
                 interactive={true}
                 visible={showResult && searchResult.length > 0}
                 render={(attrs) => (
-                    <div className={cx('search-result')} tabIndex="-1" {...attrs}>
-                        <PopperWrapper>
+                    <div className={cx(['search-result', context.theme])} tabIndex="-1" {...attrs}>
+                        <PopperWrapper className={cx('search-wrapper')}>
                             <h4 className={cx('search-title')}>Accounts</h4>
                             {searchResult.map((result) => {
                                 return <AccountItem key={result.id} data={result}></AccountItem>;

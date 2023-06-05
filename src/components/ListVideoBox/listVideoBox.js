@@ -4,7 +4,7 @@ import styles from './listVideoBox.module.scss';
 import * as VideoServices from '../../service/videoServices';
 import Post from '../Post';
 import { useState, useEffect } from 'react';
-import LoadingSpinner from '../LoadingSpinner';
+import Loading from '../loading';
 
 const cx = classNames.bind(styles);
 function ListVideoBox({ authToken }) {
@@ -110,7 +110,7 @@ function ListVideoBox({ authToken }) {
 
             {isFetching && (
                 <div className={cx('spinner-container')}>
-                    <LoadingSpinner></LoadingSpinner>
+                    <Loading></Loading>
                 </div>
             )}
         </div>

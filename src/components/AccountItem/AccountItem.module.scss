@@ -36,3 +36,12 @@
     font-size: 14px;
     color: rgba(22, 24, 35, 0.5);
 }
+.dark {
+    .username,
+    .name {
+        color: rgba(255, 255, 255, 0.9);
+    }
+    &:hover {
+        background: rgba(255, 255, 255, 0.04);
+    }
+}

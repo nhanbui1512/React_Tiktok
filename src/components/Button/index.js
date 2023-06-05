@@ -2,6 +2,10 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames/bind';
 import { Link } from 'react-router-dom';
 import styles from './Button.module.scss';
+
+import { ThemeContext } from '../../Context';
+import { useContext } from 'react';
+
 const cx = classNames.bind(styles);
 
 function Button({

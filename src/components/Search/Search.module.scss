@@ -71,6 +71,32 @@
     font-size: 14px;
     animation: loading 1s linear infinite;
 }
+
+@keyframes loading {
+    from {
+        transform: translateY(-50%) rotate(0);
+    }
+    to {
+        transform: translateY(-50%) rotate(360deg);
+    }
+}
+
+.search-btn {
+    width: 52px;
+    height: 100%;
+    cursor: pointer;
+    border-top-right-radius: var(--search-border-radius);
+    border-bottom-right-radius: var(--search-border-radius);
+    font-size: 16px;
+    color: #a6a7ac;
+    &:hover {
+        background-color: rgba(22, 24, 35, 0.03);
+    }
+    &:active {
+        background-color: rgba(22, 24, 35, 0.062);
+    }
+}
+
 .dark {
     background-color: rgba(255, 255, 255, 0.12);
     input {
@@ -97,31 +123,16 @@
         background: rgba(255, 255, 255, 0.12);
     }
 }
-@keyframes loading {
-    from {
-        transform: translateY(-50%) rotate(0);
+
+.dark {
+    .search-title {
+        color: rgba(255, 255, 255, 0.75);
     }
-    to {
-        transform: translateY(-50%) rotate(360deg);
+
+    .search-wrapper {
+        background: rgb(37, 37, 37);
     }
 }
-
-.search-btn {
-    width: 52px;
-    height: 100%;
-    cursor: pointer;
-    border-top-right-radius: var(--search-border-radius);
-    border-bottom-right-radius: var(--search-border-radius);
-    font-size: 16px;
-    color: #a6a7ac;
-    &:hover {
-        background-color: rgba(22, 24, 35, 0.03);
-    }
-    &:active {
-        background-color: rgba(22, 24, 35, 0.062);
-    }
-}
-
 /* PC */
 @media (min-width: 1024px) {
 }
