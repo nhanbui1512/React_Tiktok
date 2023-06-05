@@ -30,3 +30,16 @@
     line-height: 18px;
     padding-left: 6px;
 }
+.dark {
+    .wrapper {
+        background-color: rgba(255, 255, 255, 0.08);
+        transition: background-color 200ms ease-in-out 0s;
+        &:hover {
+            background-color: rgba(255, 255, 255, 0.04);
+        }
+    }
+    .icon,
+    .content {
+        color: var(--text-white);
+    }
+}

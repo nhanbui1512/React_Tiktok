@@ -45,3 +45,11 @@
 .value ~ .value {
     margin-left: 20px;
 }
+.dark {
+    .nickname,
+    .nickname,
+    .value,
+    .analytics {
+        color: var(--text-white);
+    }
+}

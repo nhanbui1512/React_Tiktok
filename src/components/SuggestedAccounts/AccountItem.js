@@ -17,7 +17,7 @@ function AccountItem({ data }) {
     const renderPreview = (props) => {
         return (
             <div tabIndex="-1" {...props}>
-                <PopperWrapper>
+                <PopperWrapper className={cx('preview-container')}>
                     <div className={cx('preview')}>
                         <AccountPreview data={data} />
                     </div>

@@ -3,6 +3,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    transition: all ease-in 200ms;
 }
 .container {
     width: var(--default-layout-width);
@@ -24,7 +25,10 @@
     flex: 1;
     margin-left: 356px;
 }
-
+.dark {
+    background-color: var(--background-dark);
+    transition: all ease-in 200ms;
+}
 /* PC */
 @media (min-width: 1024px) {
 }

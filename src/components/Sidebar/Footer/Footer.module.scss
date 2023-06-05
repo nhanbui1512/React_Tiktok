@@ -71,6 +71,14 @@
     margin-right: 6px;
     margin-top: 5px;
 }
+
+.dark {
+    border-color: rgba(255, 255, 255, 0.12);
+    .link_item,
+    .coppy_right {
+        color: var(--text-white);
+    }
+}
 /* PC */
 @media (min-width: 1024px) {
 }

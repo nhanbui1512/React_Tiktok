@@ -51,6 +51,23 @@
     font-weight: 700;
     cursor: pointer;
 }
+
+.dark {
+    border-color: rgba(255, 255, 255, 0.12);
+    .label,
+    .name {
+        color: rgba(255, 255, 255, 0.75);
+    }
+    .nickname {
+        color: var(--text-white);
+    }
+    .account-item:hover {
+        background: rgba(255, 255, 255, 0.04);
+    }
+    .preview-container {
+        background: rgb(37, 37, 37);
+    }
+}
 /* PC */
 @media (min-width: 1024px) {
 }

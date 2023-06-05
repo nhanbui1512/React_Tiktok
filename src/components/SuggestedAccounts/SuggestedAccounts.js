@@ -3,12 +3,15 @@ import PropTypes from 'prop-types';
 
 import styles from './SuggestedAccounts.module.scss';
 import AccountItem from './AccountItem';
-import { useState } from 'react';
+import { useState, useContext } from 'react';
+import { ThemeContext } from '../../Context';
 
 const cx = classNames.bind(styles);
 
 function SuggestedAccounts({ view = false, label, data = [] }) {
     const [isSeeAll, setIsSeeAll] = useState(view);
+
+    const context = useContext(ThemeContext);
 
     const handleViewChange = () => {
         setIsSeeAll(!isSeeAll);
@@ -18,7 +21,7 @@ function SuggestedAccounts({ view = false, label, data = [] }) {
         data = data.slice(0, 5);
     }
     return (
-        <div className={cx('wrapper')}>
+        <div className={cx(['wrapper', context.theme])}>
             <p className={cx('label')}>{label}</p>
 
             {data.map((item) => {

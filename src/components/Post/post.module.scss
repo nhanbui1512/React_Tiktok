@@ -166,7 +166,6 @@
     border-radius: 32px;
 }
 .volume-control {
-    -webkit-appearance: none; /* Override default CSS styles */
     background-color: rgba(255, 255, 255, 0.34);
     transform: rotate(-90deg);
     width: 48px;
@@ -208,7 +207,6 @@ input[type='range']::-webkit-slider-thumb {
     height: 48px;
     font-size: 0px;
     border-radius: 50%;
-    -webkit-transition: all ease-in-out 200ms;
     transition: all ease-in-out 200ms;
     background-color: rgba(22, 24, 35, 0.06);
     margin-top: 8px;
@@ -242,6 +240,29 @@ input[type='range']::-webkit-slider-thumb {
 }
 .liked-icon {
     animation: scale 0.7s ease;
+}
+
+.dark {
+    .user_profile,
+    .profile,
+    .title,
+    .hash-tag,
+    .music_name {
+        color: var(--text-white);
+    }
+    .icon,
+    .count {
+        color: rgba(255, 255, 255, 0.9);
+    }
+    .action_btn_bg {
+        background-color: rgba(255, 255, 255, 0.12);
+    }
+    .follow-btn {
+        background-color: rgba(255, 255, 255, 0.08);
+        &:hover {
+            background-color: rgba(254, 44, 85, 0.06);
+        }
+    }
 }
 /* PC */
 @media (min-width: 1024px) {

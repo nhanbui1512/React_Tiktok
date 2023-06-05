@@ -7,11 +7,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import Button from '../../Button';
 import Image from '../../Image';
-import { useState } from 'react';
+import { useState, useContext } from 'react';
+import { ThemeContext } from '../../../Context';
 
 const cx = classNames.bind(styles);
 
 function AccountPreview({ data }) {
+    const context = useContext(ThemeContext);
+
     const [followStatus, setFollowStatus] = useState(false);
 
     const handleFollow = () => {
@@ -19,7 +22,7 @@ function AccountPreview({ data }) {
     };
 
     return (
-        <div className={cx('wrapper')}>
+        <div className={cx(['wrapper', context.theme])}>
             <div className={cx('header')}>
                 <Image className={cx('avatar')} src={data.avatar} alt={data.first_name} />
                 <div>

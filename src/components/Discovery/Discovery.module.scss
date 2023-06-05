@@ -21,6 +21,13 @@
     padding-right: 4px;
 }
 
+.dark {
+    border-color: rgba(255, 255, 255, 0.12);
+    .header {
+        color: rgba(255, 255, 255, 0.75);
+    }
+}
+
 /* PC */
 @media (min-width: 1024px) {
 }

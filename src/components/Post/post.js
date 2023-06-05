@@ -26,10 +26,14 @@ import Button from '../Button';
 import Volume from './volume';
 
 import LoadingSpinner from '../LoadingSpinner';
+import { useContext } from 'react';
+import { ThemeContext } from '../../Context';
 
 const cx = classNames.bind(styles);
 
 function Post({ data, isMuted = true, ChangeVolumeGlobal, volumeValue, SetMuteGlobal, isLoading = false }) {
+    const context = useContext(ThemeContext);
+
     const videoRef = useRef(null);
     const postRef = useRef(null);
 
@@ -127,7 +131,7 @@ function Post({ data, isMuted = true, ChangeVolumeGlobal, volumeValue, SetMuteGl
     }, [isLoading]);
 
     return (
-        <div className={cx('wrapper')} ref={postRef}>
+        <div className={cx(['wrapper', context.theme])} ref={postRef}>
             <Link className={cx('avatar-container')} to={`@${data.user.nickname}`}>
                 {isLoading ? (
                     <LoadingSpinner></LoadingSpinner>
@@ -145,10 +149,10 @@ function Post({ data, isMuted = true, ChangeVolumeGlobal, volumeValue, SetMuteGl
 
                         <div className={cx('video_desc')}>
                             <span className={cx('title')}>{data.description} </span>
-                            <Link>
+                            <Link className={cx('hash-tag')}>
                                 <strong>#Frozen </strong>
                             </Link>
-                            <Link>
+                            <Link className={cx('hash-tag')}>
                                 <strong>#Tiktok</strong>
                             </Link>
                         </div>
@@ -212,7 +216,13 @@ function Post({ data, isMuted = true, ChangeVolumeGlobal, volumeValue, SetMuteGl
                     <div className={cx('action_group')}>
                         <div className={cx('action_btn')}>
                             <span onClick={HandleLike} className={cx('action_btn_bg')}>
-                                {!isLikes ? <HeartBlackIcon /> : <HeartRedIcon className={cx('liked-icon')} />}
+                                {!isLikes ? (
+                                    <HeartBlackIcon
+                                        fill={context.theme === 'light' ? '#000' : 'rgba(255, 255, 255, 0.9)'}
+                                    />
+                                ) : (
+                                    <HeartRedIcon className={cx('liked-icon')} />
+                                )}
                             </span>
                             <strong className={cx('count')}>{data.likes_count}</strong>
                         </div>

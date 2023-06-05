@@ -3,8 +3,13 @@ import classNames from 'classnames/bind';
 import styles from './Menu.module.scss';
 import SwitchButton from '../../SwitchButton';
 
+import { ThemeContext } from '../../../Context';
+import { useContext } from 'react';
+
 const cx = classNames.bind(styles);
 function MenuItem({ data, onClick }) {
+    const context = useContext(ThemeContext);
+
     const classes = cx('menu-item', {
         separate: data.separate,
     });
@@ -16,7 +21,10 @@ function MenuItem({ data, onClick }) {
 
             {data.switch ? (
                 <div className={cx('switch-btn')}>
-                    <SwitchButton></SwitchButton>
+                    <SwitchButton
+                        isChecked={context.theme === 'dark' ? true : false}
+                        handleOnClick={context.toggleTheme}
+                    ></SwitchButton>
                 </div>
             ) : (
                 <></>

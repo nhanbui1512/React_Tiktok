@@ -156,10 +156,11 @@ function Header({ className, isFullWidth = false, isLogin, user = {}, dark = tru
 
                 <Search />
 
-                <div className={cx('actions')}>
+                <div className={cx('actions', { dark: context.theme === 'dark' ? true : false })}>
                     {currentUser ? (
                         <>
                             <Button
+                                dark={context.theme === 'dark' ? true : false}
                                 leftIcon={<FontAwesomeIcon icon={faPlus}></FontAwesomeIcon>}
                                 divbox
                                 to="/upload"
@@ -184,7 +185,7 @@ function Header({ className, isFullWidth = false, isLogin, user = {}, dark = tru
                     ) : (
                         <>
                             <Button
-                                dark={false}
+                                dark={context.theme === 'dark' ? true : false}
                                 primary={false}
                                 leftIcon={<FontAwesomeIcon icon={faPlus}></FontAwesomeIcon>}
                                 divbox

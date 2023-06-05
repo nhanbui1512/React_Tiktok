@@ -6,11 +6,16 @@ import images from '../../../assests/images';
 import { StyledIcon } from '../../Icons';
 
 import { Link } from 'react-router-dom';
+import { useContext } from 'react';
+import { ThemeContext } from '../../../Context';
+
 const cx = classNames.bind(styles);
 
 function Footer() {
+    const context = useContext(ThemeContext);
+
     return (
-        <div className={cx('wrapper')}>
+        <div className={cx(['wrapper', context.theme])}>
             <div className={cx('effect_house_container')}>
                 <Link className={cx('image_container')}>
                     <Image className={cx('background_image')} src={images.backGround}></Image>

@@ -3,10 +3,10 @@ import styles from './SwitchButton.module.scss';
 
 const cx = classNames.bind(styles);
 
-function SwitchButton() {
+function SwitchButton({ handleOnClick, isChecked = true }) {
     return (
         <label className={cx('switch')}>
-            <input type="checkbox" />
+            <input defaultChecked={isChecked} type="checkbox" onChange={handleOnClick} />
             <span className={cx('slider')}></span>
         </label>
     );

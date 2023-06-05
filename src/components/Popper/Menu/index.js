@@ -9,12 +9,16 @@ import styles from './Menu.module.scss';
 import MenuItem from './MenuItem';
 
 import * as LocalService from '../../../service/local/cookie';
+import { ThemeContext } from '../../../Context';
+import { useContext } from 'react';
 
 const cx = classNames.bind(styles);
 
 const defFunc = () => {};
 
 function Menu({ children, items = [], onChange = defFunc }) {
+    const context = useContext(ThemeContext);
+
     const [history, setHistory] = useState([{ data: items }]);
     const current = history[history.length - 1];
 
@@ -51,7 +55,7 @@ function Menu({ children, items = [], onChange = defFunc }) {
             placement="bottom-end"
             hideOnClick={false}
             render={(attrs) => (
-                <div className={cx('menu-list')} tabIndex="-1" {...attrs}>
+                <div className={cx(['menu-list', context.theme])} tabIndex="-1" {...attrs}>
                     <PopperWrapper className={cx('menu-popper')}>
                         {history.length > 1 && (
                             <Header
