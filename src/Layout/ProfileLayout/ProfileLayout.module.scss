@@ -3,6 +3,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    transition: all ease-in 200ms;
 }
 .container {
     width: 100%;
@@ -26,4 +27,8 @@
     flex-direction: column;
     padding: 32px 24px;
     box-sizing: content-box;
+}
+.dark {
+    background-color: var(--background-dark);
+    transition: all ease-in 200ms;
 }

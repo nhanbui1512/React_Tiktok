@@ -31,7 +31,7 @@ import { useContext } from 'react';
 
 const cx = classNames.bind(styles);
 
-function Header({ className, isFullWidth = false, isLogin, user = {}, dark = true }) {
+function Header({ className, isFullWidth = false, isLogin, user = {} }) {
     const context = useContext(ThemeContext);
     const currentUser = isLogin;
 

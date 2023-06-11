@@ -28,11 +28,30 @@ import Volume from './volume';
 import LoadingSpinner from '../LoadingSpinner';
 import { useContext } from 'react';
 import { ThemeContext } from '../../Context';
+import Menu from './menu';
 
 const cx = classNames.bind(styles);
 
 function Post({ data, isMuted = true, ChangeVolumeGlobal, volumeValue, SetMuteGlobal, isLoading = false }) {
     const context = useContext(ThemeContext);
+
+    // const menuItem = [
+    //     {
+    //         icon: <FontAwesomeIcon icon={faUser}></FontAwesomeIcon>,
+    //         title: 'Share to facebook',
+    //         to: `/@`,
+    //     },
+    //     {
+    //         icon: <FontAwesomeIcon icon={faCoins}></FontAwesomeIcon>,
+    //         title: 'Coppy Link',
+    //         to: '/coin',
+    //     },
+    //     {
+    //         icon: <FontAwesomeIcon icon={faCoins}></FontAwesomeIcon>,
+    //         title: 'Send to friends',
+    //         to: '/coin',
+    //     },
+    // ];
 
     const videoRef = useRef(null);
     const postRef = useRef(null);
@@ -232,12 +251,14 @@ function Post({ data, isMuted = true, ChangeVolumeGlobal, volumeValue, SetMuteGl
                             </span>
                             <strong className={cx('count')}>{data.comments_count}</strong>
                         </div>
-                        <div className={cx('action_btn')}>
-                            <span className={cx('action_btn_bg')}>
-                                <FontAwesomeIcon className={cx('icon')} icon={faShare}></FontAwesomeIcon>
-                            </span>
-                            <strong className={cx('count')}>{data.shares_count}</strong>
-                        </div>
+                        <Menu>
+                            <div className={cx('action_btn')}>
+                                <span className={cx('action_btn_bg')}>
+                                    <FontAwesomeIcon className={cx('icon')} icon={faShare}></FontAwesomeIcon>
+                                </span>
+                                <strong className={cx('count')}>{data.shares_count}</strong>
+                            </div>
+                        </Menu>
                     </div>
                 </div>
             </div>

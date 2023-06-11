@@ -57,3 +57,14 @@
     gap: 24px 16px;
     grid-template-columns: repeat(auto-fill, minmax(184px, 1fr));
 }
+.dark {
+    .video-tab {
+        color: var(--text-white);
+    }
+    .bottom-line {
+        background: rgba(255, 255, 255, 0.9);
+    }
+    .header::after {
+        background-color: rgba(255, 255, 255, 0.12);
+    }
+}

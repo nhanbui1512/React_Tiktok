@@ -7,18 +7,21 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Image from '../../../components/Image';
 import Button from '../../../components/Button';
 import { faCheckCircle, faLink } from '@fortawesome/free-solid-svg-icons';
-import { useState } from 'react';
+import { useState, useContext } from 'react';
+import { ThemeContext } from '../../../Context';
 
 const cx = classNames.bind(styles);
 
 function ProfileInfo({ data }) {
+    const context = useContext(ThemeContext);
+
     const [isFollow, setIsFollow] = useState(false);
 
     const handleFollow = () => {
         setIsFollow(!isFollow);
     };
     return (
-        <div className={cx('wrapper')}>
+        <div className={cx(['wrapper', context.theme])}>
             <div className={cx('header-info')}>
                 <div className={cx('avatar-wrapper')}>
                     <Image className={cx('avatar')} src={data.avatar} alt="" />

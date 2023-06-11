@@ -179,7 +179,7 @@
 }
 
 input[type='range']::-webkit-slider-thumb {
-    -webkit-appearance: none; /* Override default look */
+    -webkit-appearance: none;
     appearance: none;
     width: 12px;
     height: 12px;
@@ -256,6 +256,9 @@ input[type='range']::-webkit-slider-thumb {
     }
     .action_btn_bg {
         background-color: rgba(255, 255, 255, 0.12);
+        &:hover {
+            background-color: rgba(255, 255, 255, 0.08);
+        }
     }
     .follow-btn {
         background-color: rgba(255, 255, 255, 0.08);

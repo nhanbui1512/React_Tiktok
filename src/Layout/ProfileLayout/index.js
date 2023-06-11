@@ -6,6 +6,9 @@ import Sidebar from '../../components/Sidebar';
 import { useState, useEffect } from 'react';
 import * as UserService from '../../service/userServices';
 
+import { ThemeContext } from '../../Context';
+import { useContext } from 'react';
+
 import styles from './ProfileLayout.module.scss';
 
 const cx = classNames.bind(styles);
@@ -13,6 +16,8 @@ const cx = classNames.bind(styles);
 function ProfileLayout({ children }) {
     const [isLogin, setIsLogin] = useState(false);
     const [user, setUser] = useState({});
+
+    const context = useContext(ThemeContext);
 
     useEffect(() => {
         function getCookie(name) {
@@ -33,7 +38,7 @@ function ProfileLayout({ children }) {
     }, []);
 
     return (
-        <div className={cx('wrapper')}>
+        <div className={cx(['wrapper', context.theme])}>
             <Header isLogin={isLogin} user={user} isFullWidth={true} className={cx('header_profile')} />
             <div className={cx('container')}>
                 <div className={cx('sidebar_container')}>

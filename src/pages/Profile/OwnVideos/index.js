@@ -1,16 +1,19 @@
 import classNames from 'classnames/bind';
 import styles from './OwnVideos.module.scss';
 
-import { useRef, useState, useEffect } from 'react';
+import { useRef, useState, useEffect, useContext } from 'react';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLock } from '@fortawesome/free-solid-svg-icons';
+import { ThemeContext } from '../../../Context';
 
 import VideoItem from '../VideoItem';
 
 const cx = classNames.bind(styles);
 
 function OwnVideos({ videos }) {
+    const context = useContext(ThemeContext);
+
     const [ownVideos, setOwnVideos] = useState([]);
 
     const bottomLineRef = useRef(null);
@@ -28,7 +31,7 @@ function OwnVideos({ videos }) {
     }, [videos]);
 
     return (
-        <div className={cx('wrapper')}>
+        <div className={cx(['wrapper', context.theme])}>
             <div className={cx('header')}>
                 <p className={cx('video-tab')}>
                     <span>Video</span>

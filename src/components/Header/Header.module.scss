@@ -114,6 +114,7 @@
 .actions {
     display: flex;
     align-items: center;
+    box-shadow: non;
 }
 .action-btn {
     position: relative;
@@ -152,11 +153,17 @@
     width: 110px;
     height: 36px;
     padding: 0px 16px;
+    border: none;
 }
+
 .dark {
     background-color: var(--background-dark);
     box-shadow: 0px 1px 1px rgba(255, 255, 255, 0.12);
     transition: all ease-in 200ms;
+    .actions {
+        box-shadow: none;
+    }
+
     .more-btn {
         color: var(--text-white);
     }
