@@ -52,6 +52,10 @@ a {
     color: var(--text-color);
 }
 
+input[type='range' i] {
+    appearance: none;
+}
+
 @font-face {
     font-family: ProximaNova;
     src: url('/assests/fonts/Proxima-Nova-Regular.woff2');

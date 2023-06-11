@@ -191,12 +191,12 @@
     border-radius: 4px;
 }
 
-input[type='range']::-webkit-slider-thumb {
+.volume-control::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
     width: 12px;
     height: 12px;
-    background-color: rgb(255, 255, 255);
+    background: rgb(255, 255, 255);
     border-radius: 12px;
     cursor: pointer;
     z-index: 1;
