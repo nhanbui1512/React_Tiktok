@@ -35,24 +35,6 @@ const cx = classNames.bind(styles);
 function Post({ data, isMuted = true, ChangeVolumeGlobal, volumeValue, SetMuteGlobal, isLoading = false }) {
     const context = useContext(ThemeContext);
 
-    // const menuItem = [
-    //     {
-    //         icon: <FontAwesomeIcon icon={faUser}></FontAwesomeIcon>,
-    //         title: 'Share to facebook',
-    //         to: `/@`,
-    //     },
-    //     {
-    //         icon: <FontAwesomeIcon icon={faCoins}></FontAwesomeIcon>,
-    //         title: 'Coppy Link',
-    //         to: '/coin',
-    //     },
-    //     {
-    //         icon: <FontAwesomeIcon icon={faCoins}></FontAwesomeIcon>,
-    //         title: 'Send to friends',
-    //         to: '/coin',
-    //     },
-    // ];
-
     const videoRef = useRef(null);
     const postRef = useRef(null);
 
