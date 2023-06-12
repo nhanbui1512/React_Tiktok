@@ -4,7 +4,7 @@ import styles from './listVideoBox.module.scss';
 import * as VideoServices from '../../service/videoServices';
 import Post from '../Post';
 import { useState, useEffect } from 'react';
-import Loading from '../loading';
+import Loading from '../Loading';
 
 const cx = classNames.bind(styles);
 function ListVideoBox({ authToken }) {
