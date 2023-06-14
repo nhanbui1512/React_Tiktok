@@ -29,11 +29,17 @@ import Search from '../Search';
 import { ThemeContext } from '../../Context';
 import { useContext } from 'react';
 
+import PopperLogin from '../PopperLogin';
+
 const cx = classNames.bind(styles);
 
 function Header({ className, isFullWidth = false, isLogin, user = {} }) {
     const context = useContext(ThemeContext);
     const currentUser = isLogin;
+
+    const handleLoginClick = () => {
+        context.setLoginPopper(!context.loginPopper);
+    };
 
     const classesWrapper = cx(['wrapper', context.theme]);
 
@@ -41,6 +47,23 @@ function Header({ className, isFullWidth = false, isLogin, user = {} }) {
         [className]: className,
         isFullWidth,
     });
+
+    // const data = [
+    //     {
+    //         title: 'login',
+    //         content: <></>,
+    //         children: [],
+    //     },
+    //     {
+    //         title: 'register',
+    //         content: <></>,
+    //         children: [
+    //             {
+    //                 title: '',
+    //             },
+    //         ],
+    //     },
+    // ];
 
     const handleMenuChange = (menuItem) => {
         switch (menuItem.type) {
@@ -194,7 +217,13 @@ function Header({ className, isFullWidth = false, isLogin, user = {} }) {
                             >
                                 Upload
                             </Button>
-                            <Button to={'/login'} primary>
+                            <Button
+                                className={cx('login-btn')}
+                                onClick={() => {
+                                    context.setLoginPopper(true);
+                                }}
+                                primary
+                            >
                                 Log in
                             </Button>
                         </>
@@ -211,6 +240,14 @@ function Header({ className, isFullWidth = false, isLogin, user = {} }) {
                     </Menu>
                 </div>
             </div>
+
+            {context.loginPopper && (
+                <Tippy onClickOutside={() => context.setLoginPopper(false)}>
+                    <>
+                        <PopperLogin handleClose={handleLoginClick}></PopperLogin>
+                    </>
+                </Tippy>
+            )}
         </header>
     );
 }
