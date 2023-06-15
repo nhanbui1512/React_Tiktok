@@ -42,6 +42,20 @@
     width: 20px;
     height: 20px;
 }
+
+.back-btn {
+    position: absolute;
+    left: 16px;
+    top: 16px;
+    background-color: transparent;
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+}
+.back-icon {
+    width: 20px;
+    height: 20px;
+}
 .content {
     overflow-y: overlay;
     width: 484px;
@@ -169,6 +183,23 @@
         border-top: 1px solid hsla(0, 0%, 100%, 0.12);
         color: var(--text-white);
     }
+    .form-header,
+    .form-input,
+    .forgot-pass,
+    .step-item {
+        color: #ffffffe6;
+    }
+    .form-input {
+        background-color: hsla(0, 0%, 100%, 0.122);
+        border: 1px solid hsla(0, 0%, 100%, 0.12);
+    }
+    .submit-btn {
+        background-color: hsla(0, 0%, 100%, 0.122);
+        color: hsla(0, 0%, 100%, 0.34);
+    }
+    .back-icon {
+        color: var(--text-white);
+    }
 }
 
 @keyframes scaleModal {
@@ -182,4 +213,100 @@
         -webkit-transform: scale(1);
         transform: scale(1);
     }
+}
+
+// Login By Phone Number
+
+.form-input {
+    display: flex;
+    align-items: center;
+    height: 44px;
+    margin: 9px 0px;
+    background-color: rgba(22, 24, 35, 0.06);
+    border: 1px solid rgba(22, 24, 35, 0.12);
+    input {
+        background-color: transparent;
+        caret-color: var(--primary);
+        color: inherit;
+        flex-grow: 1;
+        font-size: 16px;
+        height: 100%;
+        padding-left: 12px;
+    }
+}
+.form-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5px;
+    color: var(--text-black);
+    label {
+        font-weight: 600;
+        font-size: 15px;
+    }
+}
+
+.forgot-pass {
+    color: rgba(22, 24, 35, 0.75);
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 600;
+    &:hover {
+        text-decoration: underline;
+    }
+}
+.submit-btn {
+    min-height: 46px;
+    width: 100%;
+    background-color: rgba(22, 24, 35, 0.06);
+    color: rgba(22, 24, 35, 0.34);
+    font-size: 16px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-radius: 4px;
+    border: none;
+}
+
+.primary {
+    background-color: var(--primary) !important;
+    color: var(--text-white) !important;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+// login by QR
+
+.qr-container {
+    display: flex;
+    margin-top: 48px;
+}
+.qr-left {
+    width: 180px;
+    flex-shrink: 0;
+}
+.qr-image {
+    border: 1px solid #f2f2f2;
+    border-radius: 12px;
+    height: 180px;
+    padding: 12px;
+    width: 180px;
+    img {
+        width: 100%;
+    }
+}
+.step-list {
+    margin-top: 24px;
+}
+.step-item {
+    color: #161823;
+    font-size: 14px;
+    margin-bottom: 4px;
+    line-height: 1.5;
+    align-items: center;
+}
+
+.qr-right {
+    margin-left: 20px;
+}
+.qr-login-gif {
+    height: 270px;
 }
