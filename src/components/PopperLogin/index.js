@@ -14,6 +14,7 @@ import {
 
 import ByQR from './ByQR';
 import PhoneNumber from './PhoneNumber';
+import Register from './Register';
 
 import { ThemeContext } from '../../Context';
 
@@ -103,6 +104,8 @@ function PopperLogin({ handleClose }) {
                 return <ByQR />;
             case 3:
                 return <PhoneNumber />;
+            case 4:
+                return <Register setInner={setInner} />;
 
             default:
                 break;
@@ -125,7 +128,7 @@ function PopperLogin({ handleClose }) {
                     <FontAwesomeIcon className={cx('closeIcon')} icon={faXmark}></FontAwesomeIcon>
                 </button>
 
-                {inner !== 1 && (
+                {inner !== 1 && inner !== 4 && (
                     <button
                         className={cx('back-btn')}
                         onClick={() => {
