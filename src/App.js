@@ -5,6 +5,7 @@ import { DefaultLayout } from './Layout';
 
 import { ThemeContext } from './Context';
 import { useContext } from 'react';
+import NotiBar from './components/NotiBar';
 
 function App() {
     const context = useContext(ThemeContext);
@@ -37,6 +38,7 @@ function App() {
                         );
                     })}
                 </Routes>
+                {context.notiLoginSuccess && <NotiBar> Đăng nhập thành công</NotiBar>}
             </div>
         </BrowserRouter>
     );

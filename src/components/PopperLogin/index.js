@@ -21,6 +21,7 @@ import { ThemeContext } from '../../Context';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { useState, useContext } from 'react';
+import ByPhoneNumber from './Register/ByPhoneNumber';
 
 const cx = classNames.bind(styles);
 
@@ -106,6 +107,8 @@ function PopperLogin({ handleClose }) {
                 return <PhoneNumber />;
             case 4:
                 return <Register setInner={setInner} />;
+            case 5:
+                return <ByPhoneNumber />;
 
             default:
                 break;
@@ -128,7 +131,7 @@ function PopperLogin({ handleClose }) {
                     <FontAwesomeIcon className={cx('closeIcon')} icon={faXmark}></FontAwesomeIcon>
                 </button>
 
-                {inner !== 1 && inner !== 4 && (
+                {(inner === 2 || inner === 3) && (
                     <button
                         className={cx('back-btn')}
                         onClick={() => {
@@ -138,11 +141,47 @@ function PopperLogin({ handleClose }) {
                         <FontAwesomeIcon className={cx('back-icon')} icon={faChevronLeft}></FontAwesomeIcon>
                     </button>
                 )}
+
+                {inner === 5 && (
+                    <button
+                        className={cx('back-btn')}
+                        onClick={() => {
+                            setInner(4);
+                        }}
+                    >
+                        <FontAwesomeIcon className={cx('back-icon')} icon={faChevronLeft}></FontAwesomeIcon>
+                    </button>
+                )}
+
                 {renderInner()}
 
-                <footer className={cx('footer')}>
-                    Bạn không có tài khoản? <span className={cx('register')}> Đăng ký</span>
-                </footer>
+                {inner === 1 && (
+                    <footer className={cx('footer')}>
+                        Bạn không có tài khoản?
+                        <span
+                            onClick={() => {
+                                setInner(4);
+                            }}
+                            className={cx('register')}
+                        >
+                            Đăng ký
+                        </span>
+                    </footer>
+                )}
+
+                {inner === 4 && (
+                    <footer className={cx('footer')}>
+                        Bạn đã có tài khoản?
+                        <span
+                            onClick={() => {
+                                setInner(1);
+                            }}
+                            className={cx('register')}
+                        >
+                            Đăng Nhập
+                        </span>
+                    </footer>
+                )}
             </div>
         </div>
     );

@@ -4,7 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import Button from '../../../components/Button';
 
-import { useRef } from 'react';
+import { useRef, useContext } from 'react';
+import { ThemeContext } from '../../../Context';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleLeft } from '@fortawesome/free-solid-svg-icons';
@@ -19,6 +20,7 @@ function LoginByEmail() {
 
     const emailRef = useRef(null);
     const passwordRef = useRef(null);
+    const context = useContext(ThemeContext);
 
     const handleLogin = () => {
         var emailValue = emailRef.current.value;
@@ -30,6 +32,10 @@ function LoginByEmail() {
                     console.log(res);
                     Cookie.setToken({ token: res.meta.token });
                     navigate('/');
+                    context.setNotiLoginSuccess(true);
+                    setTimeout(() => {
+                        context.setNotiLoginSuccess(false);
+                    }, 2000);
                 }
             })
             .catch((err) => {

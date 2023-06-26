@@ -188,7 +188,8 @@
     .form-header,
     .form-input,
     .forgot-pass,
-    .step-item {
+    .step-item,
+    .confirm-desc {
         color: #ffffffe6;
     }
     .form-input {
@@ -311,4 +312,17 @@
 }
 .qr-login-gif {
     height: 270px;
+}
+
+// register by phone number
+
+.form-confirm {
+    display: flex;
+    margin: 9px 0px;
+}
+.confirm-desc {
+    font-size: 12px;
+    line-height: 16px;
+    margin-left: 8px;
+    text-align: justify;
 }

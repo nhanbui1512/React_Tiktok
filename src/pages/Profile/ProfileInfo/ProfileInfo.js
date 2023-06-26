@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import Image from '../../../components/Image';
 import Button from '../../../components/Button';
-import { faCheckCircle, faLink } from '@fortawesome/free-solid-svg-icons';
+import { faCheckCircle, faLink, faPenToSquare } from '@fortawesome/free-solid-svg-icons';
 import { useState, useContext } from 'react';
 import { ThemeContext } from '../../../Context';
 
@@ -32,9 +32,21 @@ function ProfileInfo({ data }) {
                         {data.tick && <FontAwesomeIcon className={cx('icon-check')} icon={faCheckCircle} />}
                     </h2>
                     <h2 className={cx('name')}>{`${data.first_name} ${data.last_name}`}</h2>
-                    <Button onClick={handleFollow} className={cx('follow-btn')} primary>
-                        {!isFollow ? 'Follow' : 'UnFollow'}
-                    </Button>
+
+                    {context.currentUser ? (
+                        <Button
+                            className={cx('upload-btn')}
+                            divbox
+                            text
+                            leftIcon={<FontAwesomeIcon className={cx('edit-icon')} icon={faPenToSquare} />}
+                        >
+                            Edit Profile
+                        </Button>
+                    ) : (
+                        <Button onClick={handleFollow} className={cx('follow-btn')} primary>
+                            {!isFollow ? 'Follow' : 'UnFollow'}
+                        </Button>
+                    )}
                 </div>
             </div>
             <h3 className={cx('count-info')}>

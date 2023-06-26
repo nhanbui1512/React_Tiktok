@@ -13,7 +13,7 @@ import {
 
 const cx = classNames.bind(styles);
 
-function Register(setInner) {
+function Register({ setInner }) {
     return (
         <div className={cx('content')}>
             <h1 className={cx('header')}>Đăng Ký TikTok</h1>
@@ -21,7 +21,7 @@ function Register(setInner) {
             <button
                 className={cx('divBoxBtn')}
                 onClick={() => {
-                    setInner(3);
+                    setInner(5);
                 }}
             >
                 <span>

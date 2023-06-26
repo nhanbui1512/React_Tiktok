@@ -1,0 +1,40 @@
+.wrapper {
+    position: fixed;
+    z-index: 99;
+    top: 16px;
+    left: 0;
+    width: 100%;
+    text-align: center;
+}
+
+.container {
+    animation: Notify_showEffect 0.3s;
+    background-color: rgba(84, 84, 84, 0.92);
+    color: #fff;
+    display: inline-block;
+    font-size: 14px;
+    font-weight: 600;
+    min-width: 300px;
+    padding: 10px 8px;
+    width: 50%;
+}
+
+.unmount {
+    .container {
+        animation: Notify_showEffect 0.5s;
+        animation-direction: reverse;
+    }
+}
+
+@keyframes Notify_showEffect {
+    0% {
+        opacity: 0;
+        -webkit-transform: translateY(-100%);
+        transform: translateY(-100%);
+    }
+    100% {
+        opacity: 1;
+        -webkit-transform: translateY(0);
+        transform: translateY(0);
+    }
+}
