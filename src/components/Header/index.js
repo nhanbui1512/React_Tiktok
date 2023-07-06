@@ -33,9 +33,9 @@ import PopperLogin from '../PopperLogin';
 
 const cx = classNames.bind(styles);
 
-function Header({ className, isFullWidth = false, isLogin, user = {} }) {
+function Header({ className, isFullWidth = false }) {
     const context = useContext(ThemeContext);
-    const currentUser = isLogin;
+    // const currentUser = isLogin;
 
     const handleLoginClick = () => {
         context.setLoginPopper(!context.loginPopper);
@@ -48,23 +48,6 @@ function Header({ className, isFullWidth = false, isLogin, user = {} }) {
         isFullWidth,
     });
 
-    // const data = [
-    //     {
-    //         title: 'login',
-    //         content: <></>,
-    //         children: [],
-    //     },
-    //     {
-    //         title: 'register',
-    //         content: <></>,
-    //         children: [
-    //             {
-    //                 title: '',
-    //             },
-    //         ],
-    //     },
-    // ];
-
     const handleMenuChange = (menuItem) => {
         switch (menuItem.type) {
             case 'Language':
@@ -75,12 +58,12 @@ function Header({ className, isFullWidth = false, isLogin, user = {} }) {
         }
     };
 
-    const menuItem = isLogin
+    var menuItem = context.currentUser
         ? [
               {
                   icon: <FontAwesomeIcon icon={faUser}></FontAwesomeIcon>,
                   title: 'View profile',
-                  to: `/@${user.nickname}`,
+                  to: `/@${context.user.nickname}`,
               },
               {
                   icon: <FontAwesomeIcon icon={faCoins}></FontAwesomeIcon>,
@@ -180,7 +163,7 @@ function Header({ className, isFullWidth = false, isLogin, user = {} }) {
                 <Search />
 
                 <div className={cx('actions', { dark: context.theme === 'dark' ? true : false })}>
-                    {currentUser ? (
+                    {context.currentUser ? (
                         <>
                             <Button
                                 dark={context.theme === 'dark' ? true : false}
@@ -230,8 +213,8 @@ function Header({ className, isFullWidth = false, isLogin, user = {} }) {
                     )}
 
                     <Menu items={menuItem} onChange={handleMenuChange}>
-                        {currentUser ? (
-                            <Image src={user.avatar} className={cx('user-avatar')} alt="Nguyen Van A" />
+                        {context.currentUser ? (
+                            <Image src={context.user.avatar} className={cx('user-avatar')} alt="Nguyen Van A" />
                         ) : (
                             <button className={cx('more-btn')}>
                                 <FontAwesomeIcon icon={faEllipsisVertical} />

@@ -20,6 +20,7 @@ function ProfileInfo({ data }) {
     const handleFollow = () => {
         setIsFollow(!isFollow);
     };
+
     return (
         <div className={cx(['wrapper', context.theme])}>
             <div className={cx('header-info')}>

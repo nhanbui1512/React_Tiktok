@@ -8,6 +8,7 @@ function ThemeProvider({ children }) {
     const [loginPopper, setLoginPopper] = useState(false);
     const [currentUser, setCurrentUser] = useState(false);
     const [notiLoginSuccess, setNotiLoginSuccess] = useState(false);
+    const [user, setUser] = useState({});
 
     const toggleTheme = () => {
         setTheme(theme === 'dark' ? 'light' : 'dark');
@@ -21,6 +22,8 @@ function ThemeProvider({ children }) {
         setCurrentUser,
         notiLoginSuccess,
         setNotiLoginSuccess,
+        user,
+        setUser,
     };
     return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>;
 }
