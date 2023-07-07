@@ -46,38 +46,47 @@ function Post({ data, isMuted = true, ChangeVolumeGlobal, volumeValue, SetMuteGl
     const [isPlay, setIsPlay] = useState(true);
 
     const HandleFollow = () => {
-        const token = Cookies.get('authToken');
-        const idUser = data.user.id;
+        const currentUser = context.currentUser;
+        if (currentUser) {
+            const token = Cookies.get('authToken');
+            const idUser = data.user.id;
 
-        if (!isFollow) {
-            axios
-                .request({
-                    method: 'post',
-                    url: `https://tiktok.fullstack.edu.vn/api/users/${idUser}/follow`,
-                    params: {
-                        // Các tham số yêu cầu (nếu có)
-                        param1: 'value1',
-                        param2: 'value2',
-                    },
-                    headers: {
-                        'Content-Type': 'application/json',
-                        Authorization: `Bearer ${token}`,
-                    },
-                })
-                .then((response) => {
-                    // Xử lý phản hồi thành công
-                })
-                .catch((error) => {
-                    // Xử lý lỗi
-                    console.error(error);
-                });
+            if (!isFollow) {
+                axios
+                    .request({
+                        method: 'post',
+                        url: `https://tiktok.fullstack.edu.vn/api/users/${idUser}/follow`,
+                        params: {
+                            // Các tham số yêu cầu (nếu có)
+                            param1: 'value1',
+                            param2: 'value2',
+                        },
+                        headers: {
+                            'Content-Type': 'application/json',
+                            Authorization: `Bearer ${token}`,
+                        },
+                    })
+                    .then((response) => {
+                        // Xử lý phản hồi thành công
+                    })
+                    .catch((error) => {
+                        // Xử lý lỗi
+                        console.error(error);
+                    });
+            }
+
+            setIsFollow(!isFollow);
+        } else {
+            context.setLoginPopper(true);
         }
-
-        setIsFollow(!isFollow);
     };
 
     const HandleLike = () => {
-        setIsLikes(!isLikes);
+        if (context.currentUser) {
+            setIsLikes(!isLikes);
+        } else {
+            context.setLoginPopper(true);
+        }
     };
 
     useEffect(() => {
@@ -103,31 +112,31 @@ function Post({ data, isMuted = true, ChangeVolumeGlobal, volumeValue, SetMuteGl
 
     useEffect(() => {
         if (!isLoading) {
-            const observer = new IntersectionObserver(
-                ([entry]) => {
-                    if (entry.isIntersecting) {
-                        const video = videoRef.current;
-                        setIsPlay(true);
-                        video.play();
-                    } else {
-                        const video = videoRef.current;
-                        setIsPlay(false);
-                        video.pause();
-                    }
-                },
-                {
-                    root: null,
-                    rootMargin: '0px',
-                    threshold: 0.7,
-                },
-            );
-            const element = postRef.current;
-            if (element) {
-                observer.observe(element);
-            }
-            return () => {
-                observer.unobserve(element);
-            };
+            // const observer = new IntersectionObserver(
+            //     ([entry]) => {
+            //         if (entry.isIntersecting) {
+            //             const video = videoRef.current;
+            //             setIsPlay(true);
+            //             video.play();
+            //         } else {
+            //             const video = videoRef.current;
+            //             setIsPlay(false);
+            //             video.pause();
+            //         }
+            //     },
+            //     {
+            //         root: null,
+            //         rootMargin: '0px',
+            //         threshold: 0.7,
+            //     },
+            // );
+            // const element = postRef.current;
+            // if (element) {
+            //     observer.observe(element);
+            // }
+            // return () => {
+            //     observer.unobserve(element);
+            // };
         }
     }, [isLoading]);
 
@@ -180,6 +189,34 @@ function Post({ data, isMuted = true, ChangeVolumeGlobal, volumeValue, SetMuteGl
                                 muted={isMuted}
                                 ref={videoRef}
                                 src={data.file_url}
+                                onLoadedData={() => {
+                                    const observer = new IntersectionObserver(
+                                        ([entry]) => {
+                                            if (entry.isIntersecting) {
+                                                const video = videoRef.current;
+
+                                                setIsPlay(true);
+                                                video.play();
+                                            } else {
+                                                const video = videoRef.current;
+                                                setIsPlay(false);
+                                                video.pause();
+                                            }
+                                        },
+                                        {
+                                            root: null,
+                                            rootMargin: '0px',
+                                            threshold: 0.7,
+                                        },
+                                    );
+                                    const element = postRef.current;
+                                    if (element) {
+                                        observer.observe(element);
+                                    }
+                                    return () => {
+                                        observer.unobserve(element);
+                                    };
+                                }}
                             ></video>
 
                             <div className={cx('play-icon-wrapper')} onClick={HandleIsPlay}>

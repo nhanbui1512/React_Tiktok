@@ -18,7 +18,11 @@ function AccountPreview({ data }) {
     const [followStatus, setFollowStatus] = useState(false);
 
     const handleFollow = () => {
-        setFollowStatus(!followStatus);
+        if (context.currentUser) {
+            setFollowStatus(!followStatus);
+        } else {
+            context.setLoginPopper(true);
+        }
     };
 
     return (

@@ -1,6 +1,6 @@
 import config from '../config';
 // Layout
-import { HeaderOnly, ProfileLayout } from '../Layout';
+import { HeaderOnly, ProfileLayout, VideoLayout } from '../Layout';
 
 // Page
 import Home from '../pages/Home';
@@ -12,6 +12,7 @@ import Live from '../pages/Live';
 import Login from '../pages/Login';
 import Signup from '../pages/Signup';
 import Setting from '../pages/Setting';
+import Video from '../pages/Video';
 
 // Khong can dang nhap
 const publicRoutes = [
@@ -24,6 +25,7 @@ const publicRoutes = [
     { path: config.routes.login, component: Login, layout: null },
     { path: config.routes.signup, component: Signup, layout: null },
     { path: config.routes.setting, component: Setting, layout: HeaderOnly },
+    { path: config.routes.video, component: Video, layout: VideoLayout },
 ];
 
 // Can dang nhap

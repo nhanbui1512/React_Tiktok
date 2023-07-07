@@ -16,7 +16,6 @@ function Following() {
     }
 
     const authToken = localStorage.getItem('authToken') || getCookie('authToken');
-    window.scrollTo(0, 0);
 
     useEffect(() => {
         if (!authToken) {

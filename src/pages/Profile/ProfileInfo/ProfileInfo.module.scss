@@ -131,7 +131,7 @@
     height: 18px;
 }
 
-.upload-btn {
+.edit-btn {
     padding: 6px 28px;
     border-radius: 4px;
 }
@@ -142,7 +142,8 @@
 .dark {
     .name,
     .nick-name,
-    .div-number {
+    .div-number,
+    .edit-btn {
         color: var(--text-white);
     }
     .count-title {
@@ -158,5 +159,12 @@
     .link,
     .link-icon {
         color: var(--text-white);
+    }
+    .edit-btn {
+        background-color: #252525;
+        &:hover {
+            border-color: rgb(208, 209, 211);
+            background-color: rgba(18, 18, 18, 1);
+        }
     }
 }

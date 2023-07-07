@@ -10,12 +10,3 @@ export const login = async ({ email, password }) => {
         return error;
     }
 };
-
-export const getCurrentUser = async ({ token }) => {
-    try {
-        const res = await request.post('auth/me', {
-            token,
-        });
-        return res;
-    } catch (error) {}
-};

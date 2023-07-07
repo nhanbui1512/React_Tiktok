@@ -35,7 +35,6 @@ const cx = classNames.bind(styles);
 
 function Header({ className, isFullWidth = false }) {
     const context = useContext(ThemeContext);
-    // const currentUser = isLogin;
 
     const handleLoginClick = () => {
         context.setLoginPopper(!context.loginPopper);

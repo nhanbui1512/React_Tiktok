@@ -36,7 +36,7 @@ function ProfileInfo({ data }) {
 
                     {context.currentUser ? (
                         <Button
-                            className={cx('upload-btn')}
+                            className={cx('edit-btn')}
                             divbox
                             text
                             leftIcon={<FontAwesomeIcon className={cx('edit-icon')} icon={faPenToSquare} />}
