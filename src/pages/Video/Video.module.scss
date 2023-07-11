@@ -35,6 +35,7 @@
     outline: none;
     height: 100%;
     width: 100%;
+    cursor: pointer;
 }
 .comment-wrapper {
     flex: 0 0 544px;
@@ -107,7 +108,7 @@
     position: relative;
 
     transform: scaleY(0.667);
-    --progress-data: 18.99999722081222%;
+    // --progress-data: 18.99999722081222%;
 }
 .loaded-bar {
     background-color: #fff;
@@ -144,4 +145,65 @@
     font-weight: 600;
     margin-left: 12px;
     text-align: right;
+}
+
+.pause-btn {
+    position: absolute;
+    top: 50%;
+    background-color: transparent;
+    cursor: pointer;
+    .play-icon {
+        width: 70px;
+        height: 70px;
+        color: var(--text-white);
+    }
+}
+.down-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    position: absolute;
+    top: calc(50% + 8px);
+    right: 20px;
+}
+.up-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    position: absolute;
+    top: calc(50% - 48px);
+    right: 20px;
+}
+.moving-icon {
+    color: var(--text-white);
+    font-size: 26px;
+}
+.volume-btn {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    right: 20px;
+    bottom: 20px;
+    border-radius: 50%;
+    .volume-icon {
+        color: var(--text-white);
+        font-size: 18px;
+    }
+}
+.volume-wrapper {
+    width: 28px;
+    height: 100px;
+    background-color: rgba(84, 84, 84, 0.5);
+    input {
+        background-color: rgba(255, 255, 255, 0.34);
+        transform: rotate(-90deg);
+        width: 82px;
+        height: 2px;
+        position: absolute;
+        left: -27px;
+        top: 48%;
+        bottom: 8px;
+        cursor: pointer;
+        border-radius: 4px;
+    }
 }

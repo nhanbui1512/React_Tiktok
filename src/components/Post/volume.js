@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 
 const cx = classNames.bind(styles);
 
-function Volume({ volumeValue, ChangeVolumeGlobal, videoRef }) {
+function Volume({ volumeValue = 50, ChangeVolumeGlobal = () => {}, videoRef, className }) {
     const [volume, setVolume] = useState(volumeValue);
     const inputRef = useRef(null);
 
@@ -24,8 +24,9 @@ function Volume({ volumeValue, ChangeVolumeGlobal, videoRef }) {
         inputRef.current.style.background = `linear-gradient(90deg,#fff ${volumeValue}%,rgb(255 255 255 / 34%)${volumeValue}%`;
     }, [volumeValue]);
 
+    const classes = cx('volume-container', { [className]: className });
     return (
-        <div className={cx('volume-container')}>
+        <div className={classes}>
             <input
                 ref={inputRef}
                 onMouseUp={FinishChangeVolume}

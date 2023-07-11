@@ -182,42 +182,46 @@ function Post({ data, isMuted = true, ChangeVolumeGlobal, volumeValue, SetMuteGl
                         </div>
                     ) : (
                         <div className={cx('player-container')}>
-                            <video
-                                volume={volumeValue / 100}
-                                loop={true}
-                                autoPlay={false}
-                                muted={isMuted}
-                                ref={videoRef}
-                                src={data.file_url}
-                                onLoadedData={() => {
-                                    const observer = new IntersectionObserver(
-                                        ([entry]) => {
-                                            if (entry.isIntersecting) {
-                                                const video = videoRef.current;
+                            <Link to={'/video'}>
+                                <video
+                                    volume={volumeValue / 100}
+                                    loop={true}
+                                    autoPlay={false}
+                                    muted={isMuted}
+                                    ref={videoRef}
+                                    src={data.file_url}
+                                    onLoadedData={() => {
+                                        const observer = new IntersectionObserver(
+                                            ([entry]) => {
+                                                if (entry.isIntersecting) {
+                                                    const video = videoRef.current;
+                                                    setIsPlay(true);
+                                                    video.play();
+                                                } else {
+                                                    setIsPlay(false);
+                                                    const video = videoRef.current;
 
-                                                setIsPlay(true);
-                                                video.play();
-                                            } else {
-                                                const video = videoRef.current;
-                                                setIsPlay(false);
-                                                video.pause();
-                                            }
-                                        },
-                                        {
-                                            root: null,
-                                            rootMargin: '0px',
-                                            threshold: 0.7,
-                                        },
-                                    );
-                                    const element = postRef.current;
-                                    if (element) {
-                                        observer.observe(element);
-                                    }
-                                    return () => {
-                                        observer.unobserve(element);
-                                    };
-                                }}
-                            ></video>
+                                                    if (video) {
+                                                        video.pause();
+                                                    }
+                                                }
+                                            },
+                                            {
+                                                root: null,
+                                                rootMargin: '0px',
+                                                threshold: 1,
+                                            },
+                                        );
+                                        const element = postRef.current;
+                                        if (element) {
+                                            observer.observe(element);
+                                        }
+                                        return () => {
+                                            observer.unobserve(element);
+                                        };
+                                    }}
+                                ></video>
+                            </Link>
 
                             <div className={cx('play-icon-wrapper')} onClick={HandleIsPlay}>
                                 {isPlay ? (

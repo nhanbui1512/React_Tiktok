@@ -577,9 +577,10 @@ export const InstagramColor = ({ width = '1em', height = '1em', className }) => 
     </svg>
 );
 
-export const WhatsAppColor = ({ width = '26px', height = '26px' }) => {
+export const WhatsAppColor = ({ width = '26px', height = '26px', className }) => {
     return (
         <svg
+            className={className}
             width={width}
             data-e2e=""
             height={height}
@@ -651,8 +652,16 @@ export const MoonIcon = ({ width = '1em', height = '1em', className }) => (
     </svg>
 );
 
-export const ShareEmbedIcon = () => (
-    <svg width="26px" data-e2e="" height="26px" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+export const ShareEmbedIcon = ({ className }) => (
+    <svg
+        className={className}
+        width="26px"
+        data-e2e=""
+        height="26px"
+        viewBox="0 0 26 26"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+    >
         <path
             viewBox="0 0 26 26"
             fill="#383838"
@@ -671,9 +680,17 @@ export const ShareEmbedIcon = () => (
     </svg>
 );
 
-export const SendIcon = () => {
+export const SendIcon = ({ className }) => {
     return (
-        <svg width="26" data-e2e="" height="26" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg
+            className={className}
+            width="26"
+            data-e2e=""
+            height="26"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+        >
             <path
                 fillRule="evenodd"
                 clipRule="evenodd"
@@ -690,9 +707,10 @@ export const SendIcon = () => {
     );
 };
 
-export const LinkColor = ({ width = '26px', height = '26px' }) => {
+export const LinkColor = ({ width = '26px', height = '26px', className }) => {
     return (
         <svg
+            className={className}
             width={width}
             data-e2e=""
             height={height}
@@ -871,6 +889,26 @@ export const ScanIcon = ({ width = '16px', height = '16px', className }) => {
                 fillRule="evenodd"
                 clipRule="evenodd"
                 d="M6 17V10C6 7.79086 7.79086 6 10 6H17C17.5523 6 18 6.44772 18 7V9C18 9.55228 17.5523 10 17 10H11C10.4477 10 10 10.4477 10 11V17C10 17.5523 9.55228 18 9 18H7C6.44772 18 6 17.5523 6 17ZM42 17V10C42 7.79086 40.2091 6 38 6H31C30.4477 6 30 6.44772 30 7V9C30 9.55228 30.4477 10 31 10H37C37.5523 10 38 10.4477 38 11V17C38 17.5523 38.4477 18 39 18H41C41.5523 18 42 17.5523 42 17ZM42 38V31C42 30.4477 41.5523 30 41 30H39C38.4477 30 38 30.4477 38 31V37C38 37.5523 37.5523 38 37 38H31C30.4477 38 30 38.4477 30 39V41C30 41.5523 30.4477 42 31 42H38C40.2091 42 42 40.2091 42 38ZM6 31V38C6 40.2091 7.79086 42 10 42H17C17.5523 42 18 41.5523 18 41V39C18 38.4477 17.5523 38 17 38H11C10.4477 38 10 37.5523 10 37V31C10 30.4477 9.55228 30 9 30H7C6.44772 30 6 30.4477 6 31ZM7 22C6.44772 22 6 22.4477 6 23V25C6 25.5523 6.44772 26 7 26H41C41.5523 26 42 25.5523 42 25V23C42 22.4477 41.5523 22 41 22H7Z"
+            ></path>
+        </svg>
+    );
+};
+
+export const ShareIcon = ({ width = 16, height = 16, className }) => {
+    return (
+        <svg
+            className={className}
+            width={width}
+            height={height}
+            data-e2e=""
+            viewBox="0 0 48 48"
+            fill="currentColor"
+            xmlns="http://www.w3.org/2000/svg"
+        >
+            <path
+                fillRule="evenodd"
+                clipRule="evenodd"
+                d="M26.4588 3.90871C25.3403 2.86068 23.4902 3.64074 23.4902 5.16041V13.0502C20.4499 14.1752 11.3194 18.1407 6.6047 26.6176C-1.49677 42.1311 3.82522 43.478 5.77105 39.7411C13.2467 29.1857 20.8146 30.4298 23.4902 31.3209V38.2274C23.4902 39.7114 25.2658 40.5055 26.4023 39.5298L43.3681 24.9655C44.9268 23.6274 44.9791 21.2608 43.4811 19.8573L26.4588 3.90871Z"
             ></path>
         </svg>
     );
