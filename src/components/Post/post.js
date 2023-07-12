@@ -143,7 +143,7 @@ function Post({ data, isMuted = true, ChangeVolumeGlobal, volumeValue, SetMuteGl
                         </div>
                         <h4 className={cx('music_info')}>
                             <FontAwesomeIcon className={cx('music_icon')} icon={faMusic}></FontAwesomeIcon>
-                            <Link className={cx('music_name')}>original sound - Andrew</Link>
+                            <Link className={cx('music_name')}>{data.music}</Link>
                         </h4>
                     </div>
                 </div>

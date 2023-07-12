@@ -14,22 +14,25 @@ import {
     WhatsAppColor,
 } from '../../../components/Icons';
 
+import { useContext } from 'react';
+import { ThemeContext } from '../../../Context';
+
 const cx = classNames.bind(styles);
 
-function Comment() {
+function Comment({ data = {} }) {
+    const context = useContext(ThemeContext);
+
     return (
         <div className={cx('wrapper')}>
             <div className={cx('header')}>
                 <div className={cx('account-wrapper')}>
                     <div className={cx('account')}>
-                        <img
-                            alt=""
-                            className={cx('avatar')}
-                            src="https://files.fullstack.edu.vn/f8-tiktok/users/5479/645864f59054b.jpg"
-                        ></img>
+                        <img alt="" className={cx('avatar')} src={data.user.avatar}></img>
                         <div className={cx('info')}>
-                            <p className={cx('nick-name')}>hoanganh11024</p>
-                            <p className={cx('name')}>Vũ Đặng Hoàng Anh · 2023-05-10</p>
+                            <p className={cx('nick-name')}>{data.user.nickname}</p>
+                            <p className={cx('name')}>
+                                {`${data.user.first_name} ${data.user.last_name}`} · {data.published_at.split(' ')[0]}
+                            </p>
                         </div>
                     </div>
                     <Button outline className={cx('follow-btn')}>
@@ -37,10 +40,9 @@ function Comment() {
                     </Button>
                 </div>
 
-                <p className={cx('description')}>Description video</p>
+                <p className={cx('description')}>{data.description}</p>
                 <Link to={'/'} className={cx('music-info')}>
-                    {' '}
-                    <FontAwesomeIcon className={cx('music-icon')} icon={faMusic} /> Nhạc nền - Vũ Đặng Hoàng Anh{' '}
+                    <FontAwesomeIcon className={cx('music-icon')} icon={faMusic} /> {data.music}
                 </Link>
 
                 <div className={cx('interactive')}>
@@ -50,13 +52,13 @@ function Comment() {
                                 <button className={cx('act-btn')}>
                                     <FontAwesomeIcon className={cx('act-icon')} icon={faHeart} />
                                 </button>
-                                <strong className={cx('count-number')}>5</strong>
+                                <strong className={cx('count-number')}>{data.likes_count}</strong>
                             </div>
                             <div className={cx('count-box')}>
                                 <button className={cx('act-btn')}>
                                     <FontAwesomeIcon className={cx('act-icon')} icon={faComment} />
                                 </button>
-                                <strong className={cx('count-number')}>3</strong>
+                                <strong className={cx('count-number')}>{data.comments_count}</strong>
                             </div>
                         </div>
                         <div className={cx('social-media')}>

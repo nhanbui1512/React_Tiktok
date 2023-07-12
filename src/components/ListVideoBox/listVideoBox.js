@@ -53,6 +53,7 @@ function ListVideoBox({ authToken }) {
             VideoServices.getVideos({ type: 'for-you', page: page + 1 })
                 .then((data) => {
                     setVideos((prevState) => [...prevState, ...data]);
+                    context.setListVideo((prevState) => [...prevState, ...data]);
                 })
                 .then(() => {
                     setPage(page + 1);

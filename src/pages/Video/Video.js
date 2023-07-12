@@ -11,12 +11,12 @@ import {
     faXmark,
 } from '@fortawesome/free-solid-svg-icons';
 import { faFlag } from '@fortawesome/free-regular-svg-icons';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import Comment from './Comment';
 import Volume from '../../components/Post/volume';
 import HeadlessTippy from '@tippyjs/react/headless';
 
-import { useRef, useState, useContext } from 'react';
+import { useRef, useState, useContext, useEffect } from 'react';
 import { ThemeContext } from '../../Context';
 
 const cx = classNames.bind(styles);
@@ -28,7 +28,7 @@ function Video() {
     const [timePlay, setTimePlay] = useState('00:00');
     const [progressData, setProgressData] = useState('0%');
     const [index, setIndex] = useState(0);
-
+    let { id } = useParams();
     const context = useContext(ThemeContext);
 
     const handlePlay = () => {
@@ -37,6 +37,14 @@ function Video() {
             setPlay(!isPlay);
         }
     };
+
+    useEffect(() => {
+        context.listVideo.map((item, index) => {
+            if (item.id === Number(id)) {
+                setIndex(index);
+            }
+        });
+    }, []);
 
     return (
         <div className={cx('wrapper')}>
@@ -119,14 +127,16 @@ function Video() {
                                 }
                             }}
                         >
-                            {' '}
                             <FontAwesomeIcon className={cx('moving-icon')} icon={faChevronUp} />
                         </button>
 
                         <button
                             className={cx(['videoPlayerBtn', 'down-btn'])}
                             onClick={() => {
-                                setIndex(index + 1);
+                                if (index < context.listVideo.length - 1) {
+                                    // xử lý tạm thời khi chưa load thêm dữ liệu
+                                    setIndex(index + 1);
+                                }
                             }}
                         >
                             <FontAwesomeIcon className={cx('moving-icon')} icon={faChevronDown} />
@@ -164,7 +174,7 @@ function Video() {
                 </button>
             </div>
             <div className={cx('comment-wrapper')}>
-                <Comment />
+                <Comment data={context.listVideo[index]} />
             </div>
         </div>
     );
