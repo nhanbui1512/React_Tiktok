@@ -8,6 +8,6 @@ const routes = {
     login: '/login/*',
     signup: '/signup/*',
     setting: '/settings',
-    video: '/video/*',
+    video: '/video/:id',
 };
 export default routes;

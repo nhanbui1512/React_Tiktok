@@ -1,6 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styles from './Video.module.scss';
 import classNames from 'classnames/bind';
+
 import {
     faChevronDown,
     faChevronUp,
@@ -15,17 +16,20 @@ import Comment from './Comment';
 import Volume from '../../components/Post/volume';
 import HeadlessTippy from '@tippyjs/react/headless';
 
-import { useRef, useState } from 'react';
+import { useRef, useState, useContext } from 'react';
+import { ThemeContext } from '../../Context';
 
 const cx = classNames.bind(styles);
 
 function Video() {
     const videoRef = useRef(null);
-    const [isPlay, setPlay] = useState(false);
+    const [isPlay, setPlay] = useState(true);
     const [isMuted, setIsmuted] = useState(false);
-    const [totalTime] = useState('00:15');
     const [timePlay, setTimePlay] = useState('00:00');
     const [progressData, setProgressData] = useState('0%');
+    const [index, setIndex] = useState(0);
+
+    const context = useContext(ThemeContext);
 
     const handlePlay = () => {
         if (videoRef.current.readyState === 4) {
@@ -41,7 +45,8 @@ function Video() {
                     <div className={cx('videoPlayerWrapper')}>
                         <div
                             style={{
-                                backgroundImage: `url('https://files.fullstack.edu.vn/f8-tiktok/videos/1938-641efdc1e6067.jpg')`,
+                                backgroundImage:
+                                    context.listVideo.length > 0 ? `url('${context.listVideo[index].thumb_url}')` : '',
                             }}
                             className={cx('video-background')}
                         ></div>
@@ -50,6 +55,7 @@ function Video() {
                             onClick={() => {
                                 handlePlay();
                             }}
+                            autoPlay
                             onTimeUpdate={(e) => {
                                 let currentTime = e.target.currentTime;
                                 let duration = videoRef.current.duration;
@@ -57,13 +63,11 @@ function Video() {
 
                                 let realTime = new Date(currentTime * 1000);
                                 let secondStr = String(realTime.getSeconds()).padStart(2, '0');
-
                                 setTimePlay(`00:${secondStr}`);
-
                                 setProgressData(`${progressPercent}%`);
                             }}
                             className={cx('videoPlayer')}
-                            src="https://files.fullstack.edu.vn/f8-tiktok/videos/1938-641efdc1421f2.mp4"
+                            src={context.listVideo.length > 0 ? context.listVideo[index].file_url : ''}
                             loop
                         ></video>
                         <div className={cx('playerControlWrapper')}>
@@ -77,7 +81,6 @@ function Video() {
                                         let duration = videoRef.current.duration;
                                         let setTimeValue = (duration * value) / 100;
                                         videoRef.current.currentTime = setTimeValue;
-                                        console.log(value);
                                         setProgressData(`${value}%`);
                                     }}
                                     className={cx('video-input')}
@@ -88,7 +91,12 @@ function Video() {
                                 />
                             </div>
                             <div className={cx('video-timer')}>
-                                <span>{timePlay}</span>/<span>{totalTime}</span>
+                                <span>{timePlay}</span>/
+                                <span>
+                                    {context.listVideo.length > 0
+                                        ? context.listVideo[index].meta.playtime_string
+                                        : '00:00'}
+                                </span>
                             </div>
                         </div>
 
@@ -103,12 +111,25 @@ function Video() {
                             </button>
                         )}
 
-                        <button className={cx(['videoPlayerBtn', 'down-btn'])}>
-                            <FontAwesomeIcon className={cx('moving-icon')} icon={faChevronDown} />
-                        </button>
-                        <button className={cx(['videoPlayerBtn', 'up-btn'])}>
+                        <button
+                            className={cx(['videoPlayerBtn', 'up-btn'])}
+                            onClick={() => {
+                                if (index > 0) {
+                                    setIndex(index - 1);
+                                }
+                            }}
+                        >
                             {' '}
                             <FontAwesomeIcon className={cx('moving-icon')} icon={faChevronUp} />
+                        </button>
+
+                        <button
+                            className={cx(['videoPlayerBtn', 'down-btn'])}
+                            onClick={() => {
+                                setIndex(index + 1);
+                            }}
+                        >
+                            <FontAwesomeIcon className={cx('moving-icon')} icon={faChevronDown} />
                         </button>
 
                         <HeadlessTippy

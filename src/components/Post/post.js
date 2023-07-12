@@ -112,31 +112,6 @@ function Post({ data, isMuted = true, ChangeVolumeGlobal, volumeValue, SetMuteGl
 
     useEffect(() => {
         if (!isLoading) {
-            // const observer = new IntersectionObserver(
-            //     ([entry]) => {
-            //         if (entry.isIntersecting) {
-            //             const video = videoRef.current;
-            //             setIsPlay(true);
-            //             video.play();
-            //         } else {
-            //             const video = videoRef.current;
-            //             setIsPlay(false);
-            //             video.pause();
-            //         }
-            //     },
-            //     {
-            //         root: null,
-            //         rootMargin: '0px',
-            //         threshold: 0.7,
-            //     },
-            // );
-            // const element = postRef.current;
-            // if (element) {
-            //     observer.observe(element);
-            // }
-            // return () => {
-            //     observer.unobserve(element);
-            // };
         }
     }, [isLoading]);
 
@@ -182,7 +157,7 @@ function Post({ data, isMuted = true, ChangeVolumeGlobal, volumeValue, SetMuteGl
                         </div>
                     ) : (
                         <div className={cx('player-container')}>
-                            <Link to={'/video'}>
+                            <Link to={`/video/${data.id}`}>
                                 <video
                                     volume={volumeValue / 100}
                                     loop={true}

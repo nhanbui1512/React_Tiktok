@@ -3,8 +3,9 @@ import styles from './listVideoBox.module.scss';
 
 import * as VideoServices from '../../service/videoServices';
 import Post from '../Post';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import Loading from '../Loading';
+import { ThemeContext } from '../../Context';
 
 const cx = classNames.bind(styles);
 function ListVideoBox({ authToken }) {
@@ -14,6 +15,8 @@ function ListVideoBox({ authToken }) {
     const [volume, SetVolume] = useState(40);
 
     const [isMuted, setIsMuted] = useState(true);
+
+    const context = useContext(ThemeContext);
 
     const handleScroll = () => {
         const scrollTop = document.documentElement.scrollTop;
@@ -74,6 +77,7 @@ function ListVideoBox({ authToken }) {
             VideoServices.getVideos({ type: 'for-you', page: page })
                 .then((data) => {
                     setVideos(data);
+                    context.setListVideo(data);
                 })
                 .catch((err) => {
                     console.log(err);

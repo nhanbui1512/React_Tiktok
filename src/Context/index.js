@@ -9,6 +9,7 @@ function ThemeProvider({ children }) {
     const [currentUser, setCurrentUser] = useState(false);
     const [notiLoginSuccess, setNotiLoginSuccess] = useState(false);
     const [user, setUser] = useState({});
+    const [listVideo, setListVideo] = useState([]);
 
     const toggleTheme = () => {
         setTheme(theme === 'dark' ? 'light' : 'dark');
@@ -61,6 +62,8 @@ function ThemeProvider({ children }) {
         setNotiLoginSuccess,
         user,
         setUser,
+        listVideo,
+        setListVideo,
     };
     return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>;
 }
