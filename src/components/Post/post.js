@@ -28,7 +28,7 @@ import Volume from './volume';
 import LoadingSpinner from '../LoadingSpinner';
 import { useContext } from 'react';
 import { ThemeContext } from '../../Context';
-import Menu from './menu';
+import MenuShare from '../MenuShare';
 
 const cx = classNames.bind(styles);
 
@@ -249,14 +249,14 @@ function Post({ data, isMuted = true, ChangeVolumeGlobal, volumeValue, SetMuteGl
                             </span>
                             <strong className={cx('count')}>{data.comments_count}</strong>
                         </div>
-                        <Menu>
+                        <MenuShare>
                             <div className={cx('action_btn')}>
                                 <span className={cx('action_btn_bg')}>
                                     <FontAwesomeIcon className={cx('icon')} icon={faShare}></FontAwesomeIcon>
                                 </span>
                                 <strong className={cx('count')}>{data.shares_count}</strong>
                             </div>
-                        </Menu>
+                        </MenuShare>
                     </div>
                 </div>
             </div>

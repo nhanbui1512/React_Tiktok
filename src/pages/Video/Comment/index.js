@@ -2,8 +2,9 @@ import classNames from 'classnames/bind';
 import styles from './Comment.module.scss';
 import Button from '../../../components/Button';
 import { Link } from 'react-router-dom';
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faComment, faHeart, faMusic } from '@fortawesome/free-solid-svg-icons';
+import { faCommentDots, faHeart, faMusic } from '@fortawesome/free-solid-svg-icons';
 import {
     FaceBookColor,
     LinkColor,
@@ -14,13 +15,13 @@ import {
     WhatsAppColor,
 } from '../../../components/Icons';
 
-import { useContext } from 'react';
-import { ThemeContext } from '../../../Context';
+import MenuShare from '../../../components/MenuShare';
+import CommentItem from '../CommentItem';
 
 const cx = classNames.bind(styles);
 
-function Comment({ data = {} }) {
-    const context = useContext(ThemeContext);
+function Comment({ data = {}, comments = [] }) {
+    // const context = useContext(ThemeContext);
 
     return (
         <div className={cx('wrapper')}>
@@ -56,7 +57,7 @@ function Comment({ data = {} }) {
                             </div>
                             <div className={cx('count-box')}>
                                 <button className={cx('act-btn')}>
-                                    <FontAwesomeIcon className={cx('act-icon')} icon={faComment} />
+                                    <FontAwesomeIcon className={cx('act-icon')} icon={faCommentDots} />
                                 </button>
                                 <strong className={cx('count-number')}>{data.comments_count}</strong>
                             </div>
@@ -68,9 +69,12 @@ function Comment({ data = {} }) {
                             <FaceBookColor className={cx('social-media-icon')} />
                             <WhatsAppColor className={cx('social-media-icon')} />
                             <TwitterColor className={cx('social-media-icon')} />
-                            <button className={cx('share-btn')}>
-                                <ShareIcon className={cx('social-media-icon')} />
-                            </button>
+
+                            <MenuShare offset={[0, 15]}>
+                                <button className={cx('share-btn')}>
+                                    <ShareIcon className={cx('social-media-icon')} />
+                                </button>
+                            </MenuShare>
                         </div>
                     </div>
                     <div className={cx('link-box')}>
@@ -81,7 +85,10 @@ function Comment({ data = {} }) {
             </div>
             <div className={cx('content')}>
                 <div className={cx('comment-wrapper')}>
-                    <p className={cx('empty')}>hãy là người đầu tiên bình luận</p>
+                    {comments.length > 0 || <p className={cx('empty')}>Hãy là người đầu tiên bình luận</p>}
+                    {comments.map((item) => {
+                        return <CommentItem data={item} key={item.id} />;
+                    })}
                 </div>
             </div>
             <div className={cx('footer')}>

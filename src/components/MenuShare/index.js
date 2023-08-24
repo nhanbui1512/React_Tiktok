@@ -17,17 +17,21 @@ import {
     MailColor,
     LINEColor,
     PinterestColor,
-} from '../../Icons';
+} from '../Icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import { useState, useContext } from 'react';
 
-import { ThemeContext } from '../../../Context';
+import { ThemeContext } from '../../Context';
 
 const cx = classNames.bind(styles);
 
-function Menu({ children }) {
+function MenuShare({ children, className, offset = [-26, 8] }) {
     const context = useContext(ThemeContext);
+
+    const classes = cx(['wrapper', context.theme], {
+        [className]: className,
+    });
 
     const itemsMenu = [
         { title: 'Nhúng', icon: <ShareEmbedIcon /> },
@@ -103,13 +107,13 @@ function Menu({ children }) {
 
     return (
         <HeadlessTippy
-            offset={[-26, 8]}
+            offset={offset}
             interactive
             delay={[0, 200]}
             placement="bottom-start"
             hideOnClick={false}
             render={(attrs) => (
-                <div className={cx(['wrapper', context.theme])}>
+                <div className={classes}>
                     <div className={cx('list-item')}>{renderItem(listMenu)}</div>
                 </div>
             )}
@@ -122,4 +126,4 @@ function Menu({ children }) {
     );
 }
 
-export default Menu;
+export default MenuShare;

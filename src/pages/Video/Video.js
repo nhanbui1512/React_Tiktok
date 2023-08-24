@@ -19,6 +19,10 @@ import HeadlessTippy from '@tippyjs/react/headless';
 import { useRef, useState, useContext, useEffect } from 'react';
 import { ThemeContext } from '../../Context';
 
+//service
+import { getCommentsOfVieo } from '../../service/commentService';
+import { getCookie } from '../../service/local/cookie';
+
 const cx = classNames.bind(styles);
 
 function Video() {
@@ -28,8 +32,10 @@ function Video() {
     const [timePlay, setTimePlay] = useState('00:00');
     const [progressData, setProgressData] = useState('0%');
     const [index, setIndex] = useState(0);
-    let { id } = useParams();
     const context = useContext(ThemeContext);
+
+    const { id } = useParams();
+    const [comments, setComments] = useState([]);
 
     const handlePlay = () => {
         if (videoRef.current.readyState === 4) {
@@ -41,10 +47,19 @@ function Video() {
     useEffect(() => {
         context.listVideo.map((item, index) => {
             if (item.id === Number(id)) {
-                setIndex(index);
+                return setIndex(index);
             }
         });
-    }, []);
+    }, [id, context.listVideo]);
+
+    // fetch comments
+    useEffect(() => {
+        const token = getCookie('authToken');
+        const idVideo = context.listVideo[index].id;
+        getCommentsOfVieo({ idVideo: idVideo, token, page: 1 }).then((res) => {
+            setComments(res.data.data);
+        });
+    }, [index, context.listVideo]);
 
     return (
         <div className={cx('wrapper')}>
@@ -174,7 +189,7 @@ function Video() {
                 </button>
             </div>
             <div className={cx('comment-wrapper')}>
-                <Comment data={context.listVideo[index]} />
+                <Comment data={context.listVideo[index]} comments={comments} />
             </div>
         </div>
     );
