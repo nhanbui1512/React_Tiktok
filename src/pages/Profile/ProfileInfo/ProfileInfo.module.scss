@@ -4,6 +4,7 @@
     max-width: 624px;
     padding-right: 92px;
     margin-bottom: 20px;
+    position: relative;
 }
 .header-info {
     display: flex;
@@ -139,6 +140,23 @@
     width: 18px;
     height: 18px;
 }
+
+.profile-action {
+    position: absolute;
+    right: 12px;
+    top: 12px;
+    display: flex;
+}
+.profile-action-icon {
+    cursor: pointer;
+    &:not(:first-child) {
+        margin-left: 16px;
+    }
+}
+.action-wrapper {
+    position: relative;
+}
+
 .dark {
     .name,
     .nick-name,
@@ -166,5 +184,8 @@
             border-color: rgb(208, 209, 211);
             background-color: rgba(18, 18, 18, 1);
         }
+    }
+    .profile-action-icon {
+        color: var(--text-white);
     }
 }

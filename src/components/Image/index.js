@@ -1,8 +1,13 @@
 import PropTypes from 'prop-types';
-import { useState, forwardRef } from 'react';
+import { useState, forwardRef, useEffect } from 'react';
 import images from '../../assests/images';
 const Image = forwardRef(({ src, alt, ...props }, ref) => {
     const [fallBack, setFallBack] = useState('');
+
+    useEffect(() => {
+        setFallBack(''); // Reset fallBack when src changes
+    }, [src]);
+
     const handleErr = () => {
         setFallBack(images.noImage);
     };

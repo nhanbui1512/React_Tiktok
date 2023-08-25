@@ -6,9 +6,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import Image from '../../../components/Image';
 import Button from '../../../components/Button';
-import { faCheckCircle, faLink, faPenToSquare } from '@fortawesome/free-solid-svg-icons';
+import { faCheckCircle, faEllipsis, faLink, faPenToSquare } from '@fortawesome/free-solid-svg-icons';
 import { useState, useContext } from 'react';
 import { ThemeContext } from '../../../Context';
+import { ShareIconRegular } from '../../../components/Icons';
+import MenuShare from '../../../components/MenuShare';
 
 const cx = classNames.bind(styles);
 
@@ -70,6 +72,20 @@ function ProfileInfo({ data }) {
                     <FontAwesomeIcon className={cx('link-icon')} icon={faLink} />
                     <span>{data.facebook_url}</span>
                 </Link>
+            </div>
+
+            <div className={cx('profile-action')}>
+                <div className={cx('action-wrapper')}>
+                    <MenuShare placement="bottom-end" offset={[30, 4]}>
+                        <span className={cx('profile-action-icon')}>
+                            <ShareIconRegular width="24px" height="24px" />
+                        </span>
+                    </MenuShare>
+
+                    <span className={cx('profile-action-icon')}>
+                        <FontAwesomeIcon width={24} height={24} icon={faEllipsis}></FontAwesomeIcon>
+                    </span>
+                </div>
             </div>
         </div>
     );

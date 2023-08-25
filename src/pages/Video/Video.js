@@ -49,6 +49,7 @@ function Video() {
             if (item.id === Number(id)) {
                 return setIndex(index);
             }
+            return null;
         });
     }, [id, context.listVideo]);
 
@@ -134,29 +135,27 @@ function Video() {
                             </button>
                         )}
 
-                        <button
-                            className={cx(['videoPlayerBtn', 'up-btn'])}
-                            onClick={() => {
-                                if (index > 0) {
+                        {index > 0 && (
+                            <button
+                                className={cx(['videoPlayerBtn', 'up-btn'])}
+                                onClick={() => {
                                     setIndex(index - 1);
-                                }
-                            }}
-                        >
-                            <FontAwesomeIcon className={cx('moving-icon')} icon={faChevronUp} />
-                        </button>
+                                }}
+                            >
+                                <FontAwesomeIcon className={cx('moving-icon')} icon={faChevronUp} />
+                            </button>
+                        )}
 
-                        <button
-                            className={cx(['videoPlayerBtn', 'down-btn'])}
-                            onClick={() => {
-                                if (index < context.listVideo.length - 1) {
-                                    // xử lý tạm thời khi chưa load thêm dữ liệu
+                        {index < context.listVideo.length - 1 && (
+                            <button
+                                className={cx(['videoPlayerBtn', 'down-btn'])}
+                                onClick={() => {
                                     setIndex(index + 1);
-                                }
-                            }}
-                        >
-                            <FontAwesomeIcon className={cx('moving-icon')} icon={faChevronDown} />
-                        </button>
-
+                                }}
+                            >
+                                <FontAwesomeIcon className={cx('moving-icon')} icon={faChevronDown} />
+                            </button>
+                        )}
                         <HeadlessTippy
                             offset={[0, 10]}
                             interactive

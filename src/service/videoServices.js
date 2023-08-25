@@ -1,11 +1,15 @@
 import * as request from '../utils/request';
 
-export const getVideos = async ({ type, page }) => {
+export const getVideos = async ({ type, page, token = '' }) => {
     try {
         const res = await request.get('videos', {
             params: {
                 type,
                 page: page,
+            },
+
+            headers: {
+                Authorization: `Bearer ${token}`,
             },
         });
         return res.data;

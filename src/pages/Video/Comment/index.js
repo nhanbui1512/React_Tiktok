@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCommentDots, faHeart, faMusic } from '@fortawesome/free-solid-svg-icons';
+import Image from '../../../components/Image';
 import {
     FaceBookColor,
     LinkColor,
@@ -28,7 +29,9 @@ function Comment({ data = {}, comments = [] }) {
             <div className={cx('header')}>
                 <div className={cx('account-wrapper')}>
                     <div className={cx('account')}>
-                        <img alt="" className={cx('avatar')} src={data.user.avatar}></img>
+                        {/* <img alt="" className={cx('avatar')} src={data.user.avatar}></img> */}
+                        <Image className={cx('avatar')} src={data.user.avatar} />
+
                         <div className={cx('info')}>
                             <p className={cx('nick-name')}>{data.user.nickname}</p>
                             <p className={cx('name')}>

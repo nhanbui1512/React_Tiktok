@@ -26,7 +26,7 @@ import { ThemeContext } from '../../Context';
 
 const cx = classNames.bind(styles);
 
-function MenuShare({ children, className, offset = [-26, 8] }) {
+function MenuShare({ children, className, offset = [-26, 8], placement = 'bottom-start' }) {
     const context = useContext(ThemeContext);
 
     const classes = cx(['wrapper', context.theme], {
@@ -110,8 +110,9 @@ function MenuShare({ children, className, offset = [-26, 8] }) {
             offset={offset}
             interactive
             delay={[0, 200]}
-            placement="bottom-start"
+            placement={placement}
             hideOnClick={false}
+            popperOptions={{ modifiers: [{ name: 'flip', enabled: false }] }}
             render={(attrs) => (
                 <div className={classes}>
                     <div className={cx('list-item')}>{renderItem(listMenu)}</div>

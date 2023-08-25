@@ -6,9 +6,10 @@ import Post from '../Post';
 import { useState, useEffect, useContext } from 'react';
 import Loading from '../Loading';
 import { ThemeContext } from '../../Context';
+import { getCookie } from '../../service/local/cookie';
 
 const cx = classNames.bind(styles);
-function ListVideoBox({ authToken }) {
+function ListVideoBox() {
     const [videos, setVideos] = useState([]);
     const [isFetching, setIsFetching] = useState(false);
     const [page, setPage] = useState(1);
@@ -37,53 +38,31 @@ function ListVideoBox({ authToken }) {
     };
 
     const fetchMoreListItems = () => {
-        if (authToken) {
-            VideoServices.getFollowingVideos({ type: 'for-you', page: page + 1, token: authToken })
-                .then((data) => {
-                    setVideos((prevState) => [...prevState, ...data]);
-                })
-                .then(() => {
-                    setPage(page + 1);
-                    setIsFetching(false);
-                })
-                .catch((err) => {
-                    console.log(err);
-                });
-        } else {
-            VideoServices.getVideos({ type: 'for-you', page: page + 1 })
-                .then((data) => {
-                    setVideos((prevState) => [...prevState, ...data]);
-                    context.setListVideo((prevState) => [...prevState, ...data]);
-                })
-                .then(() => {
-                    setPage(page + 1);
-                    setIsFetching(false);
-                })
-                .catch((err) => {
-                    console.log(err);
-                });
-        }
+        VideoServices.getVideos({ type: 'for-you', page: page + 1 })
+            .then((data) => {
+                setVideos((prevState) => [...prevState, ...data]);
+                context.setListVideo((prevState) => [...prevState, ...data]);
+            })
+            .then(() => {
+                setPage(page + 1);
+                setIsFetching(false);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
     };
 
     useEffect(() => {
-        if (authToken) {
-            VideoServices.getFollowingVideos({ page: page, token: authToken })
-                .then((data) => {
-                    setVideos(data);
-                })
-                .catch((err) => {
-                    console.log(err);
-                });
-        } else {
-            VideoServices.getVideos({ type: 'for-you', page: page })
-                .then((data) => {
-                    setVideos(data);
-                    context.setListVideo(data);
-                })
-                .catch((err) => {
-                    console.log(err);
-                });
-        }
+        const authToken = getCookie('authToken') || '';
+
+        VideoServices.getVideos({ type: 'for-you', page: page, token: authToken })
+            .then((data) => {
+                setVideos(data);
+                context.setListVideo(data);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
 
         window.addEventListener('scroll', handleScroll);
         return () => window.removeEventListener('scroll', handleScroll);

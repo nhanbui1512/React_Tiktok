@@ -30,6 +30,9 @@ import { useContext } from 'react';
 import { ThemeContext } from '../../Context';
 import MenuShare from '../MenuShare';
 
+import { likeVideo } from '../../service/likeService';
+import { getCookie } from '../../service/local/cookie';
+
 const cx = classNames.bind(styles);
 
 function Post({ data, isMuted = true, ChangeVolumeGlobal, volumeValue, SetMuteGlobal, isLoading = false }) {
@@ -41,7 +44,7 @@ function Post({ data, isMuted = true, ChangeVolumeGlobal, volumeValue, SetMuteGl
     const [isFollow, setIsFollow] = useState(data.user.is_followed);
 
     // tách compoent
-    const [isLikes, setIsLikes] = useState(false);
+    const [isLikes, setIsLikes] = useState(data.is_liked);
 
     const [isPlay, setIsPlay] = useState(true);
 
@@ -82,8 +85,20 @@ function Post({ data, isMuted = true, ChangeVolumeGlobal, volumeValue, SetMuteGl
     };
 
     const HandleLike = () => {
+        const authToken = getCookie('authToken');
+
+        console.log(authToken);
+
         if (context.currentUser) {
             setIsLikes(!isLikes);
+            console.log(data.id);
+            likeVideo({ idVideo: data.id, token: authToken })
+                .then((res) => {
+                    console.log(res);
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
         } else {
             context.setLoginPopper(true);
         }
@@ -249,7 +264,7 @@ function Post({ data, isMuted = true, ChangeVolumeGlobal, volumeValue, SetMuteGl
                             </span>
                             <strong className={cx('count')}>{data.comments_count}</strong>
                         </div>
-                        <MenuShare>
+                        <MenuShare placement="top-start">
                             <div className={cx('action_btn')}>
                                 <span className={cx('action_btn_bg')}>
                                     <FontAwesomeIcon className={cx('icon')} icon={faShare}></FontAwesomeIcon>

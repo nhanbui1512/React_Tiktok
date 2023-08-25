@@ -49,7 +49,7 @@ function ThemeProvider({ children }) {
                     console.error(error);
                 });
         }
-    });
+    }, []);
 
     const value = {
         loginPopper: loginPopper,
