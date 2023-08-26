@@ -15,6 +15,8 @@ function ListVideoBox() {
     const [page, setPage] = useState(1);
     const [volume, SetVolume] = useState(40);
 
+    const authToken = getCookie('authToken') || '';
+
     const [isMuted, setIsMuted] = useState(true);
 
     const context = useContext(ThemeContext);
@@ -38,7 +40,7 @@ function ListVideoBox() {
     };
 
     const fetchMoreListItems = () => {
-        VideoServices.getVideos({ type: 'for-you', page: page + 1 })
+        VideoServices.getVideos({ type: 'for-you', page: page + 1, token: authToken })
             .then((data) => {
                 setVideos((prevState) => [...prevState, ...data]);
                 context.setListVideo((prevState) => [...prevState, ...data]);
@@ -53,8 +55,6 @@ function ListVideoBox() {
     };
 
     useEffect(() => {
-        const authToken = getCookie('authToken') || '';
-
         VideoServices.getVideos({ type: 'for-you', page: page, token: authToken })
             .then((data) => {
                 setVideos(data);
@@ -66,7 +66,7 @@ function ListVideoBox() {
 
         window.addEventListener('scroll', handleScroll);
         return () => window.removeEventListener('scroll', handleScroll);
-    }, []);
+    }, [authToken]);
 
     useEffect(() => {
         if (!isFetching) return;

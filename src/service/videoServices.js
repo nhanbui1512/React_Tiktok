@@ -36,3 +36,12 @@ export const getFollowingVideos = async ({ page, token }) => {
         return [];
     }
 };
+
+export const getVideosUserLiked = async ({ idUser, page = 1 }) => {
+    try {
+        const res = await request.get(`users/${idUser}/liked-videos?page=${page}`);
+        return res;
+    } catch (error) {
+        return error;
+    }
+};

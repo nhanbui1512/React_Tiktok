@@ -4,7 +4,7 @@ import axios from 'axios';
 const ThemeContext = createContext();
 
 function ThemeProvider({ children }) {
-    const [theme, setTheme] = useState(localStorage.getItem('theme'));
+    const [theme, setTheme] = useState(localStorage.getItem('theme') || 'light');
     const [loginPopper, setLoginPopper] = useState(false);
     const [currentUser, setCurrentUser] = useState(false);
     const [notiLoginSuccess, setNotiLoginSuccess] = useState(false);

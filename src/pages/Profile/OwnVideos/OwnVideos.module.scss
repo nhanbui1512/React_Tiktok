@@ -21,7 +21,7 @@
         transform: scaleY(0.5);
     }
 }
-.video-tab {
+.header-tab {
     font-weight: 600;
     font-size: 18px;
     line-height: 25px;
@@ -58,7 +58,8 @@
     grid-template-columns: repeat(auto-fill, minmax(184px, 1fr));
 }
 .dark {
-    .video-tab {
+    .video-tab,
+    .header-tab {
         color: var(--text-white);
     }
     .bottom-line {
