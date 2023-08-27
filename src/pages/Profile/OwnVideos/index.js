@@ -9,11 +9,12 @@ import { ThemeContext } from '../../../Context';
 
 import VideoItem from '../VideoItem';
 import LikedVideos from '../LikedVideos';
-import Saved from '../Saved';
+import MainDetail from '../MainDetail';
+import { BookMarkIcon } from '../../../components/Icons';
 
 const cx = classNames.bind(styles);
 
-function OwnVideos({ videos }) {
+function OwnVideos({ videos, userId }) {
     const context = useContext(ThemeContext);
 
     const [ownVideos, setOwnVideos] = useState([]);
@@ -36,12 +37,12 @@ function OwnVideos({ videos }) {
             title: 'Video',
         },
         {
-            title: 'Đã Thích',
-            icon: <FontAwesomeIcon className={cx('icon-lock')} icon={faLock} />,
-        },
-        {
             title: 'Yêu Thích',
             icon: <FontAwesomeIcon className={cx('icon-lock')} icon={faBookmark} />,
+        },
+        {
+            title: 'Đã Thích',
+            icon: <FontAwesomeIcon className={cx('icon-lock')} icon={faLock} />,
         },
     ];
 
@@ -57,10 +58,15 @@ function OwnVideos({ videos }) {
                 );
 
             case 1:
-                return <LikedVideos />;
-
+                return (
+                    <MainDetail
+                        icon={BookMarkIcon}
+                        title="Bài đăng yêu thích"
+                        desc="Bài đăng bạn yêu thích sẽ xuất hiện tại đây."
+                    />
+                );
             case 2:
-                return <Saved />;
+                return <LikedVideos userId={userId} />;
             default:
                 return (
                     <div className={cx('body-container')}>

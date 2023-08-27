@@ -22,9 +22,8 @@ function ThemeProvider({ children }) {
         if (parts.length === 2) return parts.pop().split(';').shift();
     }
 
-    const authToken = localStorage.getItem('authToken') || getCookie('authToken');
-
     useEffect(() => {
+        const authToken = localStorage.getItem('authToken') || getCookie('authToken');
         if (authToken) {
             axios
                 .request({

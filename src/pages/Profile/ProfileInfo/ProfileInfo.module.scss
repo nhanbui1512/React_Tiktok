@@ -109,7 +109,7 @@
     white-space: pre-line;
     margin-top: 10px;
 }
-.link {
+.link-box {
     font-weight: 600;
     font-size: 16px;
     line-height: 22px;
@@ -174,8 +174,9 @@
         margin-left: 6px;
     }
     .share-desc,
-    .link,
-    .link-icon {
+    .link-box,
+    .link-icon,
+    .path {
         color: var(--text-white);
     }
     .edit-btn {

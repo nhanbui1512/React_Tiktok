@@ -7,10 +7,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Image from '../../../components/Image';
 import Button from '../../../components/Button';
 import { faCheckCircle, faEllipsis, faLink, faPenToSquare } from '@fortawesome/free-solid-svg-icons';
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import { ThemeContext } from '../../../Context';
 import { ShareIconRegular } from '../../../components/Icons';
 import MenuShare from '../../../components/MenuShare';
+
+import { FollowUser, UnFollow } from '../../../service/userServices';
+import { getCookie } from '../../../service/local/cookie';
 
 const cx = classNames.bind(styles);
 
@@ -19,8 +22,33 @@ function ProfileInfo({ data }) {
 
     const [isFollow, setIsFollow] = useState(false);
 
+    useEffect(() => {
+        setIsFollow(data.is_followed);
+    }, [data]);
+
     const handleFollow = () => {
-        setIsFollow(!isFollow);
+        if (!context.currentUser) {
+            context.setLoginPopper(true);
+        } else {
+            const token = getCookie('authToken') || '';
+
+            setIsFollow(!isFollow);
+            isFollow
+                ? UnFollow({ token, idUser: data.id })
+                      .then((res) => {
+                          setIsFollow(!isFollow);
+                      })
+                      .catch((err) => {
+                          console.log(err);
+                      })
+                : FollowUser({ token, idUser: data.id })
+                      .then((res) => {
+                          setIsFollow(!isFollow);
+                      })
+                      .catch((err) => {
+                          console.log(err);
+                      });
+        }
     };
 
     return (
@@ -36,7 +64,7 @@ function ProfileInfo({ data }) {
                     </h2>
                     <h2 className={cx('name')}>{`${data.first_name} ${data.last_name}`}</h2>
 
-                    {context.currentUser ? (
+                    {context.currentUser && context.user.id === data.id ? (
                         <Button
                             className={cx('edit-btn')}
                             divbox
@@ -67,10 +95,10 @@ function ProfileInfo({ data }) {
                 </div>
             </h3>
             <h2 className={cx('share-desc')}>{data.bio}</h2>
-            <div className={cx('link')}>
+            <div className={cx('link-box')}>
                 <Link>
                     <FontAwesomeIcon className={cx('link-icon')} icon={faLink} />
-                    <span>{data.facebook_url}</span>
+                    <span className={cx('path')}>{data.facebook_url}</span>
                 </Link>
             </div>
 

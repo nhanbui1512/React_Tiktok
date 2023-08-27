@@ -5,9 +5,12 @@ import { useContext, useEffect, useState } from 'react';
 import VideoItem from '../VideoItem';
 import { getVideosUserLiked } from '../../../service/videoServices';
 import { ThemeContext } from '../../../Context';
+import { UserIcon } from '../../../components/Icons';
+import MainDetail from '../MainDetail';
+
 const cx = classNames.bind(styles);
 
-function LikedVideos() {
+function LikedVideos({ userId }) {
     const [videos, setVideos] = useState([]);
     const [meta, setMeta] = useState({});
     const [isFetching, setIsFetching] = useState(false);
@@ -25,8 +28,8 @@ function LikedVideos() {
     };
 
     const fetchMoreListItems = () => {
-        if (meta.pagination.current_page < meta.pagination.total_pages) {
-            getVideosUserLiked({ idUser: 5377, page: meta.pagination.current_page + 1 })
+        if (meta.pagination && meta.pagination.current_page < meta.pagination.total_pages) {
+            getVideosUserLiked({ idUser: userId, page: meta.pagination.current_page + 1 })
                 .then((res) => {
                     setVideos((prevState) => [...prevState, ...res.data]);
                     setMeta(res.meta);
@@ -43,7 +46,7 @@ function LikedVideos() {
     //start
     useEffect(() => {
         context.currentUser === true &&
-            getVideosUserLiked({ idUser: context.user.id, page: 1 })
+            getVideosUserLiked({ idUser: userId, page: 1 })
                 .then((res) => {
                     setVideos(res.data);
                     setMeta(res.meta);
@@ -71,8 +74,15 @@ function LikedVideos() {
                 {videos.map((video) => {
                     return <VideoItem data={video} key={video.id} />;
                 })}
-                {context.currentUser || <>loked</>}
             </div>
+            {context.currentUser || (
+                <MainDetail
+                    icon={UserIcon}
+                    title="Đây là tài khoản riêng tư"
+                    desc="Hãy Follow tài khoản này để xem nội dung và các lượt thích của họ"
+                    userIcon={true}
+                />
+            )}
         </div>
     );
 }
