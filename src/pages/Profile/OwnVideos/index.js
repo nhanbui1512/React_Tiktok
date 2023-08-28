@@ -32,6 +32,11 @@ function OwnVideos({ videos, userId }) {
         bottomLineRef.current.style = `transform: translateX(${value}px);`;
     };
 
+    useEffect(() => {
+        setSessionState(0);
+        bottomLineRef.current.style = `transform: translateX(${0}px);`;
+    }, [userId]);
+
     const tabItems = [
         {
             title: 'Video',
@@ -47,6 +52,7 @@ function OwnVideos({ videos, userId }) {
     ];
 
     const renderSession = () => {
+        window.scrollTo(0, 0);
         switch (sessionState) {
             case 0:
                 return (

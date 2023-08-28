@@ -25,7 +25,6 @@ function ProfileInfo({ data }) {
     useEffect(() => {
         setIsFollow(data.is_followed);
     }, [data]);
-
     const handleFollow = () => {
         if (!context.currentUser) {
             context.setLoginPopper(true);
@@ -55,7 +54,7 @@ function ProfileInfo({ data }) {
         <div className={cx(['wrapper', context.theme])}>
             <div className={cx('header-info')}>
                 <div className={cx('avatar-wrapper')}>
-                    <Image className={cx('avatar')} src={data.avatar} alt="" />
+                    <Image className={cx('avatar')} src={data.avatar} alt={data.nickname} />
                 </div>
                 <div className={cx('info-container')}>
                     <h2 className={cx('nick-name')}>

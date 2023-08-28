@@ -43,6 +43,22 @@ export const getCurrentUser = async ({ token }) => {
     }
 };
 
+export const getFollowingUsers = async ({ page = 1, token = '' }) => {
+    try {
+        const res = await axios.get(`https://tiktok.fullstack.edu.vn/api/me/followings`, {
+            params: {
+                page: page,
+            },
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        });
+        return res.data;
+    } catch (error) {
+        return error;
+    }
+};
+
 export const FollowUser = async ({ token = '', idUser }) => {
     try {
         const res = await axios.post(
@@ -55,7 +71,9 @@ export const FollowUser = async ({ token = '', idUser }) => {
             },
         );
         return res;
-    } catch (error) {}
+    } catch (error) {
+        throw error;
+    }
 };
 
 export const UnFollow = async ({ token = '', idUser }) => {
@@ -71,6 +89,6 @@ export const UnFollow = async ({ token = '', idUser }) => {
         );
         return res;
     } catch (error) {
-        return error;
+        throw error;
     }
 };

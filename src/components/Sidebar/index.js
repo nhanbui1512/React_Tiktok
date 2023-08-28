@@ -13,10 +13,19 @@ import { HomeIcon, HomeActiveIcon, UserGroupActiveIcon, LiveActiveIcon, UserGrou
 import Discovery from '../Discovery/Discovery';
 import Footer from './Footer';
 
+import { getCookie } from '../../service/local/cookie';
+
+import { useContext } from 'react';
+import { ThemeContext } from '../../Context';
+
 const cx = classNames.bind(styles);
 
-function Sidebar({ currentUser = false }) {
+function Sidebar() {
     const [suggestedUsers, setsuggestedUsers] = useState([]);
+
+    const [followingUsers, setFollowingUsers] = useState([]);
+
+    const context = useContext(ThemeContext);
 
     useEffect(() => {
         userServices
@@ -28,6 +37,21 @@ function Sidebar({ currentUser = false }) {
                 console.log(err);
             });
     }, []);
+
+    useEffect(() => {
+        if (context.currentUser === true) {
+            const token = getCookie('authToken') || '';
+
+            userServices
+                .getFollowingUsers({ token: token, page: 1 })
+                .then((res) => {
+                    setFollowingUsers(res.data);
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+        }
+    }, [context.currentUser]);
 
     return (
         <aside className={cx('wrapper')}>
@@ -52,7 +76,7 @@ function Sidebar({ currentUser = false }) {
                 ></MenuItem>
             </Menu>
             <SuggestedAccounts label="Suggested accounts" data={suggestedUsers} />
-            {currentUser && <SuggestedAccounts label="Following accounts" data={suggestedUsers} />}
+            {context.currentUser && <SuggestedAccounts label="Following accounts" data={followingUsers} />}
             <Discovery></Discovery>
             <Footer></Footer>
         </aside>
