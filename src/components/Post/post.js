@@ -35,7 +35,7 @@ import { getCookie } from '../../service/local/cookie';
 
 const cx = classNames.bind(styles);
 
-function Post({ data, isMuted = true, ChangeVolumeGlobal, volumeValue, SetMuteGlobal }) {
+function Post({ data, volumeValue, ChangeVolumeGlobal }) {
     const context = useContext(ThemeContext);
 
     const videoRef = useRef(null);
@@ -106,7 +106,7 @@ function Post({ data, isMuted = true, ChangeVolumeGlobal, volumeValue, SetMuteGl
 
     useEffect(() => {
         videoRef.current.volume = volumeValue / 100;
-    }, [volumeValue]);
+    }, [context.volume]);
 
     const HandleIsPlay = () => {
         if (isPlay) {
@@ -118,7 +118,7 @@ function Post({ data, isMuted = true, ChangeVolumeGlobal, volumeValue, SetMuteGl
     };
 
     const HandleMute = () => {
-        SetMuteGlobal();
+        context.setIsMuted(!context.isMuted);
     };
 
     return (
@@ -159,7 +159,7 @@ function Post({ data, isMuted = true, ChangeVolumeGlobal, volumeValue, SetMuteGl
                                 volume={volumeValue / 100}
                                 loop={true}
                                 autoPlay={false}
-                                muted={isMuted}
+                                muted={context.isMuted}
                                 ref={videoRef}
                                 src={data.file_url}
                                 onLoadedData={() => {
@@ -224,7 +224,7 @@ function Post({ data, isMuted = true, ChangeVolumeGlobal, volumeValue, SetMuteGl
                             )}
                         >
                             <div onClick={HandleMute} className={cx('volume-icon-wrapper')}>
-                                {isMuted ? (
+                                {context.isMuted ? (
                                     <FontAwesomeIcon className={cx('volume-icon')} icon={faVolumeXmark} />
                                 ) : (
                                     <FontAwesomeIcon className={cx('volume-icon')} icon={faVolumeHigh} />
@@ -281,7 +281,6 @@ function Post({ data, isMuted = true, ChangeVolumeGlobal, volumeValue, SetMuteGl
 
 Post.propTypes = {
     data: PropTypes.object.isRequired,
-    isMuted: PropTypes.bool.isRequired,
 };
 
 export default Post;

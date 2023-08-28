@@ -62,6 +62,9 @@ function Video() {
         });
     }, [index, context.listVideo]);
 
+    useEffect(() => {
+        videoRef.current.volume = context.volume / 100;
+    }, [context.volume]);
     return (
         <div className={cx('wrapper')}>
             <div className={cx('video-wrapper')}>
@@ -161,7 +164,14 @@ function Video() {
                             interactive
                             delay={[0, 700]}
                             placement="top"
-                            render={(attrs) => <Volume videoRef={videoRef} className={cx('volume-wrapper')} />}
+                            render={(attrs) => (
+                                <Volume
+                                    volumeValue={context.volume}
+                                    ChangeVolumeGlobal={context.setVolume}
+                                    videoRef={videoRef}
+                                    className={cx('volume-wrapper')}
+                                />
+                            )}
                         >
                             <button
                                 onClick={() => {

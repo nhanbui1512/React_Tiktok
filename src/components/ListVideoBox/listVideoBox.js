@@ -3,20 +3,22 @@ import styles from './listVideoBox.module.scss';
 
 import Post from '../Post';
 import Loading from '../Loading';
+import { useContext } from 'react';
+import { ThemeContext } from '../../Context';
 
 const cx = classNames.bind(styles);
-function ListVideoBox({ ChangeVolumeGlobal, SetMuteGlobal, videos, isMuted, isFetching, volume }) {
+function ListVideoBox({ videos, isFetching }) {
+    const context = useContext(ThemeContext);
+
     return (
         <div className={cx('content')}>
             {videos.map((item, index) => {
                 return (
                     <Post
-                        isMuted={isMuted}
                         key={index}
                         data={item}
-                        volumeValue={volume}
-                        ChangeVolumeGlobal={ChangeVolumeGlobal}
-                        SetMuteGlobal={SetMuteGlobal}
+                        volumeValue={context.volume}
+                        ChangeVolumeGlobal={context.setVolume}
                     ></Post>
                 );
             })}

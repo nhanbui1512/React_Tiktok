@@ -16,7 +16,7 @@ function Volume({ volumeValue = 50, ChangeVolumeGlobal = () => {}, videoRef, cla
     };
 
     const FinishChangeVolume = () => {
-        ChangeVolumeGlobal({ volumeValue: volume });
+        ChangeVolumeGlobal(volume);
     };
 
     useEffect(() => {
