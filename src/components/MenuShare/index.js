@@ -1,7 +1,6 @@
 import classNames from 'classnames/bind';
 import styles from './menu.module.scss';
 import HeadlessTippy from '@tippyjs/react/headless';
-
 import MenuItem from './menuItem';
 
 import {
@@ -118,6 +117,7 @@ function MenuShare({ children, className, offset = [-26, 8], placement = 'bottom
                     <div className={cx('list-item')}>{renderItem(listMenu)}</div>
                 </div>
             )}
+            zIndex={99}
             onHide={() => {
                 setListMenu(itemsMenu.slice(0, 5));
             }}

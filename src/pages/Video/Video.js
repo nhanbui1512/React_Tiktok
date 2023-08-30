@@ -57,10 +57,12 @@ function Video() {
     useEffect(() => {
         const token = getCookie('authToken');
         const idVideo = context.listVideo[index].id;
-        getCommentsOfVieo({ idVideo: idVideo, token, page: 1 }).then((res) => {
-            setComments(res.data.data);
-        });
-    }, [index, context.listVideo]);
+
+        context.currentUser &&
+            getCommentsOfVieo({ idVideo: idVideo, token, page: 1 }).then((res) => {
+                setComments(res.data.data);
+            });
+    }, [index, context.listVideo, context.currentUser]);
 
     useEffect(() => {
         videoRef.current.volume = context.volume / 100;
