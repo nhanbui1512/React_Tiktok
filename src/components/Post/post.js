@@ -106,7 +106,7 @@ function Post({ data, volumeValue, ChangeVolumeGlobal }) {
 
     useEffect(() => {
         videoRef.current.volume = volumeValue / 100;
-    }, [context.volume]);
+    }, [volumeValue]);
 
     const HandleIsPlay = () => {
         if (isPlay) {
@@ -154,7 +154,12 @@ function Post({ data, volumeValue, ChangeVolumeGlobal }) {
                     {/* video tag  */}
 
                     <div className={cx('player-container')}>
-                        <Link to={`/video/${data.id}`}>
+                        <div
+                            to={`/video/${data.id}`}
+                            onClick={() => {
+                                context.setVideoPage(true);
+                            }}
+                        >
                             <video
                                 volume={volumeValue / 100}
                                 loop={true}
@@ -200,7 +205,7 @@ function Post({ data, volumeValue, ChangeVolumeGlobal }) {
                                     setIsLoading(true);
                                 }}
                             ></video>
-                        </Link>
+                        </div>
 
                         <div className={cx('play-icon-wrapper')} onClick={HandleIsPlay}>
                             {isPlay ? (

@@ -6,9 +6,13 @@ import { faHeart } from '@fortawesome/free-regular-svg-icons';
 
 const cx = classNames.bind(styles);
 
-function CommentItem({ data = {} }) {
+function CommentItem({ data = {}, dark = false }) {
     return (
-        <div className={cx('wrapper')}>
+        <div
+            className={cx('wrapper', {
+                dark,
+            })}
+        >
             <Link className={cx('avatar')}>
                 <img src={data.user.avatar} alt=""></img>
             </Link>

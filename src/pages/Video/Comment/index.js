@@ -18,14 +18,17 @@ import {
 
 import MenuShare from '../../../components/MenuShare';
 import CommentItem from '../CommentItem';
+import { useContext } from 'react';
+import { ThemeContext } from '../../../Context';
+import CommentCreator from '../CommentCreator';
 
 const cx = classNames.bind(styles);
 
 function Comment({ data = {}, comments = [] }) {
-    // const context = useContext(ThemeContext);
+    const context = useContext(ThemeContext);
 
     return (
-        <div className={cx('wrapper')}>
+        <div className={cx(['wrapper', context.theme])}>
             <div className={cx('header')}>
                 <div className={cx('account-wrapper')}>
                     <div className={cx('account')}>
@@ -39,7 +42,13 @@ function Comment({ data = {}, comments = [] }) {
                             </p>
                         </div>
                     </div>
-                    <Button outline className={cx('follow-btn')}>
+                    <Button
+                        outline
+                        className={cx('follow-btn')}
+                        onClick={() => {
+                            context.setLoginPopper(true);
+                        }}
+                    >
                         Follow
                     </Button>
                 </div>
@@ -75,7 +84,10 @@ function Comment({ data = {}, comments = [] }) {
 
                             <MenuShare offset={[0, 15]}>
                                 <button className={cx('share-btn')}>
-                                    <ShareIcon className={cx('social-media-icon')} />
+                                    <ShareIcon
+                                        fill={context.theme === 'dark' ? '#fff' : 'currentColor'}
+                                        className={cx('social-media-icon')}
+                                    />
                                 </button>
                             </MenuShare>
                         </div>
@@ -90,14 +102,24 @@ function Comment({ data = {}, comments = [] }) {
                 <div className={cx('comment-wrapper')}>
                     {comments.length > 0 || <p className={cx('empty')}>Hãy là người đầu tiên bình luận</p>}
                     {comments.map((item) => {
-                        return <CommentItem data={item} key={item.id} />;
+                        return <CommentItem dark={context.theme === 'dark' && true} data={item} key={item.id} />;
                     })}
                 </div>
             </div>
             <div className={cx('footer')}>
-                <div className={cx('login-btn')}>
-                    <p>Đăng nhập để bình luận</p>
-                </div>
+                {context.currentUser ? (
+                    <CommentCreator />
+                ) : (
+                    <div className={cx('login-btn')}>
+                        <p
+                            onClick={() => {
+                                context.setLoginPopper(true);
+                            }}
+                        >
+                            Đăng nhập để bình luận
+                        </p>
+                    </div>
+                )}
             </div>
         </div>
     );

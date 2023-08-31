@@ -1,0 +1,33 @@
+.wrapper {
+    padding: 21px 30px;
+}
+.creator-form {
+    display: flex;
+    align-items: flex-end;
+}
+.input-container {
+    border: 1px solid transparent;
+    border-radius: 8px;
+    flex-grow: 1;
+    padding: 10px 9px;
+    position: relative;
+    background-color: rgba(22, 24, 35, 0.06);
+}
+.input {
+    outline: none;
+    background-color: transparent;
+    border: none;
+    caret-color: var(--primary);
+    color: var(--black-text);
+    display: block;
+    overflow-y: hidden;
+    padding: 1px 0;
+    resize: none;
+    height: 18px;
+    width: calc(100% - 40px);
+    &:focus-within {
+        .input-container {
+            border-color: rgba(22, 24, 35, 0.2) !important;
+        }
+    }
+}

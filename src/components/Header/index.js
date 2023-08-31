@@ -29,16 +29,10 @@ import Search from '../Search';
 import { ThemeContext } from '../../Context';
 import { useContext } from 'react';
 
-import PopperLogin from '../PopperLogin';
-
 const cx = classNames.bind(styles);
 
 function Header({ className, isFullWidth = false }) {
     const context = useContext(ThemeContext);
-
-    const handleLoginClick = () => {
-        context.setLoginPopper(!context.loginPopper);
-    };
 
     const classesWrapper = cx(['wrapper', context.theme]);
 
@@ -223,13 +217,13 @@ function Header({ className, isFullWidth = false }) {
                 </div>
             </div>
 
-            {context.loginPopper && (
+            {/* {context.loginPopper && (
                 <Tippy onClickOutside={() => context.setLoginPopper(false)}>
                     <>
                         <PopperLogin handleClose={handleLoginClick}></PopperLogin>
                     </>
                 </Tippy>
-            )}
+            )} */}
         </header>
     );
 }

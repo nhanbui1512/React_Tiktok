@@ -11,7 +11,6 @@ import {
     faXmark,
 } from '@fortawesome/free-solid-svg-icons';
 import { faFlag } from '@fortawesome/free-regular-svg-icons';
-import { Link, useParams } from 'react-router-dom';
 import Comment from './Comment';
 import Volume from '../../components/Post/volume';
 import HeadlessTippy from '@tippyjs/react/headless';
@@ -26,15 +25,17 @@ import { getCookie } from '../../service/local/cookie';
 const cx = classNames.bind(styles);
 
 function Video() {
+    const context = useContext(ThemeContext);
+
     const videoRef = useRef(null);
     const [isPlay, setPlay] = useState(true);
     const [isMuted, setIsmuted] = useState(false);
     const [timePlay, setTimePlay] = useState('00:00');
     const [progressData, setProgressData] = useState('0%');
     const [index, setIndex] = useState(0);
-    const context = useContext(ThemeContext);
 
-    const { id } = useParams();
+    // const { id } = useParams();
+    const id = 3027;
     const [comments, setComments] = useState([]);
 
     const handlePlay = () => {
@@ -67,8 +68,9 @@ function Video() {
     useEffect(() => {
         videoRef.current.volume = context.volume / 100;
     }, [context.volume]);
+
     return (
-        <div className={cx('wrapper')}>
+        <div className={cx(['wrapper', context.theme])}>
             <div className={cx('video-wrapper')}>
                 <div className={cx('video-layer')}>
                     <div className={cx('videoPlayerWrapper')}>
@@ -191,9 +193,15 @@ function Video() {
                     </div>
                 </div>
 
-                <Link to={'/'} className={cx(['close-btn', 'videoPlayerBtn'])}>
+                <div
+                    to={'/'}
+                    className={cx(['close-btn', 'videoPlayerBtn'])}
+                    onClick={() => {
+                        context.setVideoPage(false);
+                    }}
+                >
                     <FontAwesomeIcon className={cx('close-icon')} icon={faXmark} />
-                </Link>
+                </div>
 
                 <button className={cx(['videoPlayerBtn', 'report-btn'])}>
                     <FontAwesomeIcon className={cx('flag-icon')} icon={faFlag} /> Báo cáo

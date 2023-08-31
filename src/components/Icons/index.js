@@ -894,7 +894,7 @@ export const ScanIcon = ({ width = '16px', height = '16px', className }) => {
     );
 };
 
-export const ShareIcon = ({ width = 16, height = 16, className }) => {
+export const ShareIcon = ({ width = 16, height = 16, className, fill = 'currentColor' }) => {
     return (
         <svg
             className={className}
@@ -902,7 +902,7 @@ export const ShareIcon = ({ width = 16, height = 16, className }) => {
             height={height}
             data-e2e=""
             viewBox="0 0 48 48"
-            fill="currentColor"
+            fill={fill}
             xmlns="http://www.w3.org/2000/svg"
         >
             <path

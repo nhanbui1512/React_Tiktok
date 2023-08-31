@@ -3,6 +3,11 @@
     box-sizing: border-box;
     display: flex;
     max-height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 999;
 }
 .video-wrapper {
     flex: 1 0 600px;

@@ -2,6 +2,7 @@
     display: flex;
     flex-direction: column;
     height: 100%;
+    background-color: #fff;
 }
 .header {
     padding: 32px 32px 0px;
@@ -185,5 +186,47 @@
         font-weight: 600;
         padding: 8px 16px;
         font-size: 16px;
+    }
+}
+
+.dark {
+    background-color: var(--background-dark);
+
+    .content {
+        background-color: var(--background-dark);
+    }
+    .name,
+    .nick-name,
+    .description,
+    .interactive,
+    .act-icon,
+    .music-icon,
+    .music-info,
+    .empty {
+        color: var(--text-white);
+    }
+
+    .act-btn {
+        background-color: var(--background-gray);
+    }
+    .follow-btn {
+        background-color: rgba(255, 255, 255, 0.08);
+        &:hover {
+            background-color: rgba(254, 44, 85, 0.06);
+        }
+    }
+    .link-box {
+        background-color: hsla(0, 0%, 100%, 0.122);
+        color: var(--text-white);
+    }
+    .login-btn {
+        p {
+            background-color: hsla(0, 0%, 100%, 0.122);
+        }
+    }
+    .coppy-btn {
+        &:hover {
+            background-color: hsla(0, 0%, 100%, 0.034);
+        }
     }
 }
