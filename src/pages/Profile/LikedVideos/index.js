@@ -16,7 +16,6 @@ function LikedVideos({ userId }) {
     const [isFetching, setIsFetching] = useState(false);
 
     const context = useContext(ThemeContext);
-    const currentUser = context.currentUser;
 
     const handleScroll = () => {
         const scrollTop = document.documentElement.scrollTop;
@@ -60,7 +59,7 @@ function LikedVideos({ userId }) {
             window.addEventListener('scroll', handleScroll);
         }
         return () => window.removeEventListener('scroll', handleScroll);
-    }, [currentUser, userId]);
+    }, [context.currentUser, userId]);
 
     useEffect(() => {
         if (!isFetching) return;
