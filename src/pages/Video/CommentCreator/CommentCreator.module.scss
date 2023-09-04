@@ -6,14 +6,16 @@
     align-items: flex-end;
 }
 .input-container {
-    border: 1px solid transparent;
+    border: 1px solid;
+    border-color: rgba(22, 24, 35, 0.2);
     border-radius: 8px;
     flex-grow: 1;
     padding: 10px 9px;
     position: relative;
     background-color: rgba(22, 24, 35, 0.06);
 }
-.input {
+
+.input-comment {
     outline: none;
     background-color: transparent;
     border: none;
@@ -25,9 +27,26 @@
     resize: none;
     height: 18px;
     width: calc(100% - 40px);
-    &:focus-within {
-        .input-container {
-            border-color: rgba(22, 24, 35, 0.2) !important;
-        }
+}
+.comment_btn {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    background-color: transparent;
+    color: var(--primary);
+    font-size: inherit;
+    height: 39px;
+    width: 48px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.dark {
+    .input-container {
+        background-color: hsla(0, 0%, 100%, 0.122);
+        border-color: hsla(0, 0%, 100%, 0.2);
+    }
+    .input-comment {
+        color: #ffffffe6;
     }
 }

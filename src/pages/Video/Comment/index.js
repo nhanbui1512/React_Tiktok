@@ -108,7 +108,7 @@ function Comment({ data = {}, comments = [] }) {
             </div>
             <div className={cx('footer')}>
                 {context.currentUser ? (
-                    <CommentCreator />
+                    <CommentCreator theme={context.theme} />
                 ) : (
                     <div className={cx('login-btn')}>
                         <p

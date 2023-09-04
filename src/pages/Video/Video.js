@@ -21,6 +21,7 @@ import { ThemeContext } from '../../Context';
 //service
 import { getCommentsOfVieo } from '../../service/commentService';
 import { getCookie } from '../../service/local/cookie';
+import { Link, useParams } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
 
@@ -34,8 +35,8 @@ function Video() {
     const [progressData, setProgressData] = useState('0%');
     const [index, setIndex] = useState(0);
 
-    // const { id } = useParams();
-    const id = 3027;
+    const { id } = useParams();
+
     const [comments, setComments] = useState([]);
 
     const handlePlay = () => {
@@ -193,7 +194,7 @@ function Video() {
                     </div>
                 </div>
 
-                <div
+                <Link
                     to={'/'}
                     className={cx(['close-btn', 'videoPlayerBtn'])}
                     onClick={() => {
@@ -201,7 +202,7 @@ function Video() {
                     }}
                 >
                     <FontAwesomeIcon className={cx('close-icon')} icon={faXmark} />
-                </div>
+                </Link>
 
                 <button className={cx(['videoPlayerBtn', 'report-btn'])}>
                     <FontAwesomeIcon className={cx('flag-icon')} icon={faFlag} /> Báo cáo

@@ -30,7 +30,7 @@ import { ThemeContext } from '../../Context';
 import MenuShare from '../MenuShare';
 import Loading from '../Loading';
 
-import { likeVideo } from '../../service/likeService';
+import { likeVideo, unLikeVideo } from '../../service/likeService';
 import { getCookie } from '../../service/local/cookie';
 
 const cx = classNames.bind(styles);
@@ -89,16 +89,25 @@ function Post({ data, volumeValue, ChangeVolumeGlobal }) {
         const authToken = getCookie('authToken');
 
         if (context.currentUser) {
-            setIsLikes(!isLikes);
-            likeVideo({ idVideo: data.id, token: authToken })
-                .then((res) => {
-                    let count = Number(countRef.current.innerText);
-                    count++;
-                    countRef.current.innerText = count;
-                })
-                .catch((err) => {
-                    console.log(err);
-                });
+            if (isLikes == false) {
+                setIsLikes(!isLikes);
+                likeVideo({ idVideo: data.id, token: authToken })
+                    .then((res) => {
+                        countRef.current.innerText = res.data.likes_count;
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                    });
+            } else {
+                setIsLikes(!isLikes);
+                unLikeVideo({ idVideo: data.id, token: authToken })
+                    .then((res) => {
+                        countRef.current.innerText = res.data.likes_count;
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                    });
+            }
         } else {
             context.setLoginPopper(true);
         }
@@ -154,12 +163,7 @@ function Post({ data, volumeValue, ChangeVolumeGlobal }) {
                     {/* video tag  */}
 
                     <div className={cx('player-container')}>
-                        <div
-                            to={`/video/${data.id}`}
-                            onClick={() => {
-                                context.setVideoPage(true);
-                            }}
-                        >
+                        <Link to={`/video/${data.id}`}>
                             <video
                                 volume={volumeValue / 100}
                                 loop={true}
@@ -205,7 +209,7 @@ function Post({ data, volumeValue, ChangeVolumeGlobal }) {
                                     setIsLoading(true);
                                 }}
                             ></video>
-                        </div>
+                        </Link>
 
                         <div className={cx('play-icon-wrapper')} onClick={HandleIsPlay}>
                             {isPlay ? (

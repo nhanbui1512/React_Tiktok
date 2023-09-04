@@ -1,93 +1,74 @@
 import classNames from 'classnames/bind';
 import styles from './home.module.scss';
-import ListVideoBox from '../../components/ListVideoBox/listVideoBox';
 import { useEffect, useContext, useState } from 'react';
 import { ThemeContext } from '../../Context';
 import { getCookie } from '../../service/local/cookie';
 import * as VideoServices from '../../service/videoServices';
+import InfiniteScroll from 'react-infinite-scroll-component';
+import Post from '../../components/Post/post';
+import Loading from '../../components/Loading';
 const cx = classNames.bind(styles);
-
 function Home() {
-    const [videos, setVideos] = useState([]);
-    const [isFetching, setIsFetching] = useState(false);
-    const [page, setPage] = useState(1);
-    const [volume, SetVolume] = useState(40);
+    const [items, setItems] = useState([]); // Dữ liệu hiện tại
+    const [hasMore, setHasMore] = useState(true); // Có thêm dữ liệu để load không
+    const [page, setPage] = useState(1); // Số trang hiện tại
 
-    const authToken = getCookie('authToken') || '';
+    const fetchMoreData = () => {
+        // Thực hiện logic để lấy dữ liệu mới ở đây, ví dụ:
+        // Gọi API hoặc thao tác với dữ liệu đã có
 
-    const [isMuted, setIsMuted] = useState(true);
+        // Sau khi lấy được dữ liệu mới, cập nhật state items
+        // và kiểm tra xem còn dữ liệu nữa không
+
+        const authToken = getCookie('authToken') || '';
+        VideoServices.getVideos({ type: 'for-you', page: page, token: authToken })
+            .then((data) => {
+                setItems((prevItems) => [...prevItems, ...data]);
+                context.setListVideo((prevState) => [...prevState, ...data]);
+                // Nếu không có dữ liệu mới nữa, đặt hasMore thành false
+                // Điều này sẽ ngăn người dùng cuộn để load thêm dữ liệu
+                if (data.length === 0) {
+                    setHasMore(false);
+                }
+                // Tăng số trang lên 1
+
+                setPage((prevPage) => prevPage + 1);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    };
+
+    useEffect(() => {
+        // Đầu tiên, bạn có thể gọi fetchMoreData() một lần để tải dữ liệu ban đầu
+        fetchMoreData();
+    }, []);
 
     const context = useContext(ThemeContext);
 
-    const handleScroll = () => {
-        const scrollTop = document.documentElement.scrollTop;
-        const scrollHeight = document.documentElement.scrollHeight;
-        const clientHeight = document.documentElement.clientHeight;
-
-        if (scrollTop + clientHeight >= scrollHeight) {
-            setIsFetching(true);
-        }
-    };
-
-    const ChangeVolumeGlobal = ({ volumeValue }) => {
-        SetVolume(volumeValue);
-    };
-
-    const SetMuteGlobal = () => {
-        setIsMuted(!isMuted);
-    };
-
-    const fetchMoreListItems = () => {
-        VideoServices.getVideos({ type: 'for-you', page: page + 1, token: authToken })
-            .then((data) => {
-                setVideos((prevState) => [...prevState, ...data]);
-                context.setListVideo((prevState) => [...prevState, ...data]);
-            })
-            .then(() => {
-                setPage(page + 1);
-                setIsFetching(false);
-            })
-            .catch((err) => {
-                console.log(err);
-            });
-    };
-
-    // start
-    useEffect(() => {
-        VideoServices.getVideos({ type: 'for-you', page: page, token: authToken })
-            .then((data) => {
-                setVideos(data);
-                context.setListVideo(data);
-            })
-            .catch((err) => {
-                console.log(err);
-            });
-
-        window.addEventListener('scroll', handleScroll);
-        return () => window.removeEventListener('scroll', handleScroll);
-    }, [authToken]);
-
-    useEffect(() => {
-        if (!isFetching) return;
-        setTimeout(() => {
-            fetchMoreListItems();
-        }, 500);
-    }, [isFetching]);
-
-    useEffect(() => {
-        window.scrollTo(0, 0);
-    }, []);
-
     return (
         <div className={cx('container')}>
-            <ListVideoBox
-                volume={volume}
-                videos={videos}
-                isFetching={isFetching}
-                isMuted={isMuted}
-                ChangeVolumeGlobal={ChangeVolumeGlobal}
-                SetMuteGlobal={SetMuteGlobal}
-            />
+            <InfiniteScroll
+                dataLength={items.length} // Số lượng phần tử hiện tại trong danh sách dữ liệu
+                next={fetchMoreData} // Callback được gọi khi người dùng cuộn đến cuối trang
+                hasMore={hasMore} // Còn dữ liệu để load không
+                loader={
+                    <div className={cx('loader-container')}>
+                        <Loading />
+                    </div>
+                } // Hiển thị loader khi đang tải dữ liệu
+                scrollThreshold={'100px'}
+            >
+                {/* Hiển thị danh sách dữ liệu */}
+                {items.map((item, index) => (
+                    <Post
+                        key={index}
+                        data={item}
+                        volumeValue={context.volume}
+                        ChangeVolumeGlobal={context.setVolume}
+                    ></Post>
+                ))}
+            </InfiniteScroll>
         </div>
     );
 }

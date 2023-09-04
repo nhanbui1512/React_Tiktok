@@ -11,6 +11,25 @@ export const likeVideo = async ({ token, idVideo }) => {
                 },
             },
         );
-        return res;
-    } catch (error) {}
+        return res.data;
+    } catch (error) {
+        throw error;
+    }
+};
+
+export const unLikeVideo = async ({ token, idVideo }) => {
+    try {
+        const res = await request.post(
+            `videos/${idVideo}/unlike`,
+            {},
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            },
+        );
+        return res.data;
+    } catch (error) {
+        throw error;
+    }
 };
