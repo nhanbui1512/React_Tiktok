@@ -16,8 +16,6 @@ import {
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css';
 
-import config from '../../config';
-
 import styles from './Header.module.scss';
 import images from '../../assests/images';
 import Menu from '../Popper/Menu';
@@ -147,7 +145,7 @@ function Header({ className, isFullWidth = false }) {
     return (
         <header className={classesWrapper}>
             <div className={classesInner}>
-                <Link to={config.routes.root} className={cx('logo')}>
+                <Link to={'/'} className={cx('logo')}>
                     <img src={context.theme === 'dark' ? images.logoDark : images.logo} alt="tiktok"></img>
                 </Link>
 

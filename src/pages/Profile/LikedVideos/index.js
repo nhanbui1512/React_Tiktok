@@ -9,78 +9,65 @@ import { UserIcon } from '../../../components/Icons';
 import MainDetail from '../MainDetail';
 
 import { getCookie } from '../../../service/local/cookie';
-
+import InfiniteScroll from 'react-infinite-scroll-component';
+import Loading from '../../../components/Loading';
 const cx = classNames.bind(styles);
 
 function LikedVideos({ userId }) {
-    const [videos, setVideos] = useState([]);
-    const [meta, setMeta] = useState({});
-    const [isFetching, setIsFetching] = useState(false);
-
+    const [items, setItems] = useState([]); // Dữ liệu hiện tại
+    const [hasMore, setHasMore] = useState(true); // Có thêm dữ liệu để load không
+    const [page, setPage] = useState(1); // Số trang hiện tại
     const context = useContext(ThemeContext);
 
-    const handleScroll = () => {
-        const scrollTop = document.documentElement.scrollTop;
-        const scrollHeight = document.documentElement.scrollHeight;
-        const clientHeight = document.documentElement.clientHeight;
+    const fetchMoreData = () => {
+        // Thực hiện logic để lấy dữ liệu mới ở đây, ví dụ:
+        // Gọi API hoặc thao tác với dữ liệu đã có
 
-        if (scrollTop + clientHeight >= scrollHeight) {
-            setIsFetching(true);
-        }
+        // Sau khi lấy được dữ liệu mới, cập nhật state items
+        // và kiểm tra xem còn dữ liệu nữa không
+
+        const authToken = getCookie('authToken') || '';
+        getVideosUserLiked({ idUser: userId, page: page, token: authToken })
+            .then((res) => {
+                setItems((prevItems) => [...prevItems, ...res.data]);
+                context.setListVideo((prevState) => [...prevState, ...res.data]);
+                // Nếu không có dữ liệu mới nữa, đặt hasMore thành false
+                // Điều này sẽ ngăn người dùng cuộn để load thêm dữ liệu
+                if (res.data.length === 0) {
+                    setHasMore(false);
+                }
+                // Tăng số trang lên 1
+
+                setPage((prevPage) => prevPage + 1);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
     };
 
-    const fetchMoreListItems = () => {
-        const authToken = getCookie('authToken') || '';
-        if (meta.pagination && meta.pagination.current_page < meta.pagination.total_pages) {
-            getVideosUserLiked({ idUser: userId, page: meta.pagination.current_page + 1, token: authToken })
-                .then((res) => {
-                    setVideos((prevState) => [...prevState, ...res.data]);
-                    setMeta(res.meta);
-                    context.setListVideo((prevState) => [...prevState, ...res.data]);
-                })
-                .then(() => {
-                    setIsFetching(false);
-                })
-                .catch((err) => {
-                    console.log(err);
-                });
-        }
-    };
-
-    //start
+    // start
     useEffect(() => {
-        const authToken = getCookie('authToken') || '';
-
-        context.currentUser === true &&
-            getVideosUserLiked({ idUser: userId, page: 1, token: authToken })
-                .then((res) => {
-                    setVideos(res.data);
-                    setMeta(res.meta);
-                    context.setListVideo(res.data);
-                })
-                .catch((err) => {
-                    console.log(err);
-                });
-
-        if (meta) {
-            window.addEventListener('scroll', handleScroll);
-        }
-        return () => window.removeEventListener('scroll', handleScroll);
-    }, [context.currentUser, userId]);
-
-    useEffect(() => {
-        if (!isFetching) return;
-        setTimeout(() => {
-            fetchMoreListItems();
-        }, 500);
-    }, [isFetching]);
+        fetchMoreData();
+    }, []);
 
     return (
         <div className={cx('wrapper')}>
-            <div className={cx('container')}>
-                {videos.map((video) => {
-                    return <VideoItem data={video} key={video.id} />;
-                })}
+            <div>
+                <InfiniteScroll
+                    className={cx('container')}
+                    dataLength={items.length}
+                    next={fetchMoreData}
+                    hasMore={hasMore}
+                >
+                    {items.map((video) => {
+                        return <VideoItem data={video} key={video.id} />;
+                    })}
+                </InfiniteScroll>
+                {hasMore && (
+                    <div className={cx('loader')}>
+                        <Loading />
+                    </div>
+                )}
             </div>
             {context.currentUser || (
                 <MainDetail
