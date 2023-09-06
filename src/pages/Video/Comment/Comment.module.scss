@@ -80,6 +80,9 @@
 }
 
 .act-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 32px;
     height: 32px;
     background-color: rgba(22, 24, 35, 0.06);
@@ -87,7 +90,8 @@
     margin-right: 6px;
     cursor: pointer;
     .act-icon {
-        font-size: 20px;
+        width: 20px;
+        height: 20px;
     }
 }
 
@@ -228,5 +232,8 @@
         &:hover {
             background-color: hsla(0, 0%, 100%, 0.034);
         }
+    }
+    .act-icon {
+        fill: #fff;
     }
 }

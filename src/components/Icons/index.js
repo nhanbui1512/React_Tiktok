@@ -230,14 +230,14 @@ export const StyledIcon = ({ width = '1em', height = '1em', className }) => (
     </svg>
 );
 
-export const HeartBlackIcon = ({ width = '24', height = '24', className, fill = '#000' }) => (
+export const HeartIcon = ({ width = '24', height = '24', className = {}, fill = '#000' }) => (
     <svg
         className={className}
         width={width}
         height={height}
         data-e2e=""
         viewBox="0 0 48 48"
-        fill="none"
+        fill={fill}
         xmlns="http://www.w3.org/2000/svg"
     >
         <g filter="url(#LikeRedShadowColor_filter0_d)">
@@ -252,7 +252,7 @@ export const HeartBlackIcon = ({ width = '24', height = '24', className, fill = 
             fillRule="evenodd"
             clipRule="evenodd"
             d="M4.80371 24.3995C7.17815 29.3932 11.5185 33.8538 15.4999 37.4999C19.1009 40.7978 21.9999 42.9999 23.9999 42.9999C25.9999 42.9999 28.819 40.8144 32.4999 37.4999C38.4621 32.1314 44.9999 24.9999 44.9999 16.9999C44.9999 16.8252 44.9968 16.6513 44.9906 16.4785C41.1344 27.3238 27.3575 37 23.5001 37C20.6255 37 11.2219 31.6262 4.80371 24.3995Z"
-            fill="black"
+            fill={fill}
             fillOpacity="0.03"
         ></path>
         <defs>
@@ -281,7 +281,7 @@ export const HeartBlackIcon = ({ width = '24', height = '24', className, fill = 
     </svg>
 );
 
-export const HeartRedIcon = ({ width = '24', height = '24', className }) => (
+export const HeartRedIcon = ({ width = '24', height = '24', className = {} }) => (
     <svg
         className={className}
         width={width}

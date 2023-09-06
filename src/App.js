@@ -12,7 +12,6 @@ import Tippy from '@tippyjs/react';
 
 function App() {
     const context = useContext(ThemeContext);
-
     return (
         <BrowserRouter>
             <div className={`App ${context.theme}`}>

@@ -4,10 +4,12 @@ import Button from '../../../components/Button';
 import { Link } from 'react-router-dom';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCommentDots, faHeart, faMusic } from '@fortawesome/free-solid-svg-icons';
+import { faCommentDots, faMusic } from '@fortawesome/free-solid-svg-icons';
 import Image from '../../../components/Image';
 import {
     FaceBookColor,
+    HeartIcon,
+    HeartRedIcon,
     LinkColor,
     SendIcon,
     ShareEmbedIcon,
@@ -18,7 +20,7 @@ import {
 
 import MenuShare from '../../../components/MenuShare';
 import CommentItem from '../CommentItem';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { ThemeContext } from '../../../Context';
 import CommentCreator from '../CommentCreator';
 
@@ -26,6 +28,7 @@ const cx = classNames.bind(styles);
 
 function Comment({ data = {}, comments = [] }) {
     const context = useContext(ThemeContext);
+    const [isLiked, setIsLiked] = useState(data.is_liked) || false;
 
     return (
         <div className={cx(['wrapper', context.theme])}>
@@ -62,8 +65,20 @@ function Comment({ data = {}, comments = [] }) {
                     <div className={cx('interactive-top')}>
                         <div className={cx('activity-video')}>
                             <div className={cx('count-box')}>
-                                <button className={cx('act-btn')}>
-                                    <FontAwesomeIcon className={cx('act-icon')} icon={faHeart} />
+                                <button
+                                    className={cx('act-btn')}
+                                    onClick={() => {
+                                        setIsLiked(!isLiked);
+                                    }}
+                                >
+                                    {isLiked === true ? (
+                                        <HeartRedIcon className={cx('act-icon')} />
+                                    ) : (
+                                        <HeartIcon
+                                            fill={context.theme === 'dark' ? '#fff' : '#000'}
+                                            className={cx('act-icon')}
+                                        />
+                                    )}
                                 </button>
                                 <strong className={cx('count-number')}>{data.likes_count}</strong>
                             </div>

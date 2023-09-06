@@ -17,7 +17,6 @@ import HeadlessTippy from '@tippyjs/react/headless';
 
 import { useRef, useState, useContext, useEffect } from 'react';
 import { ThemeContext } from '../../Context';
-
 //service
 import { getCommentsOfVieo } from '../../service/commentService';
 import { getCookie } from '../../service/local/cookie';
@@ -58,13 +57,13 @@ function Video() {
     // fetch comments
     useEffect(() => {
         const token = getCookie('authToken');
-        const idVideo = context.listVideo[index].id;
+        const idVideo = id;
 
         context.currentUser &&
             getCommentsOfVieo({ idVideo: idVideo, token, page: 1 }).then((res) => {
                 setComments(res.data.data);
             });
-    }, [index, context.listVideo, context.currentUser]);
+    }, [index, id, context.currentUser]);
 
     useEffect(() => {
         videoRef.current.volume = context.volume / 100;
@@ -144,25 +143,21 @@ function Video() {
                         )}
 
                         {index > 0 && (
-                            <button
+                            <Link
                                 className={cx(['videoPlayerBtn', 'up-btn'])}
-                                onClick={() => {
-                                    setIndex(index - 1);
-                                }}
+                                to={`/video/${context.listVideo[index - 1].id}`}
                             >
                                 <FontAwesomeIcon className={cx('moving-icon')} icon={faChevronUp} />
-                            </button>
+                            </Link>
                         )}
 
                         {index < context.listVideo.length - 1 && (
-                            <button
+                            <Link
                                 className={cx(['videoPlayerBtn', 'down-btn'])}
-                                onClick={() => {
-                                    setIndex(index + 1);
-                                }}
+                                to={`/video/${context.listVideo[index + 1].id}`}
                             >
                                 <FontAwesomeIcon className={cx('moving-icon')} icon={faChevronDown} />
-                            </button>
+                            </Link>
                         )}
                         <HeadlessTippy
                             offset={[0, 10]}

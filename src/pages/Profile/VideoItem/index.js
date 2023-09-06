@@ -37,7 +37,7 @@ function VideoItem({ data }) {
                 <div style={{ paddingTop: '132.653%' }}>
                     <div className={cx('div-wrapper')}>
                         <canvas width="75.38461538461539" height="100"></canvas>
-                        <Link>
+                        <Link to={`/video/${data.id}`}>
                             <div className={cx('player-container')}>
                                 <div className={cx('div-container')}>
                                     <Image className={cx('thumb-image')} src={data.thumb_url}></Image>

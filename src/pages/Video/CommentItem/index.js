@@ -3,6 +3,7 @@ import styles from './CommentItem.module.scss';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart } from '@fortawesome/free-regular-svg-icons';
+import Image from '../../../components/Image';
 
 const cx = classNames.bind(styles);
 
@@ -14,7 +15,8 @@ function CommentItem({ data = {}, dark = false }) {
             })}
         >
             <Link className={cx('avatar')}>
-                <img src={data.user.avatar} alt=""></img>
+                {/* <img src={data.user.avatar} alt=""></img> */}
+                <Image src={data.user.avatar} alt="" />
             </Link>
             <div className={cx('infor')}>
                 <Link className={cx('username')}>

@@ -8,6 +8,8 @@ import { ThemeContext } from '../../../Context';
 import { UserIcon } from '../../../components/Icons';
 import MainDetail from '../MainDetail';
 
+import { getCookie } from '../../../service/local/cookie';
+
 const cx = classNames.bind(styles);
 
 function LikedVideos({ userId }) {
@@ -28,11 +30,13 @@ function LikedVideos({ userId }) {
     };
 
     const fetchMoreListItems = () => {
+        const authToken = getCookie('authToken') || '';
         if (meta.pagination && meta.pagination.current_page < meta.pagination.total_pages) {
-            getVideosUserLiked({ idUser: userId, page: meta.pagination.current_page + 1 })
+            getVideosUserLiked({ idUser: userId, page: meta.pagination.current_page + 1, token: authToken })
                 .then((res) => {
                     setVideos((prevState) => [...prevState, ...res.data]);
                     setMeta(res.meta);
+                    context.setListVideo((prevState) => [...prevState, ...res.data]);
                 })
                 .then(() => {
                     setIsFetching(false);
@@ -45,11 +49,14 @@ function LikedVideos({ userId }) {
 
     //start
     useEffect(() => {
+        const authToken = getCookie('authToken') || '';
+
         context.currentUser === true &&
-            getVideosUserLiked({ idUser: userId, page: 1 })
+            getVideosUserLiked({ idUser: userId, page: 1, token: authToken })
                 .then((res) => {
                     setVideos(res.data);
                     setMeta(res.meta);
+                    context.setListVideo(res.data);
                 })
                 .catch((err) => {
                     console.log(err);

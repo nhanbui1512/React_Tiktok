@@ -37,9 +37,13 @@ export const getFollowingVideos = async ({ page, token }) => {
     }
 };
 
-export const getVideosUserLiked = async ({ idUser, page = 1 }) => {
+export const getVideosUserLiked = async ({ idUser, page = 1, token = '' }) => {
     try {
-        const res = await request.get(`users/${idUser}/liked-videos?page=${page}`);
+        const res = await request.get(`users/${idUser}/liked-videos?page=${page}`, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        });
         return res;
     } catch (error) {
         return error;

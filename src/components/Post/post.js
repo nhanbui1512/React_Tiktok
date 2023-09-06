@@ -17,7 +17,7 @@ import {
     faVolumeHigh,
     faVolumeXmark,
 } from '@fortawesome/free-solid-svg-icons';
-import { HeartRedIcon, HeartBlackIcon } from '../Icons';
+import { HeartRedIcon, HeartIcon } from '../Icons';
 
 import axios from 'axios';
 
@@ -89,7 +89,7 @@ function Post({ data, volumeValue, ChangeVolumeGlobal }) {
         const authToken = getCookie('authToken');
 
         if (context.currentUser) {
-            if (isLikes == false) {
+            if (isLikes === false) {
                 setIsLikes(!isLikes);
                 likeVideo({ idVideo: data.id, token: authToken })
                     .then((res) => {
@@ -252,9 +252,7 @@ function Post({ data, volumeValue, ChangeVolumeGlobal }) {
                         <div className={cx('action_btn')}>
                             <span onClick={HandleLike} className={cx('action_btn_bg')}>
                                 {!isLikes ? (
-                                    <HeartBlackIcon
-                                        fill={context.theme === 'light' ? '#000' : 'rgba(255, 255, 255, 0.9)'}
-                                    />
+                                    <HeartIcon fill={context.theme === 'light' ? '#000' : 'rgba(255, 255, 255, 0.9)'} />
                                 ) : (
                                     <HeartRedIcon className={cx('liked-icon')} />
                                 )}

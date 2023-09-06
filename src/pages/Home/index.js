@@ -7,11 +7,15 @@ import * as VideoServices from '../../service/videoServices';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import Post from '../../components/Post/post';
 import Loading from '../../components/Loading';
+import { Route, Routes } from 'react-router-dom';
+import Video from '../Video';
+
 const cx = classNames.bind(styles);
 function Home() {
     const [items, setItems] = useState([]); // Dữ liệu hiện tại
     const [hasMore, setHasMore] = useState(true); // Có thêm dữ liệu để load không
-    const [page, setPage] = useState(1); // Số trang hiện tại
+    const [page, setPage] = useState(Math.floor(Math.random() * 10) + 1); // Số trang hiện tại
+    const context = useContext(ThemeContext);
 
     const fetchMoreData = () => {
         // Thực hiện logic để lấy dữ liệu mới ở đây, ví dụ:
@@ -39,15 +43,16 @@ function Home() {
             });
     };
 
+    // start
     useEffect(() => {
-        // Đầu tiên, bạn có thể gọi fetchMoreData() một lần để tải dữ liệu ban đầu
         fetchMoreData();
     }, []);
 
-    const context = useContext(ThemeContext);
-
     return (
         <div className={cx('container')}>
+            <Routes>
+                <Route path="/video/:id" key={100} element={<Video />} />
+            </Routes>
             <InfiniteScroll
                 dataLength={items.length} // Số lượng phần tử hiện tại trong danh sách dữ liệu
                 next={fetchMoreData} // Callback được gọi khi người dùng cuộn đến cuối trang
@@ -57,7 +62,7 @@ function Home() {
                         <Loading />
                     </div>
                 } // Hiển thị loader khi đang tải dữ liệu
-                scrollThreshold={'100px'}
+                // scrollThreshold={'200px'}
             >
                 {/* Hiển thị danh sách dữ liệu */}
                 {items.map((item, index) => (
