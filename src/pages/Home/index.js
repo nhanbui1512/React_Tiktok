@@ -45,6 +45,7 @@ function Home() {
 
     // start
     useEffect(() => {
+        window.scroll(0, 0);
         fetchMoreData();
     }, []);
 

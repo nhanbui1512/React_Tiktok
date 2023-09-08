@@ -35,7 +35,7 @@ import { getCookie } from '../../service/local/cookie';
 
 const cx = classNames.bind(styles);
 
-function Post({ data, volumeValue, ChangeVolumeGlobal }) {
+function Post({ data, volumeValue, ChangeVolumeGlobal, route = '' }) {
     const context = useContext(ThemeContext);
 
     const videoRef = useRef(null);
@@ -163,7 +163,7 @@ function Post({ data, volumeValue, ChangeVolumeGlobal }) {
                     {/* video tag  */}
 
                     <div className={cx('player-container')}>
-                        <Link to={`/video/${data.id}`}>
+                        <Link to={`${route}/video/${data.id}`}>
                             <video
                                 volume={volumeValue / 100}
                                 loop={true}

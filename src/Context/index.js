@@ -12,7 +12,6 @@ function ThemeProvider({ children }) {
     const [listVideo, setListVideo] = useState([]);
     const [volume, setVolume] = useState(localStorage.getItem('volume') || 40);
     const [isMuted, setIsMuted] = useState(true);
-    const [videoPage, setVideoPage] = useState(false);
 
     const toggleTheme = () => {
         setTheme(theme === 'dark' ? 'light' : 'dark');
@@ -70,8 +69,6 @@ function ThemeProvider({ children }) {
         setIsMuted,
         volume,
         setVolume,
-        videoPage,
-        setVideoPage,
     };
     return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>;
 }

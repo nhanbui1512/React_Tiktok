@@ -14,29 +14,21 @@ import Loading from '../../../components/Loading';
 const cx = classNames.bind(styles);
 
 function LikedVideos({ userId }) {
-    const [items, setItems] = useState([]); // Dữ liệu hiện tại
-    const [hasMore, setHasMore] = useState(true); // Có thêm dữ liệu để load không
-    const [page, setPage] = useState(1); // Số trang hiện tại
+    const [items, setItems] = useState([]);
+    const [hasMore, setHasMore] = useState(true);
+    const [page, setPage] = useState(1);
     const context = useContext(ThemeContext);
 
     const fetchMoreData = () => {
-        // Thực hiện logic để lấy dữ liệu mới ở đây, ví dụ:
-        // Gọi API hoặc thao tác với dữ liệu đã có
-
-        // Sau khi lấy được dữ liệu mới, cập nhật state items
-        // và kiểm tra xem còn dữ liệu nữa không
-
         const authToken = getCookie('authToken') || '';
         getVideosUserLiked({ idUser: userId, page: page, token: authToken })
             .then((res) => {
                 setItems((prevItems) => [...prevItems, ...res.data]);
                 context.setListVideo((prevState) => [...prevState, ...res.data]);
-                // Nếu không có dữ liệu mới nữa, đặt hasMore thành false
-                // Điều này sẽ ngăn người dùng cuộn để load thêm dữ liệu
+
                 if (res.data.length === 0) {
                     setHasMore(false);
                 }
-                // Tăng số trang lên 1
 
                 setPage((prevPage) => prevPage + 1);
             })

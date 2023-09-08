@@ -56,15 +56,10 @@ function Sidebar() {
     return (
         <aside className={cx('wrapper')}>
             <Menu>
-                <MenuItem
-                    title="For you"
-                    to={config.routes.root}
-                    icon={<HomeIcon />}
-                    activeIcon={<HomeActiveIcon />}
-                ></MenuItem>
+                <MenuItem title="For you" to={'/'} icon={<HomeIcon />} activeIcon={<HomeActiveIcon />}></MenuItem>
                 <MenuItem
                     title="Following"
-                    to={config.routes.following}
+                    to={'/following'}
                     icon={<UserGroupIcon />}
                     activeIcon={<UserGroupActiveIcon />}
                 ></MenuItem>

@@ -24,7 +24,7 @@ import { Link, useParams } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
 
-function Video() {
+function Video({ routeBack = '/' }) {
     const context = useContext(ThemeContext);
 
     const videoRef = useRef(null);
@@ -46,12 +46,17 @@ function Video() {
     };
 
     useEffect(() => {
+        context.setIsMuted(true);
         context.listVideo.map((item, index) => {
             if (item.id === Number(id)) {
                 return setIndex(index);
             }
             return null;
         });
+
+        return () => {
+            context.setIsMuted(false);
+        };
     }, [id, context.listVideo]);
 
     // fetch comments
@@ -189,13 +194,7 @@ function Video() {
                     </div>
                 </div>
 
-                <Link
-                    to={'/'}
-                    className={cx(['close-btn', 'videoPlayerBtn'])}
-                    onClick={() => {
-                        context.setVideoPage(false);
-                    }}
-                >
+                <Link to={`${routeBack}`} className={cx(['close-btn', 'videoPlayerBtn'])}>
                     <FontAwesomeIcon className={cx('close-icon')} icon={faXmark} />
                 </Link>
 

@@ -6,7 +6,6 @@ import { DefaultLayout } from './Layout';
 import { ThemeContext } from './Context';
 import { useContext } from 'react';
 import NotiBar from './components/NotiBar';
-import Video from './pages/Video/Video';
 import PopperLogin from './components/PopperLogin';
 import Tippy from '@tippyjs/react';
 
@@ -53,7 +52,6 @@ function App() {
                     </Tippy>
                 )}
                 {context.notiLoginSuccess && <NotiBar> Đăng nhập thành công</NotiBar>}
-                {context.videoPage && <Video />}
             </div>
         </BrowserRouter>
     );
