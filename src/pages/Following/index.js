@@ -21,24 +21,14 @@ function Following() {
     const navigate = useNavigate();
 
     const fetchMoreData = () => {
-        // Thực hiện logic để lấy dữ liệu mới ở đây, ví dụ:
-        // Gọi API hoặc thao tác với dữ liệu đã có
-
-        // Sau khi lấy được dữ liệu mới, cập nhật state items
-        // và kiểm tra xem còn dữ liệu nữa không
-
         const authToken = getCookie('authToken') || '';
         VideoServices.getFollowingVideos({ page: page, token: authToken })
             .then((data) => {
                 setItems((prevItems) => [...prevItems, ...data]);
                 context.setListVideo((prevState) => [...prevState, ...data]);
-                // Nếu không có dữ liệu mới nữa, đặt hasMore thành false
-                // Điều này sẽ ngăn người dùng cuộn để load thêm dữ liệu
                 if (data.length === 0) {
                     setHasMore(false);
                 }
-                // Tăng số trang lên 1
-
                 setPage((prevPage) => prevPage + 1);
             })
             .catch((err) => {
@@ -48,7 +38,8 @@ function Following() {
 
     useEffect(() => {
         window.scroll(0, 0);
-        if (context.currentUser === false) {
+        const authToken = getCookie('authToken') || '';
+        if (!authToken) {
             navigate('/login');
         } else {
             fetchMoreData();
@@ -67,10 +58,8 @@ function Following() {
                     <div className={cx('loader-container')}>
                         <Loading />
                     </div>
-                } // Hiển thị loader khi đang tải dữ liệu
-                // scrollThreshold={'200px'}
+                }
             >
-                {/* Hiển thị danh sách dữ liệu */}
                 {items.map((item, index) => (
                     <Post
                         route="/following"

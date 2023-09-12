@@ -33,3 +33,21 @@ export const unLikeVideo = async ({ token, idVideo }) => {
         throw error;
     }
 };
+
+export const likeComment = async ({ idComment, token }) => {
+    try {
+        const res = await request.post(
+            `comments/${idComment}/like`,
+            {},
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            },
+        );
+
+        return res.data;
+    } catch (error) {
+        throw error;
+    }
+};
