@@ -28,7 +28,7 @@ function Home() {
         VideoServices.getVideos({ type: 'for-you', page: page, token: authToken })
             .then((data) => {
                 setItems((prevItems) => [...prevItems, ...data]);
-                context.setListVideo((prevState) => [...prevState, ...data]);
+                page === 1 ? context.setListVideo(data) : context.setListVideo((prevState) => [...prevState, ...data]);
                 // Nếu không có dữ liệu mới nữa, đặt hasMore thành false
                 // Điều này sẽ ngăn người dùng cuộn để load thêm dữ liệu
                 if (data.length === 0) {

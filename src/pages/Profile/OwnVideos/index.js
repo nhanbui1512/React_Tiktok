@@ -14,7 +14,7 @@ import { BookMarkIcon } from '../../../components/Icons';
 
 const cx = classNames.bind(styles);
 
-function OwnVideos({ videos, userId }) {
+function OwnVideos({ videos, userId, nickName = '' }) {
     const context = useContext(ThemeContext);
 
     const [ownVideos, setOwnVideos] = useState([]);
@@ -50,7 +50,6 @@ function OwnVideos({ videos, userId }) {
             icon: <FontAwesomeIcon className={cx('icon-lock')} icon={faLock} />,
         },
     ];
-
     const renderSession = () => {
         window.scrollTo(0, 0);
         switch (sessionState) {
@@ -58,7 +57,7 @@ function OwnVideos({ videos, userId }) {
                 return (
                     <div className={cx('body-container')}>
                         {ownVideos.map((video) => {
-                            return <VideoItem data={video} key={video.id}></VideoItem>;
+                            return <VideoItem nickName={nickName} data={video} key={video.id}></VideoItem>;
                         })}
                     </div>
                 );

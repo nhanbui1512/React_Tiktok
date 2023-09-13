@@ -25,7 +25,7 @@ function Following() {
         VideoServices.getFollowingVideos({ page: page, token: authToken })
             .then((data) => {
                 setItems((prevItems) => [...prevItems, ...data]);
-                context.setListVideo((prevState) => [...prevState, ...data]);
+                page === 1 ? context.setListVideo(data) : context.setListVideo((prevState) => [...prevState, ...data]);
                 if (data.length === 0) {
                     setHasMore(false);
                 }
@@ -48,7 +48,7 @@ function Following() {
     return (
         <div className={cx('container')}>
             <Routes>
-                <Route path="/video/:id" key={100} element={<Video routeBack="/following" />} />
+                <Route path="/video/:id" key={100} element={<Video routeBack="/following" mainRoute="/following" />} />
             </Routes>
             <InfiniteScroll
                 dataLength={items.length} // Số lượng phần tử hiện tại trong danh sách dữ liệu

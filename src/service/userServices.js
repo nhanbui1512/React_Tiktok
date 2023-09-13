@@ -24,8 +24,7 @@ export const getUser = async ({ nickname, token = '' }) => {
         });
         return res;
     } catch (error) {
-        console.log(error);
-        return [];
+        throw error;
     }
 };
 

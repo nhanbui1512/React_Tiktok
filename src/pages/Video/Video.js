@@ -24,7 +24,7 @@ import { Link, useParams } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
 
-function Video({ routeBack = '/' }) {
+function Video({ routeBack = '/', mainRoute = '' }) {
     const context = useContext(ThemeContext);
 
     const videoRef = useRef(null);
@@ -150,7 +150,7 @@ function Video({ routeBack = '/' }) {
                         {index > 0 && (
                             <Link
                                 className={cx(['videoPlayerBtn', 'up-btn'])}
-                                to={`/video/${context.listVideo[index - 1].id}`}
+                                to={`${mainRoute}/video/${context.listVideo[index - 1].id}`}
                             >
                                 <FontAwesomeIcon className={cx('moving-icon')} icon={faChevronUp} />
                             </Link>
@@ -159,7 +159,7 @@ function Video({ routeBack = '/' }) {
                         {index < context.listVideo.length - 1 && (
                             <Link
                                 className={cx(['videoPlayerBtn', 'down-btn'])}
-                                to={`/video/${context.listVideo[index + 1].id}`}
+                                to={`${mainRoute}/video/${context.listVideo[index + 1].id}`}
                             >
                                 <FontAwesomeIcon className={cx('moving-icon')} icon={faChevronDown} />
                             </Link>

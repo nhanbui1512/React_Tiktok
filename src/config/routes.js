@@ -1,13 +1,13 @@
 const routes = {
     root: '/*',
-    following: '/following/*',
     profile: '/:nickname',
+    following: '/following/*',
     upload: '/upload',
     search: '/search',
     live: '/live',
     login: '/login/*',
     signup: '/signup/*',
     setting: '/settings',
-    video: '/video/:id',
+    videoProfile: '/:nickname/videos/*',
 };
 export default routes;

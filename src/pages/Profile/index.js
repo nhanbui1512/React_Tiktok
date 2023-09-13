@@ -5,11 +5,12 @@ import OwnVideos from './OwnVideos';
 
 import * as UserService from '../../service/userServices';
 
-import { useParams } from 'react-router-dom';
+import { Route, Routes, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { getCookie } from '../../service/local/cookie';
 import { useContext } from 'react';
 import { ThemeContext } from '../../Context';
+import Video from '../Video';
 
 const cx = classNames.bind(styles);
 
@@ -22,16 +23,23 @@ function Profile() {
     const [userData, setUserData] = useState({});
     useEffect(() => {
         const token = getCookie('authToken') || '';
-        UserService.getUser({ nickname, token: token }).then((data) => {
-            setUserData(data.data);
-            return data.videos;
-        });
-    }, [nickname, context.currentUser]);
+        UserService.getUser({ nickname, token: token })
+            .then((data) => {
+                setUserData(data.data);
+                context.setListVideo(data.data.videos);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    }, [nickname]);
 
     return (
         <div className={cx('wrapper')}>
+            <Routes>
+                <Route key={1} path="/:id" element={<Video routeBack={`/${nickname}`}></Video>}></Route>
+            </Routes>
             <ProfileInfo data={userData} />
-            {userData.videos && <OwnVideos videos={userData.videos} userId={userData.id} />}
+            {userData.videos && <OwnVideos nickName={nickname} videos={userData.videos} userId={userData.id} />}
         </div>
     );
 }

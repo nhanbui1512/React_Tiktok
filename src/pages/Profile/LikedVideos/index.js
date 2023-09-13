@@ -11,6 +11,7 @@ import MainDetail from '../MainDetail';
 import { getCookie } from '../../../service/local/cookie';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import Loading from '../../../components/Loading';
+import { useParams } from 'react-router-dom';
 const cx = classNames.bind(styles);
 
 function LikedVideos({ userId }) {
@@ -18,29 +19,39 @@ function LikedVideos({ userId }) {
     const [hasMore, setHasMore] = useState(true);
     const [page, setPage] = useState(1);
     const context = useContext(ThemeContext);
+    const [isFetching, setIsFetching] = useState(false);
+
+    let { nickname } = useParams();
 
     const fetchMoreData = () => {
         const authToken = getCookie('authToken') || '';
-        getVideosUserLiked({ idUser: userId, page: page, token: authToken })
-            .then((res) => {
-                setItems((prevItems) => [...prevItems, ...res.data]);
-                context.setListVideo((prevState) => [...prevState, ...res.data]);
 
-                if (res.data.length === 0) {
-                    setHasMore(false);
-                }
+        if (context.currentUser === true) {
+            setIsFetching(true);
+            getVideosUserLiked({ idUser: userId, page: page, token: authToken })
+                .then((res) => {
+                    setItems((prevItems) => [...prevItems, ...res.data]);
+                    page === 1
+                        ? context.setListVideo(res.data)
+                        : context.setListVideo((prevState) => [...prevState, ...res.data]);
 
-                setPage((prevPage) => prevPage + 1);
-            })
-            .catch((err) => {
-                console.log(err);
-            });
+                    if (res.data.length === 0) {
+                        setHasMore(false);
+                    }
+
+                    setPage((prevPage) => prevPage + 1);
+                    setIsFetching(false);
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+        }
     };
 
     // start
     useEffect(() => {
         fetchMoreData();
-    }, []);
+    }, [context.currentUser]);
 
     return (
         <div className={cx('wrapper')}>
@@ -52,10 +63,10 @@ function LikedVideos({ userId }) {
                     hasMore={hasMore}
                 >
                     {items.map((video) => {
-                        return <VideoItem data={video} key={video.id} />;
+                        return <VideoItem nickName={nickname} data={video} key={video.id} />;
                     })}
                 </InfiniteScroll>
-                {hasMore && (
+                {isFetching && (
                     <div className={cx('loader')}>
                         <Loading />
                     </div>

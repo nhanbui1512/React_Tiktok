@@ -12,7 +12,7 @@ import Image from '../../../components/Image';
 
 const cx = classNames.bind(styles);
 
-function VideoItem({ data }) {
+function VideoItem({ data, nickName }) {
     const [isHover, setIsHover] = useState(false);
 
     const preLoadVideoRef = useRef();
@@ -37,7 +37,7 @@ function VideoItem({ data }) {
                 <div style={{ paddingTop: '132.653%' }}>
                     <div className={cx('div-wrapper')}>
                         <canvas width="75.38461538461539" height="100"></canvas>
-                        <Link to={`/video/${data.id}`}>
+                        <Link to={`/${nickName}/videos/${data.id}`}>
                             <div className={cx('player-container')}>
                                 <div className={cx('div-container')}>
                                     <Image className={cx('thumb-image')} src={data.thumb_url}></Image>

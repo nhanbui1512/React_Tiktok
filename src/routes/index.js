@@ -24,7 +24,7 @@ const publicRoutes = [
     { path: config.routes.login, component: Login, layout: null },
     { path: config.routes.signup, component: Signup, layout: null },
     { path: config.routes.setting, component: Setting, layout: HeaderOnly },
-    // { path: config.routes.video, component: Video, layout: VideoLayout },
+    { path: config.routes.videoProfile, component: Profile, layout: ProfileLayout },
 ];
 
 // Can dang nhap
