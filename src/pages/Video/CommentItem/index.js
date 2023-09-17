@@ -5,20 +5,21 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart } from '@fortawesome/free-regular-svg-icons';
 import { faHeart as faHeartSolid } from '@fortawesome/free-solid-svg-icons';
 import Image from '../../../components/Image';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { likeComment } from '../../../service/likeService';
 import { getCookie } from '../../../service/local/cookie';
 
 const cx = classNames.bind(styles);
 
 function CommentItem({ data = {}, dark = false }) {
-    const [isLiked, setIsLiked] = useState(false);
+    const [isLiked, setIsLiked] = useState(data.is_liked);
+    const countRef = useRef();
 
     const handleLike = () => {
         const authToken = getCookie('authToken') || '';
         likeComment({ idComment: data.id, token: authToken })
             .then((res) => {
-                console.log(res);
+                countRef.current.innerText = res.data.likes_count;
             })
             .catch((err) => {
                 console.log(err);
@@ -38,7 +39,7 @@ function CommentItem({ data = {}, dark = false }) {
                 <Image src={data.user.avatar} alt="" />
             </Link>
             <div className={cx('infor')}>
-                <Link className={cx('username')}>
+                <Link to={`/@${data.user.nickname}`} className={cx('username')}>
                     {data.user.first_name} {data.user.last_name}
                 </Link>
 
@@ -56,7 +57,9 @@ function CommentItem({ data = {}, dark = false }) {
                 >
                     <FontAwesomeIcon className={cx('heart-icon')} icon={isLiked ? faHeartSolid : faHeart} />
                 </span>
-                <span className={cx('count')}>{data.likes_count}</span>
+                <span ref={countRef} className={cx('count')}>
+                    {data.likes_count}
+                </span>
             </div>
         </div>
     );

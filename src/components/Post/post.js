@@ -72,6 +72,25 @@ function Post({ data, volumeValue, ChangeVolumeGlobal, route = '' }) {
                     })
                     .then((response) => {
                         // Xử lý phản hồi thành công
+                        setIsFollow(true);
+                    })
+                    .catch((error) => {
+                        // Xử lý lỗi
+                        console.error(error);
+                    });
+            } else {
+                axios
+                    .request({
+                        method: 'post',
+                        url: `https://tiktok.fullstack.edu.vn/api/users/${idUser}/unfollow`,
+                        headers: {
+                            'Content-Type': 'application/json',
+                            Authorization: `Bearer ${token}`,
+                        },
+                    })
+                    .then((response) => {
+                        // Xử lý phản hồi thành công
+                        setIsFollow(false);
                     })
                     .catch((error) => {
                         // Xử lý lỗi

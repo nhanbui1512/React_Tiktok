@@ -24,11 +24,41 @@ import { useContext, useState } from 'react';
 import { ThemeContext } from '../../../Context';
 import CommentCreator from '../CommentCreator';
 
+import { FollowUser, UnFollow } from '../../../service/userServices';
+import { getCookie } from '../../../service/local/cookie';
 const cx = classNames.bind(styles);
 
 function Comment({ data = {}, comments = [] }) {
     const context = useContext(ThemeContext);
     const [isLiked, setIsLiked] = useState(data.is_liked) || false;
+    console.log(data);
+    const [isFollowed, setIsFollowed] = useState(data.user.is_followed);
+
+    const HandleFollow = () => {
+        if (!context.currentUser) {
+            context.setLoginPopper(true);
+        } else {
+            const token = getCookie('authToken') || '';
+
+            isFollowed
+                ? UnFollow({ token, idUser: data.user.id })
+                      .then((res) => {
+                          console.log(res);
+                          setIsFollowed(!isFollowed);
+                      })
+                      .catch((err) => {
+                          console.log(err);
+                      })
+                : FollowUser({ token, idUser: data.user.id })
+                      .then((res) => {
+                          console.log(res);
+                          setIsFollowed(!isFollowed);
+                      })
+                      .catch((err) => {
+                          console.log(err);
+                      });
+        }
+    };
 
     return (
         <div className={cx(['wrapper', context.theme])}>
@@ -39,20 +69,16 @@ function Comment({ data = {}, comments = [] }) {
                         <Image className={cx('avatar')} src={data.user.avatar} />
 
                         <div className={cx('info')}>
-                            <p className={cx('nick-name')}>{data.user.nickname}</p>
+                            <Link className={cx('nick-name')} to={`/@${data.user.nickname}`}>
+                                <p>{data.user.nickname}</p>
+                            </Link>
                             <p className={cx('name')}>
                                 {`${data.user.first_name} ${data.user.last_name}`} · {data.published_at.split(' ')[0]}
                             </p>
                         </div>
                     </div>
-                    <Button
-                        outline
-                        className={cx('follow-btn')}
-                        onClick={() => {
-                            context.setLoginPopper(true);
-                        }}
-                    >
-                        Follow
+                    <Button outline className={cx('follow-btn')} onClick={HandleFollow}>
+                        {isFollowed === false ? `Follow` : `Unfollow`}
                     </Button>
                 </div>
 

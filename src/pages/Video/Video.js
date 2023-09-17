@@ -24,7 +24,7 @@ import { Link, useParams } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
 
-function Video({ routeBack = '/', mainRoute = '' }) {
+function Video({ routeBack = '/', mainRoute = '', profile = false }) {
     const context = useContext(ThemeContext);
 
     const videoRef = useRef(null);
@@ -61,11 +61,11 @@ function Video({ routeBack = '/', mainRoute = '' }) {
 
     // fetch comments
     useEffect(() => {
-        const token = getCookie('authToken');
+        const token = getCookie('authToken') || '';
         const idVideo = id;
 
         context.currentUser &&
-            getCommentsOfVieo({ idVideo: idVideo, token, page: 1 }).then((res) => {
+            getCommentsOfVieo({ idVideo: idVideo, token: token, page: 1 }).then((res) => {
                 setComments(res.data.data);
             });
     }, [index, id, context.currentUser]);
@@ -150,7 +150,11 @@ function Video({ routeBack = '/', mainRoute = '' }) {
                         {index > 0 && (
                             <Link
                                 className={cx(['videoPlayerBtn', 'up-btn'])}
-                                to={`${mainRoute}/video/${context.listVideo[index - 1].id}`}
+                                to={
+                                    profile
+                                        ? `${mainRoute}/videos/${context.listVideo[index - 1].id}`
+                                        : `${mainRoute}/video/${context.listVideo[index - 1].id}`
+                                }
                             >
                                 <FontAwesomeIcon className={cx('moving-icon')} icon={faChevronUp} />
                             </Link>
@@ -159,7 +163,11 @@ function Video({ routeBack = '/', mainRoute = '' }) {
                         {index < context.listVideo.length - 1 && (
                             <Link
                                 className={cx(['videoPlayerBtn', 'down-btn'])}
-                                to={`${mainRoute}/video/${context.listVideo[index + 1].id}`}
+                                to={
+                                    profile
+                                        ? `${mainRoute}/videos/${context.listVideo[index + 1].id}`
+                                        : `${mainRoute}/video/${context.listVideo[index + 1].id}`
+                                }
                             >
                                 <FontAwesomeIcon className={cx('moving-icon')} icon={faChevronDown} />
                             </Link>

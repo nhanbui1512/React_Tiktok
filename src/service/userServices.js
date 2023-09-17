@@ -69,7 +69,7 @@ export const FollowUser = async ({ token = '', idUser }) => {
                 },
             },
         );
-        return res;
+        return res.data;
     } catch (error) {
         throw error;
     }
@@ -86,7 +86,7 @@ export const UnFollow = async ({ token = '', idUser }) => {
                 },
             },
         );
-        return res;
+        return res.data;
     } catch (error) {
         throw error;
     }

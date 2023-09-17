@@ -36,7 +36,11 @@ function Profile() {
     return (
         <div className={cx('wrapper')}>
             <Routes>
-                <Route key={1} path="/:id" element={<Video routeBack={`/${nickname}`}></Video>}></Route>
+                <Route
+                    key={1}
+                    path="/:id"
+                    element={<Video profile routeBack={`/${nickname}`} mainRoute={`/${nickname}`}></Video>}
+                ></Route>
             </Routes>
             <ProfileInfo data={userData} />
             {userData.videos && <OwnVideos nickName={nickname} videos={userData.videos} userId={userData.id} />}
