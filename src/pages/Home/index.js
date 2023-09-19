@@ -16,6 +16,7 @@ function Home() {
     const [hasMore, setHasMore] = useState(true); // Có thêm dữ liệu để load không
     const [page, setPage] = useState(Math.floor(Math.random() * 10) + 1); // Số trang hiện tại
     const context = useContext(ThemeContext);
+    const [theFirst, setTheFirst] = useState(true);
 
     const fetchMoreData = () => {
         // Thực hiện logic để lấy dữ liệu mới ở đây, ví dụ:
@@ -28,7 +29,12 @@ function Home() {
         VideoServices.getVideos({ type: 'for-you', page: page, token: authToken })
             .then((data) => {
                 setItems((prevItems) => [...prevItems, ...data]);
-                page === 1 ? context.setListVideo(data) : context.setListVideo((prevState) => [...prevState, ...data]);
+                if (theFirst) {
+                    context.setListVideo(data);
+                    setTheFirst(false);
+                } else {
+                    context.setListVideo((prevState) => [...prevState, ...data]);
+                }
                 // Nếu không có dữ liệu mới nữa, đặt hasMore thành false
                 // Điều này sẽ ngăn người dùng cuộn để load thêm dữ liệu
                 if (data.length === 0) {

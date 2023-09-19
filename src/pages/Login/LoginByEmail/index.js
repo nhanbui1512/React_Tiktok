@@ -29,7 +29,6 @@ function LoginByEmail() {
         LoginService.login({ email: emailValue, password: passwordValue })
             .then((res) => {
                 if (res.meta) {
-                    console.log(res);
                     Cookie.setToken({ token: res.meta.token });
                     navigate('/');
                     context.setNotiLoginSuccess(true);

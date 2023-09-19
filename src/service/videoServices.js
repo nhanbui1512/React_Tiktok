@@ -14,8 +14,7 @@ export const getVideos = async ({ type, page, token = '' }) => {
         });
         return res.data;
     } catch (error) {
-        console.log(error);
-        return [];
+        throw error;
     }
 };
 
@@ -32,8 +31,7 @@ export const getFollowingVideos = async ({ page, token }) => {
         });
         return res.data;
     } catch (error) {
-        console.log(error);
-        return [];
+        throw error;
     }
 };
 
@@ -46,6 +44,19 @@ export const getVideosUserLiked = async ({ idUser, page = 1, token = '' }) => {
         });
         return res;
     } catch (error) {
-        return error;
+        throw error;
+    }
+};
+
+export const getOneVideo = async ({ idVideo, token = '' }) => {
+    try {
+        const res = await request.get(`videos/${idVideo}`, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        });
+        return res;
+    } catch (error) {
+        throw error;
     }
 };

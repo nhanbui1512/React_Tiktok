@@ -20,7 +20,7 @@ import {
 
 import MenuShare from '../../../components/MenuShare';
 import CommentItem from '../CommentItem';
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { ThemeContext } from '../../../Context';
 import CommentCreator from '../CommentCreator';
 
@@ -30,10 +30,8 @@ const cx = classNames.bind(styles);
 
 function Comment({ data = {}, comments = [] }) {
     const context = useContext(ThemeContext);
-    const [isLiked, setIsLiked] = useState(data.is_liked) || false;
-    console.log(data);
-    const [isFollowed, setIsFollowed] = useState(data.user.is_followed);
-
+    const [isLiked, setIsLiked] = useState(data.is_liked || false);
+    const [isFollowed, setIsFollowed] = useState(false);
     const HandleFollow = () => {
         if (!context.currentUser) {
             context.setLoginPopper(true);
@@ -44,7 +42,6 @@ function Comment({ data = {}, comments = [] }) {
                 ? UnFollow({ token, idUser: data.user.id })
                       .then((res) => {
                           console.log(res);
-                          setIsFollowed(!isFollowed);
                       })
                       .catch((err) => {
                           console.log(err);
@@ -52,13 +49,19 @@ function Comment({ data = {}, comments = [] }) {
                 : FollowUser({ token, idUser: data.user.id })
                       .then((res) => {
                           console.log(res);
-                          setIsFollowed(!isFollowed);
                       })
                       .catch((err) => {
                           console.log(err);
                       });
+
+            setIsFollowed(!isFollowed);
         }
     };
+
+    useEffect(() => {
+        setIsLiked(data.is_liked);
+        setIsFollowed(data.user.is_followed);
+    }, [data]);
 
     return (
         <div className={cx(['wrapper', context.theme])}>

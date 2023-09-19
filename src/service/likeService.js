@@ -51,3 +51,21 @@ export const likeComment = async ({ idComment, token }) => {
         throw error;
     }
 };
+
+export const unLikeComment = async ({ idComment, token = '' }) => {
+    try {
+        const res = await request.post(
+            `comments/${idComment}/unlike`,
+            {},
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            },
+        );
+
+        return res.data;
+    } catch (error) {
+        throw error;
+    }
+};

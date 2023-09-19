@@ -6,7 +6,7 @@ import { faHeart } from '@fortawesome/free-regular-svg-icons';
 import { faHeart as faHeartSolid } from '@fortawesome/free-solid-svg-icons';
 import Image from '../../../components/Image';
 import { useRef, useState } from 'react';
-import { likeComment } from '../../../service/likeService';
+import { likeComment, unLikeComment } from '../../../service/likeService';
 import { getCookie } from '../../../service/local/cookie';
 
 const cx = classNames.bind(styles);
@@ -17,13 +17,23 @@ function CommentItem({ data = {}, dark = false }) {
 
     const handleLike = () => {
         const authToken = getCookie('authToken') || '';
-        likeComment({ idComment: data.id, token: authToken })
-            .then((res) => {
-                countRef.current.innerText = res.data.likes_count;
-            })
-            .catch((err) => {
-                console.log(err);
-            });
+
+        isLiked === false
+            ? likeComment({ idComment: data.id, token: authToken })
+                  .then((res) => {
+                      countRef.current.innerText = res.data.likes_count;
+                  })
+                  .catch((err) => {
+                      console.log(err);
+                  })
+            : unLikeComment({ idComment: data.id, token: authToken })
+                  .then((res) => {
+                      countRef.current.innerText = res.data.likes_count;
+                  })
+                  .catch((err) => {
+                      console.log(err);
+                  });
+
         setIsLiked(!isLiked);
     };
 
