@@ -45,10 +45,26 @@
     cursor: pointer;
 }
 .act-container {
+    position: relative;
     display: flex;
     flex-direction: column;
     padding-top: 20px;
     align-items: center;
+}
+.more-btn {
+    position: absolute;
+    top: 0;
+    display: none;
+    cursor: pointer;
+}
+.wrapper:hover {
+    .more-btn {
+        display: flex;
+    }
+}
+.more-icon {
+    width: 24px;
+    height: 24px;
 }
 .heart-icon {
     color: rgba(22, 24, 35, 0.5);
@@ -64,7 +80,8 @@
 
 .dark {
     .username,
-    .infor {
+    .infor,
+    .more-icon {
         color: var(--text-white);
     }
     .others,

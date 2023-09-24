@@ -2,16 +2,18 @@ import classNames from 'classnames/bind';
 import styles from './CommentItem.module.scss';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHeart } from '@fortawesome/free-regular-svg-icons';
+import { faFlag, faHeart, faTrashAlt } from '@fortawesome/free-regular-svg-icons';
 import { faHeart as faHeartSolid } from '@fortawesome/free-solid-svg-icons';
 import Image from '../../../components/Image';
 import { useRef, useState } from 'react';
 import { likeComment, unLikeComment } from '../../../service/likeService';
 import { getCookie } from '../../../service/local/cookie';
+import { EllipseIcon } from '../../../components/Icons';
+import Menu from '../../../components/Popper/Menu';
 
 const cx = classNames.bind(styles);
 
-function CommentItem({ data = {}, dark = false }) {
+function CommentItem({ data = {}, dark = false, isOwner = false }) {
     const [isLiked, setIsLiked] = useState(data.is_liked);
     const countRef = useRef();
 
@@ -37,6 +39,26 @@ function CommentItem({ data = {}, dark = false }) {
         setIsLiked(!isLiked);
     };
 
+    // nếu là chủ sở hữu comment thì được xóa
+    const items =
+        isOwner === true
+            ? [
+                  {
+                      icon: <FontAwesomeIcon icon={faFlag}></FontAwesomeIcon>,
+                      title: 'Báo cáo',
+                  },
+                  {
+                      icon: <FontAwesomeIcon icon={faTrashAlt}></FontAwesomeIcon>,
+                      title: 'Xóa',
+                  },
+              ]
+            : [
+                  {
+                      icon: <FontAwesomeIcon icon={faFlag}></FontAwesomeIcon>,
+                      title: 'Báo cáo',
+                  },
+              ];
+
     return (
         <div
             className={cx('wrapper', {
@@ -60,6 +82,12 @@ function CommentItem({ data = {}, dark = false }) {
                 </p>
             </div>
             <div className={cx('act-container')}>
+                <Menu delayHidden={200} primary={true} items={items}>
+                    <div className={cx('more-btn')}>
+                        <EllipseIcon className={cx('more-icon')} />
+                    </div>
+                </Menu>
+
                 <span
                     onClick={() => {
                         handleLike();

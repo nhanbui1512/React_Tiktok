@@ -4,24 +4,37 @@ import EmojiPicker from 'emoji-picker-react';
 import Tippy from '@tippyjs/react';
 import { EmojiIcon } from '../../../components/Icons';
 import { useState } from 'react';
+import { createNewComment } from '../../../service/commentService';
+import { getCookie } from '../../../service/local/cookie';
 const cx = classNames.bind(styles);
 
-function CommentCreator({ theme = 'light' }) {
+function CommentCreator({ setCommentList, theme = 'light', idVideo }) {
     const [emojiBox, setEmojiBox] = useState(false);
-    const [valueComment, setValueComment] = useState('');
+    const [commentValue, setCommentValue] = useState('');
 
+    const handleComment = () => {
+        const token = getCookie('authToken') || '';
+        createNewComment({ token, idVideo: idVideo, content: commentValue })
+            .then((res) => {
+                setCommentList((prevState) => [res.data, ...prevState]);
+                setCommentValue('');
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    };
     return (
         <div className={cx(['wrapper', theme])}>
             <div className={cx('creator-form')}>
                 <div className={cx('input-container')}>
                     <textarea
-                        value={valueComment}
+                        value={commentValue}
                         rows="1"
                         className={cx('input-comment')}
                         placeholder="Thêm bình luận..."
                         spellCheck={false}
                         onChange={(e) => {
-                            setValueComment(e.target.value);
+                            setCommentValue(e.target.value);
                         }}
                         onBlur={() => {
                             setEmojiBox(false);
@@ -42,7 +55,8 @@ function CommentCreator({ theme = 'light' }) {
                         <div className={cx('emoji-box')}>
                             <EmojiPicker
                                 onEmojiClick={(emoji) => {
-                                    setValueComment(valueComment + emoji.emoji);
+                                    setCommentValue(commentValue + emoji.emoji);
+                                    setEmojiBox(false);
                                 }}
                                 searchDisabled={true}
                                 height={400}
@@ -52,7 +66,7 @@ function CommentCreator({ theme = 'light' }) {
                         </div>
                     )}
                 </div>
-                <button className={cx('comment_btn')}>
+                <button className={cx('comment_btn')} onClick={handleComment}>
                     <span>Đăng</span>
                 </button>
             </div>

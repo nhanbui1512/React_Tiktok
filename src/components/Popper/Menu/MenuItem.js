@@ -7,11 +7,12 @@ import { ThemeContext } from '../../../Context';
 import { useContext } from 'react';
 
 const cx = classNames.bind(styles);
-function MenuItem({ data, onClick }) {
+function MenuItem({ primary = false, data, onClick }) {
     const context = useContext(ThemeContext);
 
     const classes = cx('menu-item', {
         separate: data.separate,
+        primary: primary,
     });
     return (
         <div className={cx('container')}>

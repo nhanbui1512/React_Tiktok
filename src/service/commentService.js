@@ -9,3 +9,37 @@ export const getCommentsOfVieo = async ({ idVideo, token, page }) => {
 
     return result;
 };
+
+export const createNewComment = async ({ content, idVideo, token }) => {
+    try {
+        const response = await request.post(
+            `videos/${idVideo}/comments`,
+            {
+                comment: content,
+            },
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            },
+        );
+
+        return response.data;
+    } catch (error) {
+        throw error;
+    }
+};
+
+export const deleteComment = async ({ idComment, token }) => {
+    try {
+        const response = await request.delete(`comments/${idComment}`, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        });
+
+        return response;
+    } catch (error) {
+        throw error;
+    }
+};

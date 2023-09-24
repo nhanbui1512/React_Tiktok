@@ -16,7 +16,7 @@ const cx = classNames.bind(styles);
 
 const defFunc = () => {};
 
-function Menu({ children, items = [], onChange = defFunc }) {
+function Menu({ delayHidden = 700, primary = false, children, items = [], onChange = defFunc }) {
     const context = useContext(ThemeContext);
 
     const [history, setHistory] = useState([{ data: items }]);
@@ -43,7 +43,12 @@ function Menu({ children, items = [], onChange = defFunc }) {
             };
 
             return (
-                <MenuItem key={index} data={item} onClick={item.separate ? handleLogout : handleChangeItem}></MenuItem>
+                <MenuItem
+                    primary={primary}
+                    key={index}
+                    data={item}
+                    onClick={item.separate ? handleLogout : handleChangeItem}
+                ></MenuItem>
             );
         });
     };
@@ -51,7 +56,7 @@ function Menu({ children, items = [], onChange = defFunc }) {
         <HeadlessTippy
             offset={[12, 8]}
             interactive
-            delay={[0, 700]}
+            delay={[0, delayHidden]}
             placement="bottom-end"
             hideOnClick={false}
             render={(attrs) => (

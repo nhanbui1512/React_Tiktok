@@ -20,18 +20,22 @@ import {
 
 import MenuShare from '../../../components/MenuShare';
 import CommentItem from '../CommentItem';
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import { ThemeContext } from '../../../Context';
 import CommentCreator from '../CommentCreator';
 
 import { FollowUser, UnFollow } from '../../../service/userServices';
 import { getCookie } from '../../../service/local/cookie';
+import { likeVideo, unLikeVideo } from '../../../service/likeService';
 const cx = classNames.bind(styles);
 
 function Comment({ data = {}, comments = [] }) {
     const context = useContext(ThemeContext);
     const [isLiked, setIsLiked] = useState(data.is_liked || false);
     const [isFollowed, setIsFollowed] = useState(false);
+    const [commentList, setCommentList] = useState([]);
+    const countRef = useRef();
+
     const HandleFollow = () => {
         if (!context.currentUser) {
             context.setLoginPopper(true);
@@ -57,6 +61,36 @@ function Comment({ data = {}, comments = [] }) {
             setIsFollowed(!isFollowed);
         }
     };
+
+    const handleLikeVideo = () => {
+        if (!context.currentUser) {
+            context.setLoginPopper(true);
+        } else {
+            const token = getCookie('authToken') || '';
+            if (isLiked === false) {
+                likeVideo({ token, idVideo: data.id })
+                    .then((res) => {
+                        countRef.current.innerText = res.data.likes_count;
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                    });
+            } else {
+                unLikeVideo({ token, idVideo: data.id })
+                    .then((res) => {
+                        countRef.current.innerText = res.data.likes_count;
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                    });
+            }
+            setIsLiked(!isLiked);
+        }
+    };
+
+    useEffect(() => {
+        setCommentList(comments);
+    }, [comments]);
 
     useEffect(() => {
         setIsLiked(data.is_liked);
@@ -94,12 +128,7 @@ function Comment({ data = {}, comments = [] }) {
                     <div className={cx('interactive-top')}>
                         <div className={cx('activity-video')}>
                             <div className={cx('count-box')}>
-                                <button
-                                    className={cx('act-btn')}
-                                    onClick={() => {
-                                        setIsLiked(!isLiked);
-                                    }}
-                                >
+                                <button className={cx('act-btn')} onClick={handleLikeVideo}>
                                     {isLiked === true ? (
                                         <HeartRedIcon className={cx('act-icon')} />
                                     ) : (
@@ -109,7 +138,9 @@ function Comment({ data = {}, comments = [] }) {
                                         />
                                     )}
                                 </button>
-                                <strong className={cx('count-number')}>{data.likes_count}</strong>
+                                <strong ref={countRef} className={cx('count-number')}>
+                                    {data.likes_count}
+                                </strong>
                             </div>
                             <div className={cx('count-box')}>
                                 <button className={cx('act-btn')}>
@@ -144,15 +175,22 @@ function Comment({ data = {}, comments = [] }) {
             </div>
             <div className={cx('content')}>
                 <div className={cx('comment-wrapper')}>
-                    {comments.length > 0 || <p className={cx('empty')}>Hãy là người đầu tiên bình luận</p>}
-                    {comments.map((item) => {
-                        return <CommentItem dark={context.theme === 'dark' && true} data={item} key={item.id} />;
+                    {commentList.length > 0 || <p className={cx('empty')}>Hãy là người đầu tiên bình luận</p>}
+                    {commentList.map((item) => {
+                        return (
+                            <CommentItem
+                                isOwner={item.user.id === context.user.id}
+                                dark={context.theme === 'dark' && true}
+                                data={item}
+                                key={item.id}
+                            />
+                        );
                     })}
                 </div>
             </div>
             <div className={cx('footer')}>
                 {context.currentUser ? (
-                    <CommentCreator theme={context.theme} />
+                    <CommentCreator idVideo={data.id} setCommentList={setCommentList} theme={context.theme} />
                 ) : (
                     <div className={cx('login-btn')}>
                         <p

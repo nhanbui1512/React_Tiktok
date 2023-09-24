@@ -15,6 +15,7 @@
     flex-direction: column;
     padding-bottom: 8px;
     max-height: min(100vh - 96px - 60px, 734px);
+    min-height: fit-content;
 }
 .menu-body {
     display: flex;
@@ -71,6 +72,14 @@
         background-color: rgba(255, 255, 255, 0.04);
     }
 }
+
+.primary {
+    &:hover {
+        color: var(--primary);
+        background-color: transparent;
+    }
+}
+
 /* PC */
 @media (min-width: 1024px) {
 }
