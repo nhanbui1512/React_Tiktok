@@ -12,25 +12,19 @@ import Live from '../pages/Live';
 import Login from '../pages/Login';
 import Signup from '../pages/Signup';
 import Setting from '../pages/Setting';
-import AdjustVideo from '../pages/AdjustVideo';
 
 // Khong can dang nhap
 const publicRoutes = [
-    { path: config.routes.following, component: Following },
-    { path: config.routes.live, component: Live },
-    { path: config.routes.profile, component: Profile, layout: ProfileLayout },
-    { path: config.routes.upload, component: Upload, layout: HeaderOnly },
-    { path: config.routes.search, component: Search, layout: null },
-    { path: config.routes.login, component: Login, layout: null },
-    { path: config.routes.signup, component: Signup, layout: null },
-    { path: config.routes.videoProfile, component: Profile, layout: ProfileLayout },
-    { path: config.routes.setting, component: Setting, layout: HeaderOnly },
-    { path: config.routes.root, component: Home },
-    {
-        path: config.routes.adjust,
-        layout: HeaderOnly,
-        component: AdjustVideo,
-    },
+  { path: config.routes.following, component: Following },
+  { path: config.routes.live, component: Live },
+  { path: config.routes.profile, component: Profile, layout: ProfileLayout },
+  { path: config.routes.upload, component: Upload, layout: HeaderOnly },
+  { path: config.routes.search, component: Search, layout: null },
+  { path: config.routes.login, component: Login, layout: null },
+  { path: config.routes.signup, component: Signup, layout: null },
+  { path: config.routes.videoProfile, component: Profile, layout: ProfileLayout },
+  { path: config.routes.setting, component: Setting, layout: HeaderOnly },
+  { path: config.routes.root, component: Home },
 ];
 
 // Can dang nhap

@@ -1,70 +1,154 @@
 .wrapper {
-    margin-top: 40px;
-    width: 1100px;
-    box-shadow: rgba(0, 0, 0, 0.06) 0px 2px 8px;
-    border-radius: 8px;
-    background-color: rgb(255, 255, 255);
-    padding: 16px 24px;
-    margin-bottom: 12px;
-    display: flex;
-    gap: 10px;
+  margin-top: 16px;
+  width: 1100px;
+  box-shadow: rgba(0, 0, 0, 0.06) 0px 2px 8px;
+  border-radius: 8px;
+  background-color: rgb(255, 255, 255);
+  padding: 16px 24px;
+  margin-bottom: 12px;
+  display: flex;
+  gap: 10px;
 }
 
 .edit-card {
-    width: 50%;
-    background-color: rgba(22, 24, 35, 0.06);
-    border: 0.5px solid rgba(22, 24, 35, 0.12);
-    box-shadow: white 0px 0px 0px 8px;
-    border-radius: 8px;
-    height: 84px;
-    display: flex;
-    -webkit-box-pack: justify;
-    justify-content: space-between;
-    -webkit-box-align: center;
-    align-items: center;
+  width: 50%;
+  background-color: rgba(22, 24, 35, 0.06);
+  border: 0.5px solid rgba(22, 24, 35, 0.12);
+  box-shadow: white 0px 0px 0px 8px;
+  border-radius: 8px;
+  height: 84px;
+  display: flex;
+  -webkit-box-pack: justify;
+  justify-content: space-between;
+  -webkit-box-align: center;
+  align-items: center;
 }
 .video-info {
-    display: flex;
-    height: 100%;
-    align-items: center;
+  display: flex;
+  height: 100%;
+  align-items: center;
 }
 .video-index {
-    width: 32px;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-right: 8px;
-    span {
-        font-size: 16px;
-        box-sizing: border-box;
-        line-height: 1.5;
-        font-weight: 700;
-        color: rgba(22, 24, 35, 0.34);
-    }
+  width: 32px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 8px;
+  span {
+    font-size: 16px;
+    box-sizing: border-box;
+    line-height: 1.5;
+    font-weight: 700;
+    color: rgba(22, 24, 35, 0.34);
+  }
 }
 .video-cover {
+  width: 35px;
+  height: 52px;
+  background-color: black;
+  position: relative;
+  border-radius: 2px;
+
+  .video-loadingBox {
+    position: absolute;
+    left: 0px;
+    top: 0px;
     width: 35px;
     height: 52px;
-    background-color: black;
-    position: relative;
-    border-radius: 2px;
-
-    .video-loadingBox {
-        position: absolute;
-        left: 0px;
-        top: 0px;
-        width: 35px;
-        height: 52px;
-        z-index: 1;
-        background: rgba(22, 24, 35, 0.06);
-    }
+    z-index: 1;
+    background: rgba(22, 24, 35, 0.06);
+  }
 }
 .video-imageCover {
-    width: 100%;
-    height: 100%;
-    border-radius: 2px;
-    object-fit: contain;
-    transition: opacity 0.5s ease 0s;
-    opacity: 1;
+  width: 100%;
+  height: 100%;
+  border-radius: 2px;
+  object-fit: cover;
+  transition: opacity 0.5s ease 0s;
+  opacity: 1;
+}
+.adjust-btn {
+  margin-right: 16px;
+}
+.video-infor-wrapper {
+  display: flex;
+  flex-direction: column;
+  margin-left: 8px;
+}
+.video-name {
+  font-size: 1.4rem;
+  font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 230px;
+  columns: var(--text-color);
+  font-size: 14px;
+}
+.duration {
+  color: #16182380;
+  font-size: 13px;
+  span {
+    &:last-child {
+      margin-left: 8px;
+    }
+  }
+}
+.split-card {
+  padding: 15px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-basis: calc(50% - 5px);
+  border: 1px dashed rgba(22, 24, 35, 0.75);
+  border-radius: 8px;
+  max-height: 84px;
+}
+.left {
+  display: flex;
+  flex-direction: column;
+  p {
+    font-size: 12px;
+    color: var(--text-color);
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+}
+.counter {
+  display: flex;
+}
+.count {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 32px;
+  border-top: 0.5px solid;
+  border-bottom: 0.5px solid;
+  border-color: rgba(22, 24, 35, 0.12);
+  font-size: 14px;
+}
+.count-btn {
+  cursor: pointer;
+  border: 0.5px solid rgba(22, 24, 35, 0.12);
+  font-size: 16px;
+  color: rgb(176, 176, 180);
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom-left-radius: 2px;
+  border-top-left-radius: 2px;
+  &:last-child {
+    border-bottom-left-radius: 0px;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 2px;
+    border-bottom-right-radius: 2px;
+  }
+}
+.devide-btn {
+  height: 36px;
+  padding: 0 16px;
 }
