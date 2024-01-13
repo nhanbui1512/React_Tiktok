@@ -9,5 +9,6 @@ const routes = {
     signup: '/signup/*',
     setting: '/settings',
     videoProfile: '/:nickname/videos/*',
+    adjust: '/adjust',
 };
 export default routes;

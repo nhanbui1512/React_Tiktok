@@ -12,6 +12,7 @@ import Live from '../pages/Live';
 import Login from '../pages/Login';
 import Signup from '../pages/Signup';
 import Setting from '../pages/Setting';
+import AdjustVideo from '../pages/AdjustVideo';
 
 // Khong can dang nhap
 const publicRoutes = [
@@ -25,6 +26,11 @@ const publicRoutes = [
     { path: config.routes.videoProfile, component: Profile, layout: ProfileLayout },
     { path: config.routes.setting, component: Setting, layout: HeaderOnly },
     { path: config.routes.root, component: Home },
+    {
+        path: config.routes.adjust,
+        layout: HeaderOnly,
+        component: AdjustVideo,
+    },
 ];
 
 // Can dang nhap
