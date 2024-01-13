@@ -15,7 +15,6 @@ import Setting from '../pages/Setting';
 
 // Khong can dang nhap
 const publicRoutes = [
-    { path: config.routes.root, component: Home },
     { path: config.routes.following, component: Following },
     { path: config.routes.live, component: Live },
     { path: config.routes.profile, component: Profile, layout: ProfileLayout },
@@ -23,8 +22,9 @@ const publicRoutes = [
     { path: config.routes.search, component: Search, layout: null },
     { path: config.routes.login, component: Login, layout: null },
     { path: config.routes.signup, component: Signup, layout: null },
-    { path: config.routes.setting, component: Setting, layout: HeaderOnly },
     { path: config.routes.videoProfile, component: Profile, layout: ProfileLayout },
+    { path: config.routes.setting, component: Setting, layout: HeaderOnly },
+    { path: config.routes.root, component: Home },
 ];
 
 // Can dang nhap
