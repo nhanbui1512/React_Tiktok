@@ -8,5 +8,9 @@ const images = {
   qrImage: require('./exampleQR.c1a2bd9060db2bd4668f.jpg'),
   guideLoginWithQRLight: require('./loginWithQRGuide.ff9c987d0c494fb85fc5.gif'),
   guideLoginWithQRDark: require('./loginWithQRGuideDark.abfde5cde0e6e5dd8d60.gif'),
+  phoneFrame: require('./iphone_frame.png'),
+  iphone14: require('./iphone_14.png'),
+  navFooter: require('./footer.png'),
+  dynamicIsland: require('./dynamic_island.png'),
 };
 export default images;
