@@ -3,12 +3,14 @@ import styles from './UploadStatus.module.scss';
 import Button from '../../../components/Button';
 import { useContext } from 'react';
 import { UploadContext } from '..';
+import Progress from './progress';
+import { ThemeContext } from '../../../Context';
 
 const cx = classNames.bind(styles);
 
-function UploadStatus() {
+function UploadStatus({ status }) {
   const uploadContext = useContext(UploadContext);
-
+  const context = useContext(ThemeContext);
   return (
     <div
       className={cx('wrapper')}
@@ -18,15 +20,21 @@ function UploadStatus() {
       }}
     >
       <div className={cx('box-status')}>
-        <div className={cx('header')}>Video của bạn đang được tải lên TikTok!</div>
-        <div className={cx('btn-group')}>
-          <Button className={cx('act-btn')} primary>
-            Tải video khác lên
-          </Button>
-          <Button divbox className={cx('act-btn')}>
-            Quản lý bài đăng của bạn
-          </Button>
-        </div>
+        {status === 'done' && (
+          <div className="col">
+            <div className={cx('header')}>Video của bạn đang được tải lên TikTok!</div>
+            <div className={cx('btn-group')}>
+              <Button className={cx('act-btn')} primary>
+                Tải video khác lên
+              </Button>
+              <Button to={`/@${context.user.nickname}`} divbox className={cx('act-btn')}>
+                Quản lý bài đăng của bạn
+              </Button>
+            </div>
+          </div>
+        )}
+
+        {status === 'loading' && <Progress />}
       </div>
     </div>
   );

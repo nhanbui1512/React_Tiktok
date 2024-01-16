@@ -9,31 +9,68 @@ import Button from '../../../components/Button';
 import PhonePreview from '../../../components/PhonePreview';
 import { Wrapper as PopperWrapper } from '../../../components/Popper';
 import MenuItem from '../../../components/Popper/Menu/MenuItem';
-import { useState, useContext } from 'react';
+import { useState, useContext, useRef } from 'react';
 import { UploadContext } from '..';
 import { faPenToSquare } from '@fortawesome/free-regular-svg-icons';
+import { getCookie } from '../../../service/local/cookie';
+import { CreateNewVideo } from '../../../service/videoServices';
 
 const cx = classNames.bind(styles);
 const menu = [
   {
     title: 'Công khai',
+    value: 'public',
   },
   {
     title: 'Follower',
+    value: 'friends',
   },
   {
     title: 'Riêng tư',
+    value: 'private',
   },
 ];
 
 function SetupVideo() {
   const [dropDownMenu, setDropdownMenu] = useState(false);
-  const [privacy, setPrivacy] = useState('Công khai');
+  const [privacy, setPrivacy] = useState({
+    title: 'Công khai',
+    value: 'public',
+  });
   const context = useContext(UploadContext);
   const [musicName, setMusicName] = useState('Âm thanh gốc');
   const [title, setTitle] = useState(context.file.name.slice(0, -4));
   const [musicInput, setMusicInput] = useState(false);
+  const inputThumbNailRef = useRef();
+  const [duration, setDuration] = useState(0);
 
+  const handleUpload = () => {
+    const time = Math.floor((inputThumbNailRef.current.value * duration) / 100);
+
+    const token = getCookie('authToken') || '';
+    const formData = new FormData();
+
+    formData.append('description', title);
+    formData.append('thumbnail_time', time);
+    formData.append('music', musicName);
+    formData.append('viewable', privacy.value);
+    formData.append('upload_file', context.file);
+    context.setUpload({
+      isOn: true,
+      status: 'loading',
+    });
+    CreateNewVideo({ formdata: formData, token: token })
+      .then((res) => {
+        console.log(res);
+        context.setUpload({
+          isOn: true,
+          status: 'done',
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   return (
     <div className={cx('wrapper')}>
       <h2 className={cx('header')}>Tải Video lên</h2>
@@ -82,7 +119,7 @@ function SetupVideo() {
                 </button>
               </div>
             </div>
-            <Slider />
+            <Slider setDuration={setDuration} inputThumbNailRef={inputThumbNailRef} />
             <div>
               <p style={{ marginTop: 24 }} className={cx('title')}>
                 Ai có thể xem video này
@@ -93,7 +130,7 @@ function SetupVideo() {
                 }}
                 className={cx('drop-down-menu')}
               >
-                <span className={cx('title')}>{privacy}</span>
+                <span className={cx('title')}>{privacy.title}</span>
                 <span>
                   <FontAwesomeIcon className={cx('arrow-icon')} icon={faSortDown} />
                 </span>
@@ -105,7 +142,7 @@ function SetupVideo() {
                         className={cx('menu-item')}
                         data={item}
                         onClick={() => {
-                          setPrivacy(item.title);
+                          setPrivacy(item);
                         }}
                       />
                     ))}
@@ -147,13 +184,7 @@ function SetupVideo() {
                 <Button className={cx('bottom-btn')} divbox>
                   Huỷ bỏ
                 </Button>
-                <Button
-                  onClick={() => {
-                    context.setUpload(true);
-                  }}
-                  className={cx('bottom-btn')}
-                  primary
-                >
+                <Button onClick={handleUpload} className={cx('bottom-btn')} primary>
                   Đăng
                 </Button>
               </div>

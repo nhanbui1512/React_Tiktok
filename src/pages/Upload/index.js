@@ -19,7 +19,10 @@ function Upload() {
   const [file, setFile] = useState();
   const [thumb, setThumb] = useState('');
   const fileRef = useRef();
-  const [upload, setUpload] = useState(false);
+  const [upload, setUpload] = useState({
+    isOn: false,
+    status: 'loading',
+  });
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -95,7 +98,7 @@ function Upload() {
         </>
       )}
 
-      {upload && <UploadStatus />}
+      {upload.isOn && <UploadStatus status={upload.status} />}
     </UploadContext.Provider>
   );
 }

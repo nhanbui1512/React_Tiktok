@@ -63,3 +63,58 @@
   font-size: 16px;
   line-height: 22px;
 }
+.progress-wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 16px 32px 0 32px;
+  align-items: center;
+}
+
+.loading {
+  position: relative;
+  width: 80px;
+  height: 80px;
+}
+.cicle {
+  border-radius: 50%;
+  width: 100%;
+  height: 100%;
+  // border: 5px solid conic-gradient(var(--primary) 0% 75%, #ecf0f1 75% 100%);
+  background: conic-gradient(var(--primary) 0% var(--percent), #ecf0f1 var(--percent) 100%);
+}
+.over {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+}
+.percent {
+  position: absolute;
+  z-index: 9;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 16px;
+  line-height: 22px;
+  height: 22px;
+  color: var(--text-color);
+  font-weight: 600;
+}
+.status-title {
+  margin-top: 16px;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-color);
+}
+.description {
+  margin-top: 4px;
+  text-align: center;
+  font-size: 16px;
+  color: rgba(22, 24, 35, 0.75);
+}

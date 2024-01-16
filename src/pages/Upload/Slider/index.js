@@ -6,7 +6,7 @@ import { UploadContext } from '..';
 
 const cx = classNames.bind(styles);
 
-function Slider() {
+function Slider({ setDuration, inputThumbNailRef }) {
   const context = useContext(UploadContext);
 
   const [slidePosition, setSlidePosition] = useState(0);
@@ -79,7 +79,13 @@ function Slider() {
           }}
           className={cx('video-preview-wrapper')}
         >
-          <video ref={videoRef} src={context.file.preview || videos.linhMai} />
+          <video
+            onLoadedData={(e) => {
+              setDuration(e.target.duration);
+            }}
+            ref={videoRef}
+            src={context.file.preview || videos.linhMai}
+          />
         </div>
         <input
           onInput={(e) => {
@@ -93,6 +99,7 @@ function Slider() {
               setSlidePosition(85);
             }
           }}
+          ref={inputThumbNailRef}
           type="range"
           className={cx('ranger')}
         />
