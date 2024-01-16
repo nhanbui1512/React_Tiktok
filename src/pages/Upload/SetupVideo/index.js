@@ -9,7 +9,10 @@ import Button from '../../../components/Button';
 import PhonePreview from '../../../components/PhonePreview';
 import { Wrapper as PopperWrapper } from '../../../components/Popper';
 import MenuItem from '../../../components/Popper/Menu/MenuItem';
-import { useState } from 'react';
+import { useState, useContext } from 'react';
+import { UploadContext } from '..';
+import { faPenToSquare } from '@fortawesome/free-regular-svg-icons';
+
 const cx = classNames.bind(styles);
 const menu = [
   {
@@ -26,7 +29,10 @@ const menu = [
 function SetupVideo() {
   const [dropDownMenu, setDropdownMenu] = useState(false);
   const [privacy, setPrivacy] = useState('Công khai');
-  const [file, setFile] = useState({});
+  const context = useContext(UploadContext);
+  const [musicName, setMusicName] = useState('Âm thanh gốc');
+  const [title, setTitle] = useState(context.file.name.slice(0, -4));
+  const [musicInput, setMusicInput] = useState(false);
 
   return (
     <div className={cx('wrapper')}>
@@ -35,7 +41,12 @@ function SetupVideo() {
 
       <div className="mg_24_0">
         <div className={cx('body')}>
-          <PhonePreview file={file} setFile={setFile} />
+          <PhonePreview
+            musicName={musicName}
+            titleState={[title, setTitle]}
+            file={context.file}
+            setFile={context.setFile}
+          />
           <div className={cx('adjustment')}>
             <div>
               <div className={cx('input-wrap')}>
@@ -43,9 +54,31 @@ function SetupVideo() {
                 <span className={cx('count')}>8/250</span>
               </div>
               <div className={cx('input-box')}>
-                <input defaultValue={'Linh Mai'} />
-                <button className={cx('edit-btn')}>
-                  <FontAwesomeIcon icon={faMusic} />
+                {musicInput || (
+                  <input
+                    className={cx('title-input', { musicInput: musicInput })}
+                    onChange={(e) => {
+                      setTitle(e.target.value);
+                    }}
+                    defaultValue={title}
+                  />
+                )}
+                {musicInput && (
+                  <input
+                    className={cx('music-input', { musicInput: musicInput })}
+                    onChange={(e) => {
+                      setMusicName(e.target.value);
+                    }}
+                    defaultValue={musicName}
+                  />
+                )}
+                <button
+                  onClick={() => {
+                    setMusicInput(!musicInput);
+                  }}
+                  className={cx('edit-btn')}
+                >
+                  <FontAwesomeIcon icon={!musicInput ? faMusic : faPenToSquare} />
                 </button>
               </div>
             </div>
@@ -103,7 +136,7 @@ function SetupVideo() {
                   Chạy trình kiểm tra bản quyền
                 </p>
                 <div>
-                  <SwitchButton />
+                  <SwitchButton isChecked={false} />
                 </div>
               </div>
               <p style={{ marginTop: 4 }} className={cx('coppyright-desc')}>
@@ -114,7 +147,13 @@ function SetupVideo() {
                 <Button className={cx('bottom-btn')} divbox>
                   Huỷ bỏ
                 </Button>
-                <Button className={cx('bottom-btn')} primary>
+                <Button
+                  onClick={() => {
+                    context.setUpload(true);
+                  }}
+                  className={cx('bottom-btn')}
+                  primary
+                >
                   Đăng
                 </Button>
               </div>

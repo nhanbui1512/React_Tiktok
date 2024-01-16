@@ -31,7 +31,7 @@
     width: 100%;
     display: flex;
     justify-content: space-between;
-    font-size: 12px;
+    font-size: 13px;
     font-weight: 600;
     color: rgba(255, 255, 255, 0.75);
   }
@@ -90,6 +90,11 @@
   opacity: 0.6;
   color: rgb(255, 255, 255);
   font-size: 12px;
+  p {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+  }
 }
 .controler {
   z-index: 99;
@@ -113,7 +118,63 @@
     opacity: 1;
   }
 }
-
+.overlay-sidebar {
+  position: absolute;
+  padding-inline: 5px;
+  padding-bottom: 8px;
+  bottom: 80px;
+  right: 12px;
+  display: flex;
+  gap: 16px;
+  flex-direction: column;
+  -webkit-box-align: center;
+  align-items: center;
+  opacity: 0.6;
+}
+.avatar {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  border-radius: 50%;
+}
+.sidebar-icon-wrap {
+  fill: #fff;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.sidebar-icon {
+  fill: #fff;
+  color: #fff;
+  width: 28px;
+  height: 28px;
+}
+.disc-container {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: conic-gradient(
+    from 90deg at 50% 50%,
+    rgb(57, 57, 57) -40.11deg,
+    rgb(21, 21, 21) 47.27deg,
+    rgb(57, 57, 57) 143.02deg,
+    rgb(22, 22, 22) 227.49deg,
+    rgb(57, 57, 57) 319.89deg,
+    rgb(21, 21, 21) 407.27deg
+  );
+  img {
+    border-radius: inherit;
+    width: 24px;
+    height: 24px;
+    animation: 2s linear 0s infinite normal none running rotation;
+  }
+  .isPaused {
+    animation-play-state: paused;
+  }
+}
 .play-info {
   display: flex;
   align-items: center;
@@ -222,5 +283,14 @@
   background-color: transparent;
   &:hover {
     text-decoration: underline;
+  }
+}
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(359deg);
   }
 }

@@ -7,13 +7,29 @@ import { faCloudUpload } from '@fortawesome/free-solid-svg-icons';
 import Button from '../../components/Button';
 import AdjustVideo from './AdjustVideo';
 import SetupVideo from './SetupVideo';
+import { useEffect, useRef, useState } from 'react';
+import { createContext } from 'react';
+import UploadStatus from './UploadStatus';
+
+export const UploadContext = createContext();
+
 const cx = classNames.bind(styles);
 
 function Upload() {
-  window.scrollTo(0, 0);
+  const [file, setFile] = useState();
+  const [thumb, setThumb] = useState('');
+  const fileRef = useRef();
+  const [upload, setUpload] = useState(false);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
-    <>
-      <div className={cx('wrapper')}>
+    <UploadContext.Provider value={{ file, setFile, thumb, setThumb, setUpload }}>
+      <div
+        className={cx('wrapper', {
+          file: file,
+        })}
+      >
         <div className={cx('upload-card')}>
           <FontAwesomeIcon icon={faCloudUpload} className={cx('icon')} />
           <div className={cx('text-main')}>
@@ -44,15 +60,43 @@ function Upload() {
           </div>
 
           <div className={cx('choose-container')}>
-            <Button className={cx('choose-btn')} primary>
+            <Button
+              onClick={() => {
+                fileRef.current.click();
+              }}
+              className={cx('choose-btn')}
+              primary
+            >
               Chọn tập tin
             </Button>
+
+            <input
+              ref={fileRef}
+              type="file"
+              accept="video/mp4,video/x-m4v,video/*"
+              style={{
+                display: 'none',
+              }}
+              onChange={(e) => {
+                const choosedFile = e.target.files[0];
+                if (choosedFile) {
+                  choosedFile.preview = URL.createObjectURL(choosedFile);
+                  setFile(choosedFile);
+                }
+              }}
+            />
           </div>
         </div>
       </div>
-      <AdjustVideo />
-      <SetupVideo />
-    </>
+      {file && (
+        <>
+          <AdjustVideo />
+          <SetupVideo />
+        </>
+      )}
+
+      {upload && <UploadStatus />}
+    </UploadContext.Provider>
   );
 }
 export default Upload;

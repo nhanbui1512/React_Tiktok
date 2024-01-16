@@ -6,10 +6,14 @@ import { ArrowLeftRight, Scissors } from '../../../components/Icons';
 import images from '../../../assests/images';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMinus, faPlus } from '@fortawesome/free-solid-svg-icons';
+import { useContext } from 'react';
+import { UploadContext } from '..';
 
 const cx = classNames.bind(styles);
 
 function AdjustVideo() {
+  const context = useContext(UploadContext);
+
   return (
     <div className={cx('wrapper')}>
       <div className={cx('edit-card')}>
@@ -19,7 +23,7 @@ function AdjustVideo() {
           </div>
           <div className={cx('video-cover')}>
             <div className={cx('video-loadingBox')}></div>
-            <Image src={images.thumbVideo2} className={cx('video-imageCover')}></Image>
+            <Image src={context.thumb || images.thumbVideo2} className={cx('video-imageCover')}></Image>
           </div>
           <div className={cx('video-infor-wrapper')}>
             <p className={cx('video-name')}>Linh Mai</p>

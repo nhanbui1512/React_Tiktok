@@ -1,0 +1,65 @@
+.wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 999;
+  width: 100vw;
+  height: 100vh;
+  inset: 0px;
+  box-sizing: border-box;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.5);
+  transition: all 0.3s cubic-bezier(0.075, 0.82, 0.165, 1) 0s;
+}
+.box-status {
+  transform: none;
+  width: 400px;
+  height: 260px;
+  left: 248.5px;
+  top: 569.5px;
+
+  background: rgb(255, 255, 255);
+  box-sizing: border-box;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 32px;
+}
+.header {
+  box-sizing: border-box;
+  font-size: 24px;
+  line-height: 32px;
+  font-weight: 700;
+  font-family: TikTokFont, system-ui;
+  text-align: center;
+  padding: 0px 32px;
+  color: rgb(22, 24, 35);
+  flex: 0 0 auto;
+  order: 0;
+  -webkit-box-flex: 0;
+  word-break: break-word;
+}
+.btn-group {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24px 32px 32px;
+  box-sizing: border-box;
+  flex-direction: column;
+  gap: 12px;
+}
+.act-btn {
+  width: 336px;
+  height: 48px;
+  border-radius: 4px;
+  flex-grow: 0;
+  display: flex;
+  font-size: 16px;
+  line-height: 22px;
+}
