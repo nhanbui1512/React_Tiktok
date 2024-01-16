@@ -15,108 +15,111 @@ import { BookMarkIcon } from '../../../components/Icons';
 const cx = classNames.bind(styles);
 
 function OwnVideos({ videos, userId, nickName = '' }) {
-    const context = useContext(ThemeContext);
+  const context = useContext(ThemeContext);
+  const [ownVideos, setOwnVideos] = useState([]);
 
-    const [ownVideos, setOwnVideos] = useState([]);
+  const bottomLineRef = useRef(null);
+  const [sessionState, setSessionState] = useState(0);
 
-    const bottomLineRef = useRef(null);
-    const [sessionState, setSessionState] = useState(0);
+  const handleHover = (index) => {
+    let value = index * 230;
+    bottomLineRef.current.style = `transform: translateX(${value}px);`;
+  };
 
-    const handleHover = (index) => {
-        let value = index * 230;
-        bottomLineRef.current.style = `transform: translateX(${value}px);`;
-    };
+  const handleMouseOut = () => {
+    let value = sessionState * 230;
+    bottomLineRef.current.style = `transform: translateX(${value}px);`;
+  };
 
-    const handleMouseOut = () => {
-        let value = sessionState * 230;
-        bottomLineRef.current.style = `transform: translateX(${value}px);`;
-    };
+  useEffect(() => {
+    setSessionState(0);
+    bottomLineRef.current.style = `transform: translateX(${0}px);`;
+  }, [userId]);
 
-    useEffect(() => {
-        setSessionState(0);
-        bottomLineRef.current.style = `transform: translateX(${0}px);`;
-    }, [userId]);
+  const tabItems = [
+    {
+      title: 'Video',
+    },
+    {
+      title: 'Yêu Thích',
+      icon: <FontAwesomeIcon className={cx('icon-lock')} icon={faBookmark} />,
+    },
+    {
+      title: 'Đã Thích',
+      icon: <FontAwesomeIcon className={cx('icon-lock')} icon={faLock} />,
+    },
+  ];
+  const renderSession = () => {
+    window.scrollTo(0, 0);
+    switch (sessionState) {
+      case 0:
+        return (
+          <div className={cx('body-container')}>
+            {ownVideos.map((video) => {
+              return <VideoItem nickName={nickName} data={video} key={video.id}></VideoItem>;
+            })}
+          </div>
+        );
 
-    const tabItems = [
-        {
-            title: 'Video',
-        },
-        {
-            title: 'Yêu Thích',
-            icon: <FontAwesomeIcon className={cx('icon-lock')} icon={faBookmark} />,
-        },
-        {
-            title: 'Đã Thích',
-            icon: <FontAwesomeIcon className={cx('icon-lock')} icon={faLock} />,
-        },
-    ];
-    const renderSession = () => {
-        window.scrollTo(0, 0);
-        switch (sessionState) {
-            case 0:
-                return (
-                    <div className={cx('body-container')}>
-                        {ownVideos.map((video) => {
-                            return <VideoItem nickName={nickName} data={video} key={video.id}></VideoItem>;
-                        })}
-                    </div>
-                );
+      case 1:
+        return (
+          <MainDetail
+            icon={BookMarkIcon}
+            title="Bài đăng yêu thích"
+            desc="Bài đăng bạn yêu thích sẽ xuất hiện tại đây."
+          />
+        );
+      case 2:
+        return <LikedVideos userId={userId} />;
+      default:
+        return (
+          <div className={cx('body-container')}>
+            {ownVideos.map((video) => {
+              return <VideoItem data={video} key={video.id}></VideoItem>;
+            })}
+          </div>
+        );
+    }
+  };
 
-            case 1:
-                return (
-                    <MainDetail
-                        icon={BookMarkIcon}
-                        title="Bài đăng yêu thích"
-                        desc="Bài đăng bạn yêu thích sẽ xuất hiện tại đây."
-                    />
-                );
-            case 2:
-                return <LikedVideos userId={userId} />;
-            default:
-                return (
-                    <div className={cx('body-container')}>
-                        {ownVideos.map((video) => {
-                            return <VideoItem data={video} key={video.id}></VideoItem>;
-                        })}
-                    </div>
-                );
-        }
-    };
+  useEffect(() => {
+    setOwnVideos(videos);
+    // eslint-disable-next-line no-use-before-define
+    if (sessionState === 0) {
+      context.setListVideo(videos);
+    }
+  }, [videos, sessionState, context]);
 
-    useEffect(() => {
-        setOwnVideos(videos);
-    }, [videos]);
+  return (
+    <div className={cx(['wrapper', context.theme])}>
+      <div className={cx('header')}>
+        {tabItems.map((element, index) => {
+          // render tabs header
+          return (
+            <p
+              key={index}
+              className={cx('header-tab')}
+              onClick={() => {
+                setSessionState(index);
+              }}
+              onMouseOver={() => {
+                handleHover(index);
+              }}
+              onMouseLeave={() => {
+                handleMouseOut();
+              }}
+            >
+              {element.icon}
+              <span>{element.title}</span>
+            </p>
+          );
+        })}
 
-    return (
-        <div className={cx(['wrapper', context.theme])}>
-            <div className={cx('header')}>
-                {tabItems.map((element, index) => {
-                    // render tabs header
-                    return (
-                        <p
-                            key={index}
-                            className={cx('header-tab')}
-                            onClick={() => {
-                                setSessionState(index);
-                            }}
-                            onMouseOver={() => {
-                                handleHover(index);
-                            }}
-                            onMouseLeave={() => {
-                                handleMouseOut();
-                            }}
-                        >
-                            {element.icon}
-                            <span>{element.title}</span>
-                        </p>
-                    );
-                })}
-
-                <div ref={bottomLineRef} className={cx('bottom-line')}></div>
-            </div>
-            <div>{renderSession()}</div>
-        </div>
-    );
+        <div ref={bottomLineRef} className={cx('bottom-line')}></div>
+      </div>
+      <div>{renderSession()}</div>
+    </div>
+  );
 }
 
 export default OwnVideos;
