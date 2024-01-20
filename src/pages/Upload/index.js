@@ -7,9 +7,10 @@ import { faCloudUpload } from '@fortawesome/free-solid-svg-icons';
 import Button from '../../components/Button';
 import AdjustVideo from './AdjustVideo';
 import SetupVideo from './SetupVideo';
-import { useEffect, useRef, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import { createContext } from 'react';
 import UploadStatus from './UploadStatus';
+import { ThemeContext } from '../../Context';
 
 export const UploadContext = createContext();
 
@@ -23,6 +24,9 @@ function Upload() {
     isOn: false,
     status: 'loading',
   });
+
+  const storeContext = useContext(ThemeContext);
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -65,7 +69,11 @@ function Upload() {
           <div className={cx('choose-container')}>
             <Button
               onClick={() => {
-                fileRef.current.click();
+                if (!storeContext.currentUser) {
+                  storeContext.setLoginPopper(true);
+                } else {
+                  fileRef.current.click();
+                }
               }}
               className={cx('choose-btn')}
               primary

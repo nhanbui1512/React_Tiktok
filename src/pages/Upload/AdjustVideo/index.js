@@ -8,12 +8,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMinus, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { useContext } from 'react';
 import { UploadContext } from '..';
+import { ThemeContext } from '../../../Context';
 
 const cx = classNames.bind(styles);
 
 function AdjustVideo() {
   const context = useContext(UploadContext);
-
+  const storeContext = useContext(ThemeContext);
+  const user = storeContext.user;
   return (
     <div className={cx('wrapper')}>
       <div className={cx('edit-card')}>
@@ -26,7 +28,7 @@ function AdjustVideo() {
             <Image src={context.thumb || images.thumbVideo2} className={cx('video-imageCover')}></Image>
           </div>
           <div className={cx('video-infor-wrapper')}>
-            <p className={cx('video-name')}>Linh Mai</p>
+            <p className={cx('video-name')}>{`${user.first_name} ${user.last_name}`}</p>
             <p className={cx('duration')}>
               <span>00:00</span> - <span>00:15</span>
               <span>15s</span>
