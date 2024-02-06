@@ -6,7 +6,7 @@ import { getCookie } from '../../service/local/cookie';
 import * as VideoServices from '../../service/videoServices';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import Post from '../../components/Post/post';
-import Loading from '../../components/Loading';
+import Loading from '../../components/loading';
 import { Route, Routes } from 'react-router-dom';
 import Video from '../Video';
 
@@ -52,7 +52,9 @@ function Home() {
   useEffect(() => {
     window.scroll(0, 0);
 
-    fetchMoreData(); // eslint-disable-line no-use-before-define
+    // eslint-disable-next-line
+    fetchMoreData();
+    // eslint-disable-next-line
   }, []);
 
   return (
