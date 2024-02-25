@@ -46,6 +46,7 @@ function VideoPlayer({ routeBack = '/', mainRoute = '', profile = false }) {
     return () => {
       context.setIsMuted(false);
     };
+    // eslint-disable-next-line
   }, [id, context.listVideo]);
 
   useEffect(() => {
