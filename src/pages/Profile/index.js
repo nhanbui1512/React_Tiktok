@@ -33,6 +33,7 @@ function Profile() {
       .catch((err) => {
         // console.log(err);
       });
+    // eslint-disable-next-line
   }, [nickname]);
 
   return (
