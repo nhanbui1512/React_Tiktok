@@ -12,23 +12,23 @@ import { ThemeContext } from '../../Context';
 const cx = classNames.bind(styles);
 
 function AccountItem({ data }) {
-    const context = useContext(ThemeContext);
+  const context = useContext(ThemeContext);
 
-    return (
-        <Link to={`/@${data.nickname}`} className={cx(['wrapper', context.theme])}>
-            <Image src={data.avatar} alt={data.full_name} className={cx('avatar')}></Image>
-            <div className={cx('info')}>
-                <h4 className={cx('name')}>
-                    <span>{data.full_name}</span>
-                    {data.tick && <FontAwesomeIcon className={cx('check')} icon={faCheckCircle} />}
-                </h4>
-                <span className={cx('username')}>{data.nickname}</span>
-            </div>
-        </Link>
-    );
+  return (
+    <Link to={`/@${data.nickname}`} className={cx(['wrapper', context.theme])}>
+      <Image src={data.avatar} alt={data.full_name} className={cx('avatar')}></Image>
+      <div className={cx('info')}>
+        <h4 className={cx('name')}>
+          <span>{data.full_name}</span>
+          {data.tick && <FontAwesomeIcon className={cx('check')} icon={faCheckCircle} />}
+        </h4>
+        <span className={cx('username')}>{data.nickname}</span>
+      </div>
+    </Link>
+  );
 }
 
 AccountItem.propTypes = {
-    data: PropTypes.object.isRequired,
+  data: PropTypes.object.isRequired,
 };
 export default AccountItem;

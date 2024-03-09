@@ -1,6 +1,5 @@
 const routes = {
   root: '/*',
-  profile: '/:nickname/*',
   following: '/following/*',
   upload: '/upload',
   search: '/search',
@@ -8,6 +7,7 @@ const routes = {
   login: '/login/*',
   signup: '/signup/*',
   setting: '/settings',
+  profile: '/:nickname',
   videoProfile: '/:nickname/videos/*',
 };
 export default routes;
