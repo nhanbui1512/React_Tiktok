@@ -51,6 +51,7 @@ function VideoPlayer({ routeBack = '/', mainRoute = '', profile = false }) {
 
   useEffect(() => {
     videoRef.current.volume = context.volume / 100;
+    // eslint-disable-next-line
   }, [context.volume]);
 
   return (

@@ -45,7 +45,7 @@ function Profile() {
           element={<Video profile routeBack={`/${nickname}`} mainRoute={`/${nickname}`}></Video>}
         ></Route>
       </Routes>
-      <ProfileInfo data={userData} />
+      <ProfileInfo data={userData} setUserData={setUserData} />
       {userData.videos && <OwnVideos nickName={nickname} videos={userData.videos} userId={userData.id} />}
 
       {!location.pathname.startsWith('/@') && (

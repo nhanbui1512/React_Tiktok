@@ -1,5 +1,6 @@
 import * as request from '../utils/request';
 import axios from 'axios';
+import { getCookie } from './local/cookie';
 
 export const getSugggested = async ({ page, perPage }) => {
   try {
@@ -87,6 +88,28 @@ export const UnFollow = async ({ token = '', idUser }) => {
       },
     );
     return res.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const UpdateUser = async ({ firstName, lastName, bio, websiteUrl }) => {
+  try {
+    const token = getCookie('authToken') || '';
+    let formData = new FormData();
+
+    formData.append('first_name', firstName);
+    formData.append('last_name', lastName);
+    formData.append('bio', bio);
+    formData.append('website_url', websiteUrl);
+
+    var response = await axios.post(`https://tiktok.fullstack.edu.vn/api/auth/me?_method=PATCH`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
   } catch (error) {
     throw error;
   }

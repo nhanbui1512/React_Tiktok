@@ -1,30 +1,27 @@
 import classNames from 'classnames/bind';
 import styles from './ProfileInfo.module.scss';
 
-import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import Image from '../../../components/Image';
 import Button from '../../../components/Button';
-import { faCheckCircle, faEllipsis, faLink, faPenToSquare, faXmark } from '@fortawesome/free-solid-svg-icons';
+import { faCheckCircle, faEllipsis, faLink, faPenToSquare } from '@fortawesome/free-solid-svg-icons';
 import { useState, useContext, useEffect } from 'react';
 import { ThemeContext } from '../../../Context';
-import { PenLine, ShareIconRegular } from '../../../components/Icons';
+import { ShareIconRegular } from '../../../components/Icons';
 import MenuShare from '../../../components/MenuShare';
 
 import { FollowUser, UnFollow } from '../../../service/userServices';
 import { getCookie } from '../../../service/local/cookie';
-import NotiBar from '../../../components/NotiBar';
+import PopperUpdate from '../PopperUpdate';
 
 const cx = classNames.bind(styles);
 
-function ProfileInfo({ data }) {
+function ProfileInfo({ data, setUserData = () => {} }) {
   const context = useContext(ThemeContext);
   const [editPopper, setEditPopper] = useState(false);
-  const [updateNoti, setUpdateNoti] = useState(false);
 
   const [isFollow, setIsFollow] = useState(false);
-
   useEffect(() => {
     setIsFollow(data.is_followed);
   }, [data]);
@@ -101,10 +98,13 @@ function ProfileInfo({ data }) {
       </h3>
       <h2 className={cx('share-desc')}>{data.bio}</h2>
       <div className={cx('link-box')}>
-        <Link>
+        <div>
           <FontAwesomeIcon className={cx('link-icon')} icon={faLink} />
-          <span className={cx('path')}>{data.facebook_url}</span>
-        </Link>
+
+          <a className={cx('path')} href={data.website_url} target="_blank" rel="noopener noreferrer">
+            {data.website_url}
+          </a>
+        </div>
       </div>
 
       <div className={cx('profile-action')}>
@@ -121,101 +121,7 @@ function ProfileInfo({ data }) {
         </div>
       </div>
 
-      {editPopper && (
-        <div className={cx('edit-popper')}>
-          <div className={cx('main')}>
-            <div className={cx('popper-container')}>
-              <div className={cx('popper-content')}>
-                <div className={cx('popper-header')}>
-                  <h1>Edit profile</h1>
-                  <div
-                    onClick={() => {
-                      setEditPopper(false);
-                    }}
-                    className={cx('close-btn')}
-                  >
-                    <FontAwesomeIcon color="rgba(22, 24, 35, 0.75)" className={cx('close-icon')} icon={faXmark} />
-                  </div>
-                </div>
-                <div
-                  style={{
-                    paddingTop: 8,
-                    paddingRight: 24,
-                    paddingLeft: 24,
-                  }}
-                >
-                  <div className={cx('infor-box')}>
-                    <div className={cx('infor-label')}>Profile photo</div>
-                    <div className={cx('avatar-container')}>
-                      <Image
-                        style={{
-                          backgroundImage: `url(${data.avatar})`,
-                        }}
-                        className={cx('infor-avatar')}
-                        alt=""
-                      />
-                      <div className={cx('edit-avatar-btn')}>
-                        <PenLine />
-                      </div>
-                    </div>
-                  </div>
-                  <div className={cx('infor-box')}>
-                    <div className={cx('infor-label')}>Username</div>
-                    <div className={cx('infor-edit-wrap')}>
-                      <input defaultValue={data.nickname} className={cx('infor-input')} />
-                      <p style={{ marginTop: 16 }} className={cx('infor-description')}>
-                        www.tiktok.com/@30433639985
-                      </p>
-                      <p style={{ marginTop: 8 }} className={cx('infor-description')}>
-                        Usernames can only contain letters, numbers, underscores, and periods. Changing your username
-                        will also change your profile link.
-                      </p>
-                    </div>
-                  </div>
-                  <div className={cx('infor-box')}>
-                    <div className={cx('infor-label')}>Name</div>
-                    <div className={cx('infor-edit-wrap')}>
-                      <input defaultValue={`${data.first_name} ${data.last_name}`} className={cx('infor-input')} />
-                      <p style={{ marginTop: 16 }} className={cx('infor-description')}>
-                        Your nickname can only be changed once every 7 days.
-                      </p>
-                    </div>
-                  </div>
-                  <div className={cx('infor-box')}>
-                    <div className={cx('infor-label')}>Bio</div>
-                    <div className={cx('infor-edit-wrap')}>
-                      <textarea defaultValue={data.bio} placeholder="Bio"></textarea>
-                      <span className={cx('count-text')}>0/80</span>
-                    </div>
-                  </div>
-                  <div className={cx('footer')}>
-                    <Button
-                      onClick={() => {
-                        setEditPopper(false);
-                      }}
-                      divbox
-                    >
-                      Cancel
-                    </Button>
-                    <Button
-                      onClick={() => {
-                        setUpdateNoti(true);
-                        setTimeout(() => {
-                          setUpdateNoti(false);
-                        }, 1500);
-                      }}
-                      primary
-                    >
-                      Save
-                    </Button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
-      {updateNoti && <NotiBar>Cập nhật thành công</NotiBar>}
+      {editPopper && <PopperUpdate data={data} setEditPopper={setEditPopper} setUserData={setUserData} />}
     </div>
   );
 }
