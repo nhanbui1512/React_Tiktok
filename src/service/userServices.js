@@ -93,15 +93,9 @@ export const UnFollow = async ({ token = '', idUser }) => {
   }
 };
 
-export const UpdateUser = async ({ firstName, lastName, bio, websiteUrl }) => {
+export const UpdateUser = async (formData) => {
   try {
     const token = getCookie('authToken') || '';
-    let formData = new FormData();
-
-    formData.append('first_name', firstName);
-    formData.append('last_name', lastName);
-    formData.append('bio', bio);
-    formData.append('website_url', websiteUrl);
 
     var response = await axios.post(`https://tiktok.fullstack.edu.vn/api/auth/me?_method=PATCH`, formData, {
       headers: {
