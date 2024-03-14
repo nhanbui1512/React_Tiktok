@@ -176,6 +176,7 @@ function Comment({ data = {}, comments = [] }) {
           {commentList.map((item) => {
             return (
               <CommentItem
+                setCommentList={setCommentList}
                 isOwner={item.user.id === context.user.id}
                 dark={context.theme === 'dark' && true}
                 data={item}

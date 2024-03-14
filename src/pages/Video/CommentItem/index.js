@@ -10,97 +10,117 @@ import { likeComment, unLikeComment } from '../../../service/likeService';
 import { getCookie } from '../../../service/local/cookie';
 import { EllipseIcon } from '../../../components/Icons';
 import Menu from '../../../components/Popper/Menu';
+import { deleteComment } from '../../../service/commentService';
 
 const cx = classNames.bind(styles);
 
-function CommentItem({ data = {}, dark = false, isOwner = false }) {
-    const [isLiked, setIsLiked] = useState(data.is_liked);
-    const countRef = useRef();
+function CommentItem({ data = {}, dark = false, isOwner = false, setCommentList }) {
+  const [isLiked, setIsLiked] = useState(data.is_liked);
+  const countRef = useRef();
 
-    const handleLike = () => {
-        const authToken = getCookie('authToken') || '';
+  const handleLike = () => {
+    const authToken = getCookie('authToken') || '';
 
-        isLiked === false
-            ? likeComment({ idComment: data.id, token: authToken })
-                  .then((res) => {
-                      countRef.current.innerText = res.data.likes_count;
-                  })
-                  .catch((err) => {
-                      console.log(err);
-                  })
-            : unLikeComment({ idComment: data.id, token: authToken })
-                  .then((res) => {
-                      countRef.current.innerText = res.data.likes_count;
-                  })
-                  .catch((err) => {
-                      console.log(err);
-                  });
+    isLiked === false
+      ? likeComment({ idComment: data.id, token: authToken })
+          .then((res) => {
+            countRef.current.innerText = res.data.likes_count;
+          })
+          .catch((err) => {
+            console.log(err);
+          })
+      : unLikeComment({ idComment: data.id, token: authToken })
+          .then((res) => {
+            countRef.current.innerText = res.data.likes_count;
+          })
+          .catch((err) => {
+            console.log(err);
+          });
 
-        setIsLiked(!isLiked);
-    };
+    setIsLiked(!isLiked);
+  };
 
-    // nếu là chủ sở hữu comment thì được xóa
-    const items =
-        isOwner === true
-            ? [
-                  {
-                      icon: <FontAwesomeIcon icon={faFlag}></FontAwesomeIcon>,
-                      title: 'Báo cáo',
-                  },
-                  {
-                      icon: <FontAwesomeIcon icon={faTrashAlt}></FontAwesomeIcon>,
-                      title: 'Xóa',
-                  },
-              ]
-            : [
-                  {
-                      icon: <FontAwesomeIcon icon={faFlag}></FontAwesomeIcon>,
-                      title: 'Báo cáo',
-                  },
-              ];
+  const handleDeleteComment = () => {
+    deleteComment(data.id)
+      .then((res) => {
+        if (res.status === 204) {
+          setCommentList((prev) => {
+            var newList = [...prev];
+            newList = newList.filter((cmt) => {
+              return cmt.id !== data.id;
+            });
+            return newList;
+          });
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
-    return (
-        <div
-            className={cx('wrapper', {
-                dark,
-                isLiked,
-            })}
+  // nếu là chủ sở hữu comment thì được xóa
+  const items =
+    isOwner === true
+      ? [
+          {
+            icon: <FontAwesomeIcon icon={faFlag}></FontAwesomeIcon>,
+            title: 'Báo cáo',
+          },
+          {
+            icon: <FontAwesomeIcon icon={faTrashAlt}></FontAwesomeIcon>,
+            title: 'Xóa',
+            onClick: handleDeleteComment,
+          },
+        ]
+      : [
+          {
+            icon: <FontAwesomeIcon icon={faFlag}></FontAwesomeIcon>,
+            title: 'Báo cáo',
+          },
+        ];
+
+  return (
+    <div
+      className={cx('wrapper', {
+        dark,
+        isLiked,
+      })}
+    >
+      <Link className={cx('avatar')}>
+        {/* <img src={data.user.avatar} alt=""></img> */}
+        <Image src={data.user.avatar} alt="" />
+      </Link>
+      <div className={cx('infor')}>
+        <Link to={`/@${data.user.nickname}`} className={cx('username')}>
+          {data.user.first_name} {data.user.last_name}
+        </Link>
+
+        <p className={cx('content')}>{data.comment}</p>
+        <p className={cx('others')}>
+          <span className={cx('time')}>{data.created_at.split(' ')[0]}</span>
+          <span className={cx('reply-btn')}>Trả lời</span>
+        </p>
+      </div>
+      <div className={cx('act-container')}>
+        <Menu delayHidden={200} primary={true} items={items}>
+          <div className={cx('more-btn')}>
+            <EllipseIcon className={cx('more-icon')} />
+          </div>
+        </Menu>
+
+        <span
+          onClick={() => {
+            handleLike();
+          }}
         >
-            <Link className={cx('avatar')}>
-                {/* <img src={data.user.avatar} alt=""></img> */}
-                <Image src={data.user.avatar} alt="" />
-            </Link>
-            <div className={cx('infor')}>
-                <Link to={`/@${data.user.nickname}`} className={cx('username')}>
-                    {data.user.first_name} {data.user.last_name}
-                </Link>
-
-                <p className={cx('content')}>{data.comment}</p>
-                <p className={cx('others')}>
-                    <span className={cx('time')}>{data.created_at.split(' ')[0]}</span>
-                    <span className={cx('reply-btn')}>Trả lời</span>
-                </p>
-            </div>
-            <div className={cx('act-container')}>
-                <Menu delayHidden={200} primary={true} items={items}>
-                    <div className={cx('more-btn')}>
-                        <EllipseIcon className={cx('more-icon')} />
-                    </div>
-                </Menu>
-
-                <span
-                    onClick={() => {
-                        handleLike();
-                    }}
-                >
-                    <FontAwesomeIcon className={cx('heart-icon')} icon={isLiked ? faHeartSolid : faHeart} />
-                </span>
-                <span ref={countRef} className={cx('count')}>
-                    {data.likes_count}
-                </span>
-            </div>
-        </div>
-    );
+          <FontAwesomeIcon className={cx('heart-icon')} icon={isLiked ? faHeartSolid : faHeart} />
+        </span>
+        <span ref={countRef} className={cx('count')}>
+          {data.likes_count}
+        </span>
+      </div>
+    </div>
+  );
 }
 
 export default CommentItem;
