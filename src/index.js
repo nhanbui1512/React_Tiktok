@@ -6,25 +6,13 @@ import GlobalStyles from './GlobalStyles/index.js';
 import { isMobile } from 'react-device-detect';
 
 import { ThemeProvider } from './Context';
+import Mobile from './MobileApp';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <GlobalStyles>
     <ThemeProvider>
-      {isMobile ? (
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            height: '100vh',
-          }}
-        >
-          <p> Only Support Desktop UI</p>
-        </div>
-      ) : (
-        <App />
-      )}
+      {isMobile ? <Mobile /> : <App />}
       {/* <App /> */}
     </ThemeProvider>
   </GlobalStyles>,

@@ -1,0 +1,29 @@
+.wrapper {
+  position: fixed;
+  bottom: 0;
+}
+.container {
+  display: grid;
+  grid-template-columns: 20% 20% 20% 20% 20%;
+  height: 49px;
+  background-color: #000;
+  color: var(--text-white);
+}
+
+.nav-btn {
+  margin-top: 4px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  align-items: center;
+  padding: 2px 8px 17px;
+  color: rgb(255, 255, 255, 0.75);
+  text-decoration: none;
+}
+.nav-title {
+  font-size: 10px;
+}
+.nav-icon {
+  width: 24px;
+  height: 24px;
+}
